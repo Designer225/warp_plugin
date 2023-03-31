@@ -1,0 +1,8 @@
+﻿l_english:
+ EMPTY_DRIVE:0 "No FTL Drive"
+ EMPTY_DRIVE_DESC:1 "Without an FTL drive, it would take years for a ship to leave the system in which they are built. Do the crew even live that long?"
+
+ colony.3022.a:0 "[This.GetColony3022ResponseText]"
+ colony.3023.desc:0 "[This.GetColony3023DescText]"
+ colony.3023.a:0 "[This.GetColony3023ResponseText]"
+ colony.3024.desc:0 "[This.GetColony3024DescText]"

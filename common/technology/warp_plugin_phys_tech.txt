@@ -1,0 +1,146 @@
+# ## physics technologies
+
+# ##################
+# FTL Drives
+# ##################
+
+tech_warp_drive_1 = {
+	cost = @tier0cost3
+	area = physics
+	tier = 0
+	category = { particles }
+	start_tech = yes
+
+	is_reverse_engineerable = no
+
+	prereqfor_desc = {
+		component = {
+			title = "TECH_UNLOCK_WARPDRIVE_1_TITLE"
+			desc = "TECH_UNLOCK_WARPDRIVE_1_DESC"
+		}
+	}
+
+	weight_modifier = {
+		factor = 1000
+	}
+
+	ai_weight = {
+		weight = 10000
+	}
+}
+
+tech_warp_drive_2 = {
+	cost = @tier2cost2
+	area = physics
+	tier = 2
+	category = { particles }
+	ai_update_type = all
+	is_reverse_engineerable = no
+	prerequisites = { "tech_warp_drive_1" }
+	weight = @tier2weight2
+
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			has_tradition = tr_discovery_adopt
+		}
+		modifier = {
+			factor = @ap_grasp_the_void_travel_tech
+			has_ascension_perk = ap_grasp_the_void
+		}
+		modifier = {
+			factor = @eager_explorer_effect
+			is_eager_explorer_empire = yes
+		}
+		modifier = {
+			factor = @warp_drive_preference_roll_bias
+			country_prefers_warp_drives = yes
+		}
+		modifier = {
+			factor = value:tech_weight_likelihood
+			research_leader = {
+				area = physics
+				has_trait = "leader_trait_expertise_particles"
+			}
+		}
+	}
+
+	prereqfor_desc = {
+		component = {
+			title = "TECH_UNLOCK_WARPDRIVE_2_TITLE"
+			desc = "TECH_UNLOCK_WARPDRIVE_2_DESC"
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = physics
+				has_trait = "leader_trait_expertise_particles"
+			}
+		}
+		modifier = {
+			factor = @warp_drive_preference_effect
+			country_prefers_warp_drives = yes
+		}
+	}
+}
+
+tech_warp_drive_3 = {
+	cost = @tier3cost3
+	area = physics
+	tier = 3
+	category = { particles }
+	ai_update_type = all
+	is_reverse_engineerable = no
+	prerequisites = { "tech_warp_drive_2" }
+	weight = @tier3weight3
+
+	weight_modifier = {
+		modifier = {
+			factor = 1.25
+			has_tradition = tr_discovery_adopt
+		}
+		modifier = {
+			factor = @ap_grasp_the_void_travel_tech
+			has_ascension_perk = ap_grasp_the_void
+		}
+		modifier = {
+			factor = @eager_explorer_effect
+			is_eager_explorer_empire = yes
+		}
+		modifier = {
+			factor = @warp_drive_preference_roll_bias
+			country_prefers_warp_drives = yes
+		}
+		modifier = {
+			factor = value:tech_weight_likelihood
+			research_leader = {
+				area = physics
+				has_trait = "leader_trait_expertise_particles"
+			}
+		}
+	}
+
+	prereqfor_desc = {
+		component = {
+			title = "TECH_UNLOCK_WARPDRIVE_3_TITLE"
+			desc = "TECH_UNLOCK_WARPDRIVE_3_DESC"
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = physics
+				has_trait = "leader_trait_expertise_particles"
+			}
+		}
+		modifier = {
+			factor = @warp_drive_preference_effect
+			country_prefers_warp_drives = yes
+		}
+	}
+}

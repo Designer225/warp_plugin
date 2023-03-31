@@ -1,0 +1,40 @@
+
+ship_has_warp_drives = {
+	or = {
+		has_component = EMPTY_DRIVE
+		has_component = EMPTY_DRIVE_CIVILIAN
+		has_component = BIO_DRIVE
+		has_component = WARP_DRIVE_1
+		has_component = WARP_DRIVE_2
+		has_component = WARP_DRIVE_3
+	}
+}
+
+fleet_has_warp_drive = {
+	# count_owned_ship = {
+	# 	count = all
+	# 	limit = { ship_has_warp_drives = yes }
+	# }
+	any_owned_ship = {
+		ship_has_warp_drives = yes
+	}
+}
+
+country_prefers_warp_drives = {
+	or = {
+		has_civic = civic_warp_ftl_theory
+	}
+}
+
+warp_in_progress_option_complete = {
+	has_situation_flag = warp_plugin_safe_mode
+}
+
+warp_in_progress_can_adjust_state = {
+	target = {
+		check_variable = {
+			which = distance_traveled
+			value > 20
+		}
+	}
+}

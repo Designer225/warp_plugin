@@ -1,0 +1,133 @@
+
+situation_warp_in_progress = {
+	picture = GFX_evt_ship_travel
+	category = positive
+
+	complete_icon_frame = GFX_situation_outcome_frame_green
+	complete_icon = GFX_situation_outcome_positive
+	fail_icon_frame = GFX_situation_outcome_frame_red
+	fail_icon = GFX_situation_outcome_negative
+
+	on_start = {}
+	on_progress_complete = {
+		custom_tooltip = warp_plugin_on_abort
+		situation_warp_in_progress_show_outcome = yes
+		hidden_effect = {
+			set_situation_flag = warp_plugin_safe_mode
+			set_situation_approach = approach_normal_operations
+			set_situation_locked = yes
+		}
+	}
+	on_fail = {
+		custom_tooltip = warp_plugin_on_abort
+		situation_warp_in_progress_show_outcome = yes
+		hidden_effect = {
+			set_situation_flag = warp_plugin_safe_mode
+			set_situation_approach = approach_normal_operations
+			set_situation_locked = yes
+		}
+	}
+	on_abort = {
+		# situation_event = { id = warp_plugin.101 }
+		situation_warp_in_progress_resolve = yes
+	}
+	abort_trigger = {
+		target = {
+			not = { is_variable_set = distance_traveled }
+		}
+	}
+	
+	start_value = 50
+	progress_direction = bidirectional
+
+	stages = {
+		warp_destabilizing = {
+			icon = GFX_situation_stage_1
+			icon_background = GFX_situation_stage_frame_red
+			end = 20
+		}
+		warp_unstable = {
+			icon = GFX_situation_stage_2
+			icon_background = GFX_situation_stage_frame_red
+			end = 40
+		}
+		warp_stable = {
+			icon = GFX_situation_stage_3
+			icon_background = GFX_situation_stage_frame_green
+			end = 51
+		}
+		warp_reinforcing = {
+			icon = GFX_situation_stage_4
+			icon_background = GFX_situation_stage_frame_green
+			end = 100
+		}
+	}
+
+	monthly_progress = {
+		base = 0
+		modifier = {
+			add = 10
+			desc = string_current_approach
+			current_situation_approach = approach_perform_diagnostics
+		}
+		modifier = {
+			add = -20
+			desc = string_current_approach
+			current_situation_approach = approach_accelerate_ftl
+		}
+	}
+
+	approach = {
+		name = approach_perform_diagnostics
+		icon = GFX_situation_approach_fleet
+		icon_background = GFX_situation_approach_bg_green
+		on_select = {
+			custom_tooltip = approach_perform_diagnostics_on_select
+		}
+		allow = {
+			custom_tooltip_fail = {
+				text = warp_plugin_safe_mode
+				warp_in_progress_option_complete = no
+			}
+			custom_tooltip_fail = {
+				text = warp_plugin_arrival_soon
+				warp_in_progress_can_adjust_state = yes
+			}
+		}
+	}
+
+	approach = {
+		name = approach_normal_operations
+		icon = GFX_situation_approach_fleet
+		icon_background = GFX_situation_approach_bg_yellow
+		default = yes
+		on_select = {
+			custom_tooltip = approach_normal_operations_on_select
+		}
+	}
+
+	approach = {
+		name = approach_accelerate_ftl
+		icon = GFX_situation_approach_fleet
+		icon_background = GFX_situation_approach_bg_red
+		on_select = {
+			custom_tooltip = approach_accelerate_ftl_on_select
+		}
+		allow = {
+			custom_tooltip_fail = {
+				text = warp_plugin_safe_mode
+				warp_in_progress_option_complete = no
+			}
+			custom_tooltip_fail = {
+				text = warp_plugin_arrival_soon
+				warp_in_progress_can_adjust_state = yes
+			}
+		}
+	}
+
+	on_monthly = {
+		events = {
+			warp_plugin.100
+		}
+	}
+}

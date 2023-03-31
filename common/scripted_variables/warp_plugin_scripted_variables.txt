@@ -1,0 +1,11 @@
+@warp_drive_preference_effect = 1.25
+@warp_drive_preference_roll_bias = 2
+
+@empty_drive_time_mult = 99
+@warp_drive_1_time_mult = 2
+@warp_drive_2_time_mult = 1.5
+@warp_drive_3_time_mult = 1
+
+# important: adjust with define jump cooldown and each other
+@warp_cooldown_reduction = -0.9
+@min_warp_time = 20

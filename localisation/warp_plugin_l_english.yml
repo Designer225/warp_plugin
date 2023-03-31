@@ -1,0 +1,75 @@
+﻿l_english:
+ # civics
+ civic_warp_ftl_theory:0 "Warp FTL Theory"
+ civic_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
+ civic_warp_ftl_theory_effects:0 "Significantly §Yincreased§! chance to receive research options for warp drives. In addition, AI empires with this civic will §Yfavor§! warp drives over hyperdrives.\nThis option §Hdoes not block off§! hyperdrives; both options will exist simultaneously, unless starting with §HEager Explorers§! or an equivalent civic; even then, the latter will remain a researchable option."
+
+ # situation: warp in progress
+ situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.distance_traveled]§! Days)"
+ situation_warp_in_progress_type:0 "Warp in Progress"
+ situation_warp_in_progress_desc:0 "The fleet is currently performing a §Hwarp jump§!. It will arrive in §Y[Target.distance_traveled]§! days."
+ situation_warp_in_progress_monthly_change_tooltip:0 "The fleet may §Hperform diagnostics§! while warping so that it will arrive with §Gtemporary defensive buffs§!. Alternatively, the fleet may attempt to §Haccelerate its warp jump§! and §Rrisk temporary debuffs§! upon arrival. These actions can only be attempted if §Hprogress§! has not §Ebottomed out or maxed out§!, and if there are §Emore than 20 days remaining§!."
+
+ warp_destabilizing:0 "Destabilizing Warp Field"
+ warp_destabilizing_desc:0 "The fleet's warp systems are §Pdestabilizing§!. Upon arrival, the fleet will suffer §Ra temporary debuff§!. In addition, §Pa negative event may occur§!. Should §Hprogress§! falls below 0, the warp systems will engage their safety and only §HNormal Operations§! can be used."
+
+ warp_unstable:0 "Unstable Warp Field"
+ warp_unstable_desc:0 "The fleet's warp systems are becoming §Punstable§! due to excess stress. Upon arrival, the fleet will suffer §Ra temporary debuff§!."
+
+ warp_stable:0 "Stable Warp Field"
+ warp_stable_desc:0 "The fleet's warp systems are §Gstable§! at the moment."
+
+ warp_reinforcing:0 "Reinforcing Warp Field"
+ warp_reinforcing_desc:0 "The fleet's diagnostics are §Greinforcing§! its warp systems. Upon arrival, the fleet will receive §Ga temporary defensive buff§!. Should the fleet successfully §Hcomplete§! its diagnostics, it will only be able to perform §HNormal Operations§!."
+
+ approach_perform_diagnostics:0 "Perform Diagnostics"
+ approach_perform_diagnostics_desc:0 "The fleet will perform diagnostics during warp, §Gincreasing§! its §Hprogress§! by 10 each month. As long as progress exceeds 50, the fleet will arrive with §Gtemporary defensive buffs§! that scale for each progress above 50."
+ approach_perform_diagnostics_on_select:0 "The fleet will begin performing diagnostics during its warp jump."
+
+ approach_normal_operations:0 "Normal Operations"
+ approach_normal_operations_desc:0 "The fleet will perform its warp jump as normal. Default action."
+ approach_normal_operations_on_select:0 "The fleet will begin resuming normal warp operations."
+
+ approach_accelerate_ftl:0 "Accelerate Warp Jump"
+ approach_accelerate_ftl_desc:0 "The fleet will attempt to accelerate its warp jump, §Gspeeding up§! by 10 days per month but §Rdecreasing§! its §Hprogress§! by 20 each month. As long as progress falls below 40, the fleet will arrive with §Rtemporary debuffs§!. In addition, below 20 progress, the fleet §Rrisks suffering from a negative event on arrival§!, with the chance scaling for each progress below 20."
+ approach_accelerate_ftl_on_select:0 "The fleet will begin attempting to accelerate its warp jump."
+
+ warp_plugin_safe_mode:0 "Warp Drive safe mode has been engaged due to excessive stress or maintenance."
+ warp_plugin_arrival_soon:0 "The fleet will arrive within 20 days and needs to get ready."
+
+ warp_plugin_on_abort:0 "On warp completion:"
+ warp_plugin_on_abort_fail:0 "A temporary §Rdebuff§! will be applied to all ships in the fleet, scaling with each progress below 40."
+ warp_plugin_on_abort_critical_fail:0 "In addition, there is a chance of the fleet suffering a §Psystem failure§!, increasing with each progress below 20."
+ warp_plugin_on_abort_complete:0 "A temporary §Gbuff§! will be applied to all ships in the fleet, increasing with each progress above 50."
+ warp_plugin_on_abort_normal:0 "The fleet will function as normal."
+
+ # modifiers
+ warp_plugin_diagnostics:0 "Diagnostic Enhancements"
+ warp_plugin_rushed_ftl:0 "Rushed Warp Jump"
+ warp_plugin_weapon_failure:0 "Weapon System Disruption"
+ warp_plugin_propulsion_failure:0 "Propulsion Disruption"
+ warp_plugin_shield_failure:0 "Shield Degraded"
+ warp_plugin_armor_failure:0 "Armor Degraded"
+ warp_plugin_cloak_failure:0 "Cloaking System Failure"
+ warp_plugin_sensor_failure:0 "Sensor Disruption"
+ warp_plugin_warp_in_progress:0 "Warp in Progress"
+ warp_plugin_warp_in_progress_first_contact:0 "Warp in Progress"
+
+ # events
+ warp_plugin.102.name:0 "Fleet System Overstress"
+ warp_plugin.102.desc.weapon:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! its §Hweapon systems§!."
+ warp_plugin.102.desc.propulsion:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! its §Hpropulsion systems§!."
+ warp_plugin.102.desc.shield:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! its §Hshield systems§!."
+ warp_plugin.102.desc.armor:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! its §Harmor systems§!."
+ warp_plugin.102.desc.cloak:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! its §Hcloaking systems§!."
+ warp_plugin.102.desc.sensor:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! its §Hsensors§!."
+ warp_plugin.102.desc:0 "\n\nIt will take a month to restore the faulted systems back to full operation."
+
+ colony.3022.default:0 "The Warp Drive? We travel by Hyperlanes!"
+ colony.3022.warp:0 "We travel by Warp Drives, too! We are aware of Hyperlanes, but..."
+ colony.3023.desc.default:0 "Hyperlanes? Perhaps discovering different types of FTL travel was the divergence point between our two universes? Does this mean you are not beset by the Warp beasts?"
+ colony.3023.desc.warp:0 "You, too? May we take a look at your Warp Drive schematics? And are you beset by the Warp Beasts?"
+ colony.3023.a.default:0 "No Warp beasts here. Are they a serious threat?"
+ colony.3023.a.warp:0 "Hero you go. And no Warp beasts here. Are they a serious threat?"
+ colony.3024.desc.default:0 "The Warp beasts assail every known civilization, they are a threat to all life. As far as we have determined, once Warp travel reached a certain critical level in the galaxy, the Warp beasts awoke and attacked. Several species we know of have already fallen, but so far we are holding them off."
+ colony.3024.desc.warp:0 "Interesting... the designs are quite similar, but with one exception: on paper, your Warp drives rival our designs in speed, yet do not appear to breach another dimension. Provided no one else has the bright idea that we once had, your dimension should be safe from Warp beast incursions.\n\nAs we both know, Warp drives by themselves are quite slow. In our dimension, we attempted to rectify it by briefly entering and exiting another dimension, achieving great speeds as a result. At the time, we herald it as a great leap for interstellar travel.\n\nBut as Warp travel reached a certain critical level in the galaxy, unknown beings now known as the Warp beasts emerged and attacked.\n\nAt the time, we attributed it as an inevitability. But this fortuitous occurrence - though admittedly under less-than-fortuitous circumstances - suggested instead that we have awoken the Warp beasts from their slumber within their dimension, and they lashed out by breaching into ours. \n\nThe Warp beasts have proven themselves to be a threat to all life, and have assailed every known civilization. Several species we know of have already fallen, but so far we are holding them off."
