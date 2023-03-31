@@ -3,5 +3,5 @@ tags={
 	"Spaceships"
 	"Technologies"
 }
-name="Warp Drive - Post-Apocalypse Remake (POC)"
+name="Warp Drives - Post-Apocalypse Remake"
 supported_version="3.7.*"
