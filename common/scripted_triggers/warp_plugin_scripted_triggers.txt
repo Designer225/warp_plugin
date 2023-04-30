@@ -11,10 +11,6 @@ ship_has_warp_drives = {
 }
 
 fleet_has_warp_drive = {
-	# count_owned_ship = {
-	# 	count = all
-	# 	limit = { ship_has_warp_drives = yes }
-	# }
 	any_owned_ship = {
 		ship_has_warp_drives = yes
 	}
@@ -26,15 +22,13 @@ country_prefers_warp_drives = {
 	}
 }
 
-warp_in_progress_option_complete = {
-	has_situation_flag = warp_plugin_safe_mode
-}
-
-warp_in_progress_can_adjust_state = {
-	target = {
-		check_variable = {
-			which = distance_traveled
-			value > 20
-		}
+fleet_has_warp_failure = {
+	OR = {
+		has_fleet_flag = warp_plugin_weapon_failure
+		has_fleet_flag = warp_plugin_propulsion_failure
+		has_fleet_flag = warp_plugin_shield_failure
+		has_fleet_flag = warp_plugin_armor_failure
+		has_fleet_flag = warp_plugin_cloak_failure
+		has_fleet_flag = warp_plugin_sensor_failure
 	}
 }

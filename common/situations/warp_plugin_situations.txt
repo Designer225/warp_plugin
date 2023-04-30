@@ -5,31 +5,35 @@ situation_warp_in_progress = {
 
 	complete_icon_frame = GFX_situation_outcome_frame_green
 	complete_icon = GFX_situation_outcome_positive
-	fail_icon_frame = GFX_situation_outcome_frame_red
-	fail_icon = GFX_situation_outcome_negative
 
-	on_start = {}
-	on_progress_complete = {
-		custom_tooltip = warp_plugin_on_abort
-		situation_warp_in_progress_show_outcome = yes
-		hidden_effect = {
-			set_situation_flag = warp_plugin_safe_mode
-			set_situation_approach = approach_normal_operations
-			set_situation_locked = yes
+	on_start = {
+		# monthly rate = 100 / total time * 30
+		set_variable = {
+			which = total_days
+			value = target.distance_traveled
+		}
+		set_variable = {
+			which = progress_rate
+			value = 3000
+		}
+		divide_variable = {
+			which = progress_rate
+			value = total_days
 		}
 	}
-	on_fail = {
-		custom_tooltip = warp_plugin_on_abort
-		situation_warp_in_progress_show_outcome = yes
+	on_progress_complete = {
+		custom_tooltip = warp_plugin_arrived
 		hidden_effect = {
-			set_situation_flag = warp_plugin_safe_mode
-			set_situation_approach = approach_normal_operations
+			# abort_situation = this
 			set_situation_locked = yes
 		}
 	}
 	on_abort = {
-		# situation_event = { id = warp_plugin.101 }
-		situation_warp_in_progress_resolve = yes
+		target = {
+			fleet_event = {
+				id = warp_plugin.102
+			}
+		}
 	}
 	abort_trigger = {
 		target = {
@@ -37,26 +41,25 @@ situation_warp_in_progress = {
 		}
 	}
 	
-	start_value = 50
-	progress_direction = bidirectional
+	progress_direction = monodirectional
 
 	stages = {
-		warp_destabilizing = {
+		warp_accelerating = {
 			icon = GFX_situation_stage_1
-			icon_background = GFX_situation_stage_frame_red
-			end = 20
+			icon_background = GFX_situation_stage_frame_green
+			end = 25
 		}
-		warp_unstable = {
+		warp_cruising = {
 			icon = GFX_situation_stage_2
-			icon_background = GFX_situation_stage_frame_red
-			end = 40
+			icon_background = GFX_situation_stage_frame_green
+			end = 65
 		}
-		warp_stable = {
+		warp_decelerating = {
 			icon = GFX_situation_stage_3
 			icon_background = GFX_situation_stage_frame_green
-			end = 51
+			end = 90
 		}
-		warp_reinforcing = {
+		warp_final_approach = {
 			icon = GFX_situation_stage_4
 			icon_background = GFX_situation_stage_frame_green
 			end = 100
@@ -66,43 +69,34 @@ situation_warp_in_progress = {
 	monthly_progress = {
 		base = 0
 		modifier = {
-			add = 10
 			desc = string_current_approach
-			current_situation_approach = approach_perform_diagnostics
-		}
-		modifier = {
-			add = -20
-			desc = string_current_approach
-			current_situation_approach = approach_accelerate_ftl
-		}
-	}
-
-	approach = {
-		name = approach_perform_diagnostics
-		icon = GFX_situation_approach_fleet
-		icon_background = GFX_situation_approach_bg_green
-		on_select = {
-			custom_tooltip = approach_perform_diagnostics_on_select
-		}
-		allow = {
-			custom_tooltip_fail = {
-				text = warp_plugin_safe_mode
-				warp_in_progress_option_complete = no
-			}
-			custom_tooltip_fail = {
-				text = warp_plugin_arrival_soon
-				warp_in_progress_can_adjust_state = yes
-			}
+			add = progress_rate
 		}
 	}
 
 	approach = {
 		name = approach_normal_operations
 		icon = GFX_situation_approach_fleet
-		icon_background = GFX_situation_approach_bg_yellow
+		icon_background = GFX_situation_approach_bg_green
 		default = yes
 		on_select = {
 			custom_tooltip = approach_normal_operations_on_select
+			hidden_effect = {
+				set_variable = {
+					which = progress_rate
+					value = 3000
+				}
+				divide_variable = {
+					which = progress_rate
+					value = total_days
+				}
+			}
+		}
+		allow = {
+			custom_tooltip_fail = {
+				text = DEBUG_warp_plugin_old_situation
+				is_variable_set = total_days
+			}
 		}
 	}
 
@@ -112,22 +106,35 @@ situation_warp_in_progress = {
 		icon_background = GFX_situation_approach_bg_red
 		on_select = {
 			custom_tooltip = approach_accelerate_ftl_on_select
+			hidden_effect = {
+				set_variable = {
+					which = progress_rate
+					value = 4000
+				}
+				divide_variable = {
+					which = progress_rate
+					value = total_days
+				}
+			}
 		}
 		allow = {
 			custom_tooltip_fail = {
-				text = warp_plugin_safe_mode
-				warp_in_progress_option_complete = no
+				text = warp_plugin_arrival_soon
+				not = { current_stage = warp_final_approach }
 			}
 			custom_tooltip_fail = {
-				text = warp_plugin_arrival_soon
-				warp_in_progress_can_adjust_state = yes
+				text = DEBUG_warp_plugin_old_situation
+				is_variable_set = total_days
 			}
+		}
+		ai_weight = {
+			base = 0
 		}
 	}
 
 	on_monthly = {
 		events = {
-			warp_plugin.100
+			warp_plugin.101
 		}
 	}
 }

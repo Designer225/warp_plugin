@@ -69,6 +69,15 @@ fleet_event = {
 					type = situation_warp_in_progress
 					target = prev
 				}
+				random_situation = {
+					limit = {
+						is_situation_type = situation_warp_in_progress
+						target = {
+							is_same_value = root
+						}
+					}
+					save_event_target_as = warp_situation
+				}
 			}
 			fleet_event = { id = warp_plugin.10 }
 		}
@@ -167,22 +176,29 @@ fleet_event = {
 			flag = warp_plugin_active
 			days = 2
 		}
+		if = {
+			limit = {
+				not = { exists = event_target:warp_situation }
+			}
+			owner = {
+				random_situation = {
+					limit = {
+						is_situation_type = situation_warp_in_progress
+						target = {
+							is_same_value = root
+						}
+					}
+					save_event_target_as = warp_situation
+				}
+			}
+		}
 		if = { # mia check
 			limit = {
 				not = { exists = solar_system }
 			}
 			clear_variable = distance_traveled
 			set_event_locked = no
-			owner = {
-				random_situation = {
-					limit = {
-						target = {
-							is_same_value = root
-						}
-					}
-					abort_situation = this
-				}
-			}
+			abort_situation = event_target:warp_situation
 			create_message = {
 				type = MESSAGE_TYPE_ESN_ABORTED
 				localization = MESSAGE_ESN_ABORTED
@@ -218,16 +234,7 @@ fleet_event = {
 			clear_variable = distance_traveled
 			# remove_modifier = warp_plugin_warp_in_progress
 			set_event_locked = no
-			owner = {
-				random_situation = {
-					limit = {
-						target = {
-							is_same_value = root
-						}
-					}
-					abort_situation = this
-				}
-			}
+			abort_situation = event_target:warp_situation
 			create_message = {
 				type = MESSAGE_TYPE_ESN_ARRIVED
 				localization = MESSAGE_ESN_ARRIVED
@@ -250,14 +257,14 @@ fleet_event = {
 }
 
 ## Situation: Warp in Progress
-# monthly pulse
+# on monthly
 situation_event = {
-	id = warp_plugin.100
-	is_triggered_only = yes
+	id = warp_plugin.101
 	hide_window = yes
+	is_triggered_only = yes
 
 	trigger = {
-		warp_in_progress_option_complete = no
+		exists = this
 	}
 
 	immediate = {
@@ -266,189 +273,122 @@ situation_event = {
 				current_situation_approach = approach_accelerate_ftl
 			}
 			target = {
-				subtract_variable = { which = distance_traveled value = 10 }
+				subtract_variable = {
+					which = distance_traveled
+					value = 10
+				}
+				random_list = {
+					75 = {}
+					25 = {
+						random_list = {
+							1 = {
+								set_fleet_flag = warp_plugin_weapon_failure
+							}
+							1 = {
+								set_fleet_flag = warp_plugin_propulsion_failure
+							}
+							1 = {
+								set_fleet_flag = warp_plugin_shield_failure
+							}
+							1 = {
+								set_fleet_flag = warp_plugin_armor_failure
+							}
+							1 = {
+								set_fleet_flag = warp_plugin_cloak_failure
+								modifier = {
+									factor = 0
+									has_first_contact_dlc = no
+								}
+							}
+							1 = {
+								set_fleet_flag = warp_plugin_sensor_failure
+							}
+						}
+					}
+				}
 			}
 		}
 	}
 }
 
-## on abort
-# failures
+# on abort - failures
 fleet_event = {
 	id = warp_plugin.102
 	title = warp_plugin.102.name
+	desc = warp_plugin.102.desc
 	picture = GFX_evt_ship_travel
 	show_sound = event_ship_thrusters
 	is_triggered_only = yes
 
-	desc = {
-		trigger = {
-			has_fleet_flag = warp_plugin_weapon_failure
-		}
-		text = warp_plugin.102.desc.weapon
-	}
-	desc = {
-		trigger = {
-			has_fleet_flag = warp_plugin_propulsion_failure
-		}
-		text = warp_plugin.102.desc.propulsion
-	}
-	desc = {
-		trigger = {
-			has_fleet_flag = warp_plugin_shield_failure
-		}
-		text = warp_plugin.102.desc.shield
-	}
-	desc = {
-		trigger = {
-			has_fleet_flag = warp_plugin_armor_failure
-		}
-		text = warp_plugin.102.desc.armor
-	}
-	desc = {
-		trigger = {
-			has_fleet_flag = warp_plugin_cloak_failure
-		}
-		text = warp_plugin.102.desc.cloak
-	}
-	desc = {
-		trigger = {
-			has_fleet_flag = warp_plugin_sensor_failure
-		}
-		text = warp_plugin.102.desc.sensor
-	}
-	desc = warp_plugin.102.desc
-
-	immediate = {
-		random_list = {
-			1 = {
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_weapon_failure
-						months = 1
-					}
-				}
-				set_fleet_flag = warp_plugin_weapon_failure
-			}
-			1 = {
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_propulsion_failure
-						months = 1
-					}
-				}
-				set_fleet_flag = warp_plugin_propulsion_failure
-			}
-			1 = {
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_shield_failure
-						months = 1
-					}
-				}
-				set_fleet_flag = warp_plugin_shield_failure
-			}
-			1 = {
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_armor_failure
-						months = 1
-					}
-				}
-				set_fleet_flag = warp_plugin_armor_failure
-			}
-			1 = {
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_cloak_failure
-						months = 1
-					}
-				}
-				set_fleet_flag = warp_plugin_cloak_failure
-				modifier = {
-					factor = 0
-					has_first_contact_dlc = no
-				}
-			}
-			1 = {
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_sensor_failure
-						months = 1
-					}
-				}
-				set_fleet_flag = warp_plugin_sensor_failure
-			}
-		}
+	trigger = {
+		fleet_has_warp_failure = yes
 	}
 
 	option = {
 		name = UNFORTUNATE
-		tooltip = {
-			if = {
-				limit = {
-					has_fleet_flag = warp_plugin_weapon_failure
-				}
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_weapon_failure
-						months = 1
-					}
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_weapon_failure
+			}
+			every_owned_ship = {
+				add_modifier = {
+					modifier = warp_plugin_weapon_failure
+					months = 1
 				}
 			}
-			else_if = {
-				limit = {
-					has_fleet_flag = warp_plugin_propulsion_failure
-				}
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_propulsion_failure
-						months = 1
-					}
+		}
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_propulsion_failure
+			}
+			every_owned_ship = {
+				add_modifier = {
+					modifier = warp_plugin_propulsion_failure
+					months = 1
 				}
 			}
-			else_if = {
-				limit = {
-					has_fleet_flag = warp_plugin_shield_failure
-				}
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_shield_failure
-						months = 1
-					}
+		}
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_shield_failure
+			}
+			every_owned_ship = {
+				add_modifier = {
+					modifier = warp_plugin_shield_failure
+					months = 1
 				}
 			}
-			else_if = {
-				limit = {
-					has_fleet_flag = warp_plugin_armor_failure
-				}
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_armor_failure
-						months = 1
-					}
+		}
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_armor_failure
+			}
+			every_owned_ship = {
+				add_modifier = {
+					modifier = warp_plugin_armor_failure
+					months = 1
 				}
 			}
-			else_if = {
-				limit = {
-					has_fleet_flag = warp_plugin_cloak_failure
-				}
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_cloak_failure
-						months = 1
-					}
+		}
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_cloak_failure
+			}
+			every_owned_ship = {
+				add_modifier = {
+					modifier = warp_plugin_cloak_failure
+					months = 1
 				}
 			}
-			else_if = {
-				limit = {
-					has_fleet_flag = warp_plugin_sensor_failure
-				}
-				every_owned_ship = {
-					add_modifier = {
-						modifier = warp_plugin_sensor_failure
-						months = 1
-					}
+		}
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_sensor_failure
+			}
+			every_owned_ship = {
+				add_modifier = {
+					modifier = warp_plugin_sensor_failure
+					months = 1
 				}
 			}
 		}

@@ -103,7 +103,7 @@ utility_component_template = {
 	ftl = no
 	jumpdrive = yes
 	ship_modifier = {
-		ship_disengage_opportunities_add = 1
+		ship_disengage_opportunities_add = 2
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
 		ship_windup_mult = @warp_drive_3_time_mult
 	}
