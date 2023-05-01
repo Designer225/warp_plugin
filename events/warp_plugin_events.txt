@@ -135,8 +135,8 @@ ship_event = {
 				days = 21
 			}
 			set_event_locked = yes
-			# add_modifier = { modifier = warp_plugin_warp_in_progress }
-			clear_orders = yes
+			add_modifier = { modifier = warp_plugin_warp_in_progress }
+			# clear_orders = yes
 			fleet_event = {
 				id = warp_plugin.4
 				days = 20
@@ -158,6 +158,7 @@ fleet_event = {
 
 	immediate = {
 		set_event_locked = no
+		remove_modifier = warp_plugin_warp_in_progress
 	}
 }
 
@@ -198,6 +199,7 @@ fleet_event = {
 			}
 			clear_variable = distance_traveled
 			set_event_locked = no
+			remove_modifier = warp_plugin_warp_in_progress
 			abort_situation = event_target:warp_situation
 			create_message = {
 				type = MESSAGE_TYPE_ESN_ABORTED
@@ -234,6 +236,7 @@ fleet_event = {
 			clear_variable = distance_traveled
 			# remove_modifier = warp_plugin_warp_in_progress
 			set_event_locked = no
+			remove_modifier = warp_plugin_warp_in_progress
 			abort_situation = event_target:warp_situation
 			create_message = {
 				type = MESSAGE_TYPE_ESN_ARRIVED

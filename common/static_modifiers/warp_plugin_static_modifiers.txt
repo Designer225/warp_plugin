@@ -58,6 +58,6 @@ warp_plugin_sensor_failure = {
 
 warp_plugin_warp_in_progress = {
 	ship_base_speed_mult = -10
-	# ship_speed_mult = -10
-	# ship_speed_reduction = 10
+	ship_speed_mult = -10
+	ship_speed_reduction = 10
 }
