@@ -28,7 +28,7 @@ utility_component_template = {
 		}
 	}
 
-	ftl = no
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -64,7 +64,7 @@ utility_component_template = {
 		}
 	}
 	
-	ftl = no
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -100,7 +100,7 @@ utility_component_template = {
 		}
 	}
 	
-	ftl = no
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -109,7 +109,7 @@ utility_component_template = {
 	}
 
 	ai_weight = {
-		weight = 3
+		weight = 2.5
 		modifier = {
 			factor = 2.0
 			country_prefers_warp_drives = yes
