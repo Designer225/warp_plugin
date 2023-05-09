@@ -109,7 +109,7 @@ utility_component_template = {
 	}
 
 	ai_weight = {
-		weight = 2.5
+		weight = 3
 		modifier = {
 			factor = 2.0
 			country_prefers_warp_drives = yes
