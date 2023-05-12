@@ -37,23 +37,13 @@ civic_warp_ftl_theory = {
 	description = "civic_warp_ftl_theory_effects"
 	modification = no
 	potential = {
-		# ethics = {
-		# 	NOT = {
-		# 		value = ethic_gestalt_consciousness
-		# 	}
-		# }
-
-		# authority = {
-		# 	NOT = {
-		# 		value = auth_corporate
-		# 	}
-		# }
 		always = yes
 	}
 
 	modifier = {
 		ship_windup_mult = -0.25
 		ship_ftl_jumpdrive_range_mult = 0.1
+		country_government_civic_points_add = 1
 		# country_starbase_influence_cost_distance_mult = -0.75
 	}
 

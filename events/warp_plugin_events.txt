@@ -4,12 +4,59 @@ namespace = warp_plugin
 # called on start and single player save load
 # if added after multiplayer start, blame the host for indecision
 event = {
-	id = warp_plugin.0
+	id = warp_plugin.1000
 	hide_window = yes
 	is_triggered_only = yes
 
 	immediate = {
 		set_global_flag = warp_plugin_installed
+	}
+}
+
+# called on game start
+country_event = {
+	id = warp_plugin.0
+	title = warp_plugin.0.name
+	picture = GFX_evt_ship_travel
+	show_sound = event_ship_thrusters
+	is_triggered_only = yes
+	
+	desc = {
+		trigger = {
+			not = { has_civic = civic_warp_ftl_theory }
+		}
+		text = warp_plugin.0.desc
+	}
+	desc = {
+		trigger = {
+			has_civic = civic_warp_ftl_theory
+		}
+		text = warp_plugin.0.desc.civic
+	}
+
+	option = {
+		name = warp_plugin.0.a
+		trigger = {
+			not = { has_civic = civic_warp_ftl_theory }
+		}
+		force_add_civic = civic_warp_ftl_theory
+		ai_chance = {
+			weight = 0
+		}
+	}
+
+	option = {
+		name = warp_plugin.0.b
+		trigger = {
+			not = { has_civic = civic_warp_ftl_theory }
+		}
+	}
+
+	option = {
+		name = ACKNOWLEDGED
+		trigger = {
+			has_civic = civic_warp_ftl_theory
+		}
 	}
 }
 

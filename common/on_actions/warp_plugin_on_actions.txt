@@ -1,39 +1,12 @@
 
-# # No scope, like on_game_start
-# # Does not run when loading MP saves due to OOS concerns
-# on_single_player_save_game_load = {
-# 	events = {
-# 		warp_plugin.50
-# 	}
-# }
-
-# # called during empire initialization when starting a new game
-# # scope: country
-# empire_init_create_ships = {
-# 	events = {
-# 		warp_plugin.51
-# 	}
-# }
-
-# # A ship has been built
-# # Root = Ship
-# # From = Planet
-# on_ship_built = {
-# 	events = {
-# 		warp_plugin.2
-# 	}
-# }
-
-# # A ship has been upgraded
-# # Root = Ship
-# on_ship_upgraded = {
-# 	events = {
-# 		warp_plugin.2
-# 	}
-# }
-
 # Triggers when the game starts
 on_game_start = {
+	events = {
+		warp_plugin.1000
+	}
+}
+
+on_game_start_country = {
 	events = {
 		warp_plugin.0
 	}
@@ -43,7 +16,7 @@ on_game_start = {
 # Does not run when loading MP saves due to OOS concerns
 on_single_player_save_game_load = {
 	events = {
-		warp_plugin.0
+		warp_plugin.1000
 	}
 }
 

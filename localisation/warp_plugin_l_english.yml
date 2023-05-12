@@ -52,6 +52,11 @@
  warp_plugin_warp_in_progress_first_contact:0 "Warp in Progress"
 
  # events
+ warp_plugin.0.name:0 "Warp Drives Activated"
+ warp_plugin.0.desc:0 "Thank you for installing §YWarp Drives§!!\n\nCurrently, you don't have the §HWarp FTL Theory§! civic. Do you want to add it now? This will make your country prefer warp drives in weight calculations."
+ warp_plugin.0.desc.civic:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, no action is necessary. Happy warp travelling!"
+ warp_plugin.0.a:0 "To parts unknown!"
+ warp_plugin.0.b:0 "We'll stay on the beaten path..."
  warp_plugin.102.name:0 "Fleet System Overstress"
  warp_plugin.102.desc:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! one or more of its ships' systems.\n\nIt will take a month to restore the faulted systems back to full operation."
 
