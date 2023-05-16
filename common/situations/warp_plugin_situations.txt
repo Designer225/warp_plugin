@@ -92,12 +92,6 @@ situation_warp_in_progress = {
 				}
 			}
 		}
-		allow = {
-			custom_tooltip_fail = {
-				text = DEBUG_warp_plugin_old_situation
-				is_variable_set = total_days
-			}
-		}
 	}
 
 	approach = {
@@ -121,10 +115,6 @@ situation_warp_in_progress = {
 			custom_tooltip_fail = {
 				text = warp_plugin_arrival_soon
 				not = { current_stage = warp_final_approach }
-			}
-			custom_tooltip_fail = {
-				text = DEBUG_warp_plugin_old_situation
-				is_variable_set = total_days
 			}
 		}
 		ai_weight = {
