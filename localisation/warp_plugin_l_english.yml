@@ -48,8 +48,6 @@
  warp_plugin_on_abort_normal:0 "The fleet will function as normal."
 
  # modifiers
- warp_plugin_diagnostics:0 "Diagnostic Enhancements"
- warp_plugin_rushed_ftl:0 "Rushed Warp Jump"
  warp_plugin_weapon_failure:0 "Weapon System Disruption"
  warp_plugin_propulsion_failure:0 "Propulsion Disruption"
  warp_plugin_shield_failure:0 "Shield Degraded"

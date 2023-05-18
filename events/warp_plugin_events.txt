@@ -34,6 +34,20 @@ country_event = {
 		text = warp_plugin.0.desc.civic
 	}
 
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					has_country_flag = uses_warp_drives
+					any_federation_ally = { has_country_flag = uses_warp_drives }
+					any_subject = { has_country_flag = uses_warp_drives }
+					overlord = { has_country_flag = uses_warp_drives }
+				}
+			}
+			force_add_civic = civic_warp_ftl_theory
+		}
+	}
+
 	option = {
 		name = warp_plugin.0.a
 		trigger = {

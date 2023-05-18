@@ -7,9 +7,9 @@ ship_has_warp_drives = {
 		has_component = WARP_DRIVE_1
 		has_component = WARP_DRIVE_2
 		has_component = WARP_DRIVE_3
-		has_component = WARP_DRIVE_1_AI
-		has_component = WARP_DRIVE_2_AI
-		has_component = WARP_DRIVE_3_AI
+		# has_component = WARP_DRIVE_1_AI
+		# has_component = WARP_DRIVE_2_AI
+		# has_component = WARP_DRIVE_3_AI
 	}
 }
 

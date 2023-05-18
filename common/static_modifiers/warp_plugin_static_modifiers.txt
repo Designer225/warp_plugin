@@ -1,31 +1,4 @@
 
-# diagnostic buffs
-warp_plugin_diagnostics = {
-	ship_armor_mult = 0.004
-	ship_armor_hardening_add = 0.004
-	ship_armor_reduction = -0.004
-	ship_armor_regen_add_perc = 0.001
-	ship_shield_mult = 0.004
-	ship_shield_hardening_add = 0.004
-	ship_shield_reduction = -0.005
-	ship_shield_regen_add_perc = 0.001
-	ship_hull_mult = 0.004
-	ship_hull_regen_add_perc = 0.001
-	ship_speed_reduction = -0.004
-	ship_evasion_mult = 0.001
-}
-
-# rush debuffs
-warp_plugin_rushed_ftl = {
-	ship_armor_mult = -0.005
-	ship_armor_hardening_add = -0.005
-	ship_shield_mult = -0.005
-	ship_shield_hardening_add = -0.005
-	ship_hull_mult = -0.005
-	ship_speed_reduction = 0.005
-	ship_evasion_mult = -0.001
-}
-
 warp_plugin_weapon_failure = {
 	ship_fire_rate_mult = -0.25
 	ship_accuracy_mult = -0.25

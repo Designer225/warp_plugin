@@ -4,4 +4,4 @@ tags={
 	"Technologies"
 }
 name="Warp Drives - Post-Apocalypse Remake"
-supported_version="3.7.*"
+supported_version="3.8.*"

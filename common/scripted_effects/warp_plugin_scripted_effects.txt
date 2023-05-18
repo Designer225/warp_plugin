@@ -4,7 +4,7 @@ fleet_get_lowest_warp_time_mult = {
 		limit = {
 			OR = {
 				has_component = WARP_DRIVE_3
-				has_component = WARP_DRIVE_3_AI
+				# has_component = WARP_DRIVE_3_AI
 			}
 		}
 		save_event_target_as = warp_plugin_temp_slowest_ship
@@ -13,7 +13,7 @@ fleet_get_lowest_warp_time_mult = {
 		limit = {
 			OR = {
 				has_component = WARP_DRIVE_2
-				has_component = WARP_DRIVE_2_AI
+				# has_component = WARP_DRIVE_2_AI
 			}
 		}
 		save_event_target_as = warp_plugin_temp_slowest_ship
@@ -23,7 +23,7 @@ fleet_get_lowest_warp_time_mult = {
 			or = {
 				has_component = BIO_DRIVE
 				has_component = WARP_DRIVE_1
-				has_component = WARP_DRIVE_1_AI
+				# has_component = WARP_DRIVE_1_AI
 			}
 		}
 		save_event_target_as = warp_plugin_temp_slowest_ship
