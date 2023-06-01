@@ -41,7 +41,10 @@ country_event = {
 					has_country_flag = uses_warp_drives
 					any_federation_ally = { has_country_flag = uses_warp_drives }
 					any_subject = { has_country_flag = uses_warp_drives }
-					overlord = { has_country_flag = uses_warp_drives }
+					AND = {
+						exists = overlord
+						overlord = { has_country_flag = uses_warp_drives }
+					}
 				}
 			}
 			force_add_civic = civic_warp_ftl_theory
