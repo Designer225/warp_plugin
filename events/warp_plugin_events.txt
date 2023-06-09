@@ -294,6 +294,10 @@ fleet_event = {
 				which = distance_traveled
 				value = 1
 			}
+			event_target:warp_situation = {
+				add_situation_progress = progress_rate
+			}
+			warp_plugin_failure_roll = yes
 			fleet_event = { id = warp_plugin.10 days = 1 }
 		}
 		else = { # on warp end
@@ -324,60 +328,6 @@ fleet_event = {
 }
 
 ## Situation: Warp in Progress
-# on monthly
-situation_event = {
-	id = warp_plugin.101
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		exists = this
-	}
-
-	immediate = {
-		if = {
-			limit = {
-				current_situation_approach = approach_accelerate_ftl
-			}
-			target = {
-				subtract_variable = {
-					which = distance_traveled
-					value = 10
-				}
-				random_list = {
-					75 = {}
-					25 = {
-						random_list = {
-							1 = {
-								set_fleet_flag = warp_plugin_weapon_failure
-							}
-							1 = {
-								set_fleet_flag = warp_plugin_propulsion_failure
-							}
-							1 = {
-								set_fleet_flag = warp_plugin_shield_failure
-							}
-							1 = {
-								set_fleet_flag = warp_plugin_armor_failure
-							}
-							1 = {
-								set_fleet_flag = warp_plugin_cloak_failure
-								modifier = {
-									factor = 0
-									has_first_contact_dlc = no
-								}
-							}
-							1 = {
-								set_fleet_flag = warp_plugin_sensor_failure
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 # on abort - failures
 fleet_event = {
 	id = warp_plugin.102

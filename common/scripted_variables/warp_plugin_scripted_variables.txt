@@ -5,6 +5,7 @@
 @warp_drive_1_time_mult = 1
 @warp_drive_2_time_mult = 0.5
 @warp_drive_3_time_mult = 0
+@warp_drive_4_time_mult = -0.25
 
 # important: adjust with define jump cooldown and each other
 @warp_cooldown_reduction = -0.9

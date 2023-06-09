@@ -1,11 +1,7 @@
 ﻿l_english:
  # components
- WARP_DRIVE_1_AI:0 "$WARP_DRIVE_1$"
- WARP_DRIVE_1_AI_DESC:0 "$WARP_DRIVE_1_DESC$"
- WARP_DRIVE_2_AI:0 "$WARP_DRIVE_2$"
- WARP_DRIVE_2_AI_DESC:0 "$WARP_DRIVE_2_DESC$"
- WARP_DRIVE_3_AI:0 "$WARP_DRIVE_3$"
- WARP_DRIVE_3_AI_DESC:0 "$WARP_DRIVE_3_DESC$"
+ WARP_DRIVE_4:0 "Warp Drive IV"
+ WARP_DRIVE_4_DESC:1 "$WARP_DRIVE_1_DESC$"
 
  # civics
  civic_warp_ftl_theory:0 "Warp FTL Theory"
@@ -38,8 +34,8 @@
  approach_accelerate_ftl_desc:0 "The fleet will §Hdisable nonessential safeguards§! in order to §Greach its destination faster§!. There is a daily §R1%§! chance of §Pa failure occurring§! as a result of safegaurds being disabled."
  approach_accelerate_ftl_on_select:0 "The fleet will accelerate its warp jump."
 
- warp_plugin_arrival_soon:0 "The fleet will arrive within 20 days and needs to get ready."
- warp_plugin_arrived:0 "The fleet arrived at its destination."
+ warp_plugin_arrival_soon:0 "The fleet will arrive soon and needs to get ready."
+ warp_plugin_arrived:0 "The fleet will arrive at its destination."
 
  warp_plugin_on_abort:0 "On warp completion:"
  warp_plugin_on_abort_fail:0 "A temporary §Rdebuff§! will be applied to all ships in the fleet, scaling with each progress below 40."
@@ -56,6 +52,12 @@
  warp_plugin_sensor_failure:0 "Sensor Disruption"
  warp_plugin_warp_in_progress:0 "Warp in Progress"
  warp_plugin_warp_in_progress_first_contact:0 "Warp in Progress"
+
+ # tech
+ tech_warp_drive_4:0 "Warp Optimization"
+ tech_warp_drive_4_desc:0 "Optimizations into warp calculations will allow our ships to jump faster at even longer distances."
+ TECH_UNLOCK_WARPDRIVE_4_TITLE:0 "§HUnlocks Component:§! Warp Drive IV"
+ TECH_UNLOCK_WARPDRIVE_4_DESC:0 "§HWarp Drive IV§!\n$tech_warp_drive_4_desc$"
 
  # events
  warp_plugin.0.name:0 "Warp Drives Activated"

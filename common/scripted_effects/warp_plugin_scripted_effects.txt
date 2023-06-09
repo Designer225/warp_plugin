@@ -61,3 +61,41 @@ fleet_get_lowest_warp_time_mult = {
 		# }
 	}
 }
+
+warp_plugin_failure_roll = {
+	random_list = {
+		99 = {}
+		1 = {
+			random_list = {
+				1 = {
+					set_fleet_flag = warp_plugin_weapon_failure
+				}
+				1 = {
+					set_fleet_flag = warp_plugin_propulsion_failure
+				}
+				1 = {
+					set_fleet_flag = warp_plugin_shield_failure
+				}
+				1 = {
+					set_fleet_flag = warp_plugin_armor_failure
+				}
+				1 = {
+					set_fleet_flag = warp_plugin_cloak_failure
+					modifier = {
+						factor = 0
+						has_first_contact_dlc = no
+					}
+				}
+				1 = {
+					set_fleet_flag = warp_plugin_sensor_failure
+				}
+			}
+			modifier = {
+				factor = 0
+				event_target:warp_situation = {
+					current_situation_approach = approach_normal_operations
+				}
+			}
+		}
+	}
+}
