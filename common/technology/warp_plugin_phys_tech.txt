@@ -132,7 +132,6 @@ tech_warp_drive_4 = {
 	ai_update_type = all
 	is_reverse_engineerable = yes
 	is_rare = yes
-	is_dangerous = yes
 	weight = @tier5weight1
 	prerequisites = { "tech_zero_point_power" }
 
