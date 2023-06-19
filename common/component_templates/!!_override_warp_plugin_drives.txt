@@ -25,7 +25,7 @@ utility_component_template = {
 
 	ship_modifier = {
 		ship_ftl_jumpdrive_range_mult = -0.6
-		ship_windup_mult = @empty_drive_time_mult
+		ship_interstellar_speed_mult = @empty_drive_speed_mult
 	}
 
 	class_restriction = { shipclass_military shipclass_transport shipclass_military_special shipclass_starbase }
@@ -47,7 +47,7 @@ utility_component_template = {
 
 	ship_modifier = {
 		ship_ftl_jumpdrive_range_mult = -0.6
-		ship_windup_mult = @empty_drive_time_mult
+		ship_interstellar_speed_mult = @empty_drive_speed_mult
 	}
 
 	class_restriction = { shipclass_constructor shipclass_colonizer shipclass_science_ship }
@@ -73,7 +73,7 @@ utility_component_template = {
 	ship_modifier = {
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
 		ship_ftl_jumpdrive_range_mult = -0.5
-		ship_windup_mult = @warp_drive_1_time_mult
+		ship_interstellar_speed_mult = @warp_drive_1_speed_mult
 	}
 
 	component_set = "ftl_components"

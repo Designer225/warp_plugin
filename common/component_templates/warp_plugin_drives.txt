@@ -37,7 +37,7 @@ utility_component_template = {
 		ship_disengage_opportunities_add = 1
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
 		ship_ftl_jumpdrive_range_mult = -0.6
-		ship_windup_mult = @warp_drive_1_time_mult
+		ship_interstellar_speed_mult = @warp_drive_1_speed_mult
 	}
 
 	ai_weight = {
@@ -76,7 +76,7 @@ utility_component_template = {
 		ship_disengage_opportunities_add = 1
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
 		ship_ftl_jumpdrive_range_mult = -0.4
-		ship_windup_mult = @warp_drive_2_time_mult
+		ship_interstellar_speed_mult = @warp_drive_2_speed_mult
 	}
 
 	ai_weight = {
@@ -115,7 +115,7 @@ utility_component_template = {
 		ship_disengage_opportunities_add = 2
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
 		ship_ftl_jumpdrive_range_mult = -0.2
-		ship_windup_mult = @warp_drive_3_time_mult
+		ship_interstellar_speed_mult = @warp_drive_3_speed_mult
 	}
 
 	ai_weight = {
@@ -153,7 +153,7 @@ utility_component_template = {
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
-		ship_windup_mult = @warp_drive_4_time_mult
+		ship_interstellar_speed_mult = @warp_drive_4_speed_mult
 	}
 
 	ai_weight = {

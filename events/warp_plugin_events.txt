@@ -107,14 +107,14 @@ fleet_event = {
 					type = euclidean
 				}
 			}
-			fleet_get_lowest_warp_time_mult = yes # get fleet min warp speed
-			# modify warp time based on windup multiplier ADD (not post-MOD)
-			multiply_variable = {
+			fleet_get_highest_warp_speed_mult = yes # get fleet min warp speed
+			# modify warp time based on interstellar speed multiplier
+			divide_variable = {
 				which = distance_traveled
-				value = warp_time_mult
+				value = warp_speed_mult
 			}
 			ceiling_variable = distance_traveled # make sure whole distances are traveled
-			clear_variable = warp_time_mult
+			clear_variable = warp_speed_mult
 			# ensure ship waits out cooldown
 			if = {
 				limit = {

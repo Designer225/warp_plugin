@@ -1,5 +1,5 @@
 
-fleet_get_lowest_warp_time_mult = {
+fleet_get_highest_warp_speed_mult = {
 	random_owned_ship = {
 		limit = {
 			OR = {
@@ -7,7 +7,7 @@ fleet_get_lowest_warp_time_mult = {
 				# has_component = WARP_DRIVE_3_AI
 			}
 		}
-		save_event_target_as = warp_plugin_temp_slowest_ship
+		save_event_target_as = warp_plugin_temp_fastest_ship
 	}
 	random_owned_ship = {
 		limit = {
@@ -16,7 +16,7 @@ fleet_get_lowest_warp_time_mult = {
 				# has_component = WARP_DRIVE_2_AI
 			}
 		}
-		save_event_target_as = warp_plugin_temp_slowest_ship
+		save_event_target_as = warp_plugin_temp_fastest_ship
 	}
 	random_owned_ship = {
 		limit = {
@@ -26,7 +26,7 @@ fleet_get_lowest_warp_time_mult = {
 				# has_component = WARP_DRIVE_1_AI
 			}
 		}
-		save_event_target_as = warp_plugin_temp_slowest_ship
+		save_event_target_as = warp_plugin_temp_fastest_ship
 	}
 	random_owned_ship = {
 		limit = {
@@ -35,30 +35,17 @@ fleet_get_lowest_warp_time_mult = {
 				has_component = EMPTY_DRIVE_CIVILIAN
 			}
 		}
-		save_event_target_as = warp_plugin_temp_slowest_ship
+		save_event_target_as = warp_plugin_temp_fastest_ship
 	}
 
 	if = {
 		limit = {
-			exists = event_target:warp_plugin_temp_slowest_ship
+			exists = event_target:warp_plugin_temp_fastest_ship
 		}
-		# event_target:warp_plugin_temp_slowest_ship = {
-		# 	export_modifier_to_variable = {
-		# 		modifier = ship_windup_mult
-		# 		variable = warp_time_mult
-		# 	}
-		# }
 		set_variable = {
-			which = warp_time_mult
-			value = event_target:warp_plugin_temp_slowest_ship.modifier:ship_windup_mult
+			which = warp_speed_mult
+			value = event_target:warp_plugin_temp_fastest_ship.modifier:ship_interstellar_speed_mult
 		}
-		change_variable = {
-			which = warp_time_mult
-			value = 1
-		}
-		# event_target:warp_plugin_temp_slowest_ship = {
-		# 	clear_variable = warp_time_mult
-		# }
 	}
 }
 
