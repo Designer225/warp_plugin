@@ -24,7 +24,7 @@ utility_component_template = {
 	jumpdrive = yes
 
 	ship_modifier = {
-		ship_ftl_jumpdrive_range_mult = -0.6
+		ship_ftl_jumpdrive_range_mult = @empty_drive_range_mult
 		ship_interstellar_speed_mult = @empty_drive_speed_mult
 	}
 
@@ -46,7 +46,7 @@ utility_component_template = {
 	jumpdrive = yes
 
 	ship_modifier = {
-		ship_ftl_jumpdrive_range_mult = -0.6
+		ship_ftl_jumpdrive_range_mult = @empty_drive_range_mult
 		ship_interstellar_speed_mult = @empty_drive_speed_mult
 	}
 
@@ -72,7 +72,7 @@ utility_component_template = {
 
 	ship_modifier = {
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
-		ship_ftl_jumpdrive_range_mult = -0.5
+		ship_ftl_jumpdrive_range_mult = @warp_drive_1_range
 		ship_interstellar_speed_mult = @warp_drive_1_speed_mult
 	}
 

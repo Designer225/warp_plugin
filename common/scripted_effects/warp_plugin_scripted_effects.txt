@@ -1,5 +1,5 @@
 
-fleet_get_highest_warp_speed_mult = {
+fleet_get_warp_speed_mult = {
 	random_owned_ship = {
 		limit = {
 			OR = {

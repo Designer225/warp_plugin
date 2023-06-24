@@ -107,7 +107,7 @@ fleet_event = {
 					type = euclidean
 				}
 			}
-			fleet_get_highest_warp_speed_mult = yes # get fleet min warp speed
+			fleet_get_warp_speed_mult = yes # get fleet min warp speed
 			# modify warp time based on interstellar speed multiplier
 			divide_variable = {
 				which = distance_traveled
