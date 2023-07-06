@@ -31,7 +31,7 @@ utility_component_template = {
 	# 	is_ai = no
 	# }
 
-	ftl = yes
+	# ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -45,6 +45,10 @@ utility_component_template = {
 		modifier = {
 			factor = 4
 			country_prefers_warp_drives = yes
+		}
+		modifier = {
+			factor = 0
+			is_ai = yes
 		}
 	}
 
@@ -70,7 +74,7 @@ utility_component_template = {
 	# 	is_ai = no
 	# }
 	
-	ftl = yes
+	# ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -84,6 +88,10 @@ utility_component_template = {
 		modifier = {
 			factor = 4
 			country_prefers_warp_drives = yes
+		}
+		modifier = {
+			factor = 0
+			is_ai = yes
 		}
 	}
 
@@ -109,7 +117,7 @@ utility_component_template = {
 	# 	is_ai = no
 	# }
 	
-	ftl = yes
+	# ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -123,6 +131,10 @@ utility_component_template = {
 		modifier = {
 			factor = 4
 			country_prefers_warp_drives = yes
+		}
+		modifier = {
+			factor = 0
+			is_ai = yes
 		}
 	}
 
@@ -148,7 +160,7 @@ utility_component_template = {
 	# 	is_ai = no
 	# }
 	
-	ftl = yes
+	# ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -162,6 +174,10 @@ utility_component_template = {
 		modifier = {
 			factor = 5
 			country_prefers_warp_drives = yes
+		}
+		modifier = {
+			factor = 0
+			is_ai = yes
 		}
 	}
 

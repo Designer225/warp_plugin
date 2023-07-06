@@ -8,7 +8,7 @@ Reimplements warp travel within the confines of post-Cherryh/Apocalypse Stellari
 * Four tiers of warp drives, each with longer range and faster warp speeds.
 * New civic: Warp FTL Theory - increased chance to receive warp drive tech research choices, and AI will prefer warp drives over hyper drives.
     * An event at game start will give the option to take the civic if you haven't already have one. The AI will never take it.
-    * Alternatively, adding the `uses_warp_drives` to an empire will force the mod to give it (and overlord, allies, and vassals, if any) the civic at game start, and only at game start.
+    * Alternatively, adding the `uses_warp_drives` to an empire will force the mod to give it the civic at game start, and only at game start.
         * Note that only direct relations are affected, though any potential indirect relations are a moot point because usually an empire can be independent, in a federation, or a vassal, but not any combination of the three (except for hegemonic federations, but those are direct relations and thus moot), at game start.
 
 # Limitations
@@ -22,4 +22,5 @@ The warp system is implemented within the confines of post-Cherryh/Apocalypse St
     * This may affect performance if a large number of fleets are using warp drives.
 * To avoid overwriting files too much, only "No Drive" and "Bio-Drive" options have been overwritten. This means countries will start with __both__ hyper drives and warp drives, unless they have __Eager Explorers__ or an equivalent civic.
     * This is a compromise done to maximize mod compatibility. The affected drives are also not commonly used by playable countries anyway (Bubbles excepting).
-* A previous build has FTL disabled, but it has since been re-enabled because __the AI just. Doesn't. Know. How. To. Pathfind. Using. Only. Jump. Drives.__ You will have to press J and target a system to make a  warp jump.
+* ~~A previous build has FTL disabled, but it has since been re-enabled because __the AI just. Doesn't. Know. How. To. Pathfind. Using. Only. Jump. Drives.__ You will have to press J and target a system to make a  warp jump.~~ Changed per below.
+    * Some builds have FTL enabled to allow the AI to use warp drives in a limited capacity since __the AI just. Doesn't. Know. How. To. Pathfind. Using. Only. Jump. Drives.__ On reflection, however, I have once again disabled it and limited it to players, since having FTL enabled does not exactly make the mod enjoyable for the player.

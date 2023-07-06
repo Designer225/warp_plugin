@@ -37,17 +37,17 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				OR = {
-					has_country_flag = uses_warp_drives
-					any_federation_ally = { has_country_flag = uses_warp_drives }
-					any_subject = { has_country_flag = uses_warp_drives }
-					AND = {
-						exists = overlord
-						overlord = { has_country_flag = uses_warp_drives }
-					}
-				}
+				has_country_flag = uses_warp_drives
+				is_ai = no
 			}
 			force_add_civic = civic_warp_ftl_theory
+		}
+		else_if = {
+			limit = {
+				has_civic = civic_warp_ftl_theory
+				is_ai = yes
+			}
+			force_remove_civic = civic_warp_ftl_theory
 		}
 	}
 

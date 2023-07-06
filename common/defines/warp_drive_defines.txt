@@ -1,3 +1,0 @@
-	NAI = {
-		MIN_DISTANCE_TO_JUMP = 0
-	}
