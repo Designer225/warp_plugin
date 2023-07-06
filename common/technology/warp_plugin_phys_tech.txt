@@ -13,16 +13,16 @@ tech_warp_drive_1 = {
 
 	is_reverse_engineerable = no
 
+	feature_flags = {
+		jump_method
+	}
+
 	prereqfor_desc = {
 		hide_prereq_for_desc = component
 		component = {
 			title = "TECH_UNLOCK_WARPDRIVE_1_TITLE"
 			desc = "TECH_UNLOCK_WARPDRIVE_1_DESC"
 		}
-	}
-
-	feature_flags = {
-		jump_method
 	}
 
 	weight_modifier = {
