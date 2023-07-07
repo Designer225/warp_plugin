@@ -16,7 +16,7 @@
 
 ### WARP DRIVES
 utility_component_template = {
-	key = "WARP_DRIVE_1"
+	key = "WARP_DRIVE_1_AI"
 	size = small
 	icon = "GFX_ship_part_warp_drive_1"
 	icon_frame = 1
@@ -27,11 +27,11 @@ utility_component_template = {
 			alloys = @cost1
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
+	# valid_for_country = {
+	# 	is_ai = no
+	# }
 
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -48,18 +48,18 @@ utility_component_template = {
 		}
 		modifier = {
 			factor = 0
-			is_ai = yes
+			is_ai = no
 		}
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }
 	prerequisites = { "tech_warp_drive_1" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_2"
+	upgrades_to = "WARP_DRIVE_2_AI"
 }
 
 utility_component_template = {
-	key = "WARP_DRIVE_2"
+	key = "WARP_DRIVE_2_AI"
 	size = small
 	icon = "GFX_ship_part_warp_drive_2"
 	icon_frame = 1
@@ -70,11 +70,11 @@ utility_component_template = {
 			alloys = @cost2
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
+	# valid_for_country = {
+	# 	is_ai = no
+	# }
 	
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -91,18 +91,18 @@ utility_component_template = {
 		}
 		modifier = {
 			factor = 0
-			is_ai = yes
+			is_ai = no
 		}
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }
 	prerequisites = { "tech_warp_drive_2" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_3"
+	upgrades_to = "WARP_DRIVE_3_AI"
 }
 
 utility_component_template = {
-	key = "WARP_DRIVE_3"
+	key = "WARP_DRIVE_3_AI"
 	size = small
 	icon = "GFX_ship_part_warp_drive_3"
 	icon_frame = 1
@@ -113,11 +113,11 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
+	# valid_for_country = {
+	# 	is_ai = no
+	# }
 	
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -134,18 +134,18 @@ utility_component_template = {
 		}
 		modifier = {
 			factor = 0
-			is_ai = yes
+			is_ai = no
 		}
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }
 	prerequisites = { "tech_warp_drive_3" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_4"
+	upgrades_to = "WARP_DRIVE_4_AI"
 }
 
 utility_component_template = {
-	key = "WARP_DRIVE_4"
+	key = "WARP_DRIVE_4_AI"
 	size = small
 	icon = "GFX_ship_part_warp_drive_4"
 	icon_frame = 1
@@ -156,11 +156,11 @@ utility_component_template = {
 			alloys = @cost4
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
+	# valid_for_country = {
+	# 	is_ai = no
+	# }
 	
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -177,7 +177,7 @@ utility_component_template = {
 		}
 		modifier = {
 			factor = 0
-			is_ai = yes
+			is_ai = no
 		}
 	}
 

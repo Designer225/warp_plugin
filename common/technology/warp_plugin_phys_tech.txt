@@ -18,7 +18,6 @@ tech_warp_drive_1 = {
 	}
 
 	prereqfor_desc = {
-		hide_prereq_for_desc = component
 		component = {
 			title = "TECH_UNLOCK_WARPDRIVE_1_TITLE"
 			desc = "TECH_UNLOCK_WARPDRIVE_1_DESC"
@@ -64,7 +63,6 @@ tech_warp_drive_2 = {
 	}
 
 	prereqfor_desc = {
-		hide_prereq_for_desc = component
 		component = {
 			title = "TECH_UNLOCK_WARPDRIVE_2_TITLE"
 			desc = "TECH_UNLOCK_WARPDRIVE_2_DESC"
@@ -109,7 +107,6 @@ tech_warp_drive_3 = {
 	}
 
 	prereqfor_desc = {
-		hide_prereq_for_desc = component
 		component = {
 			title = "TECH_UNLOCK_WARPDRIVE_3_TITLE"
 			desc = "TECH_UNLOCK_WARPDRIVE_3_DESC"
@@ -180,6 +177,10 @@ tech_warp_drive_4 = {
 	}
 
 	ai_weight = {
+		modifier = {
+			factor = @warp_drive_preference_effect
+			country_prefers_warp_drives = yes
+		}
 	}
 
 	prereqfor_desc = {

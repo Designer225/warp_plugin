@@ -38,16 +38,8 @@ country_event = {
 		if = {
 			limit = {
 				has_country_flag = uses_warp_drives
-				is_ai = no
 			}
 			force_add_civic = civic_warp_ftl_theory
-		}
-		else_if = {
-			limit = {
-				has_civic = civic_warp_ftl_theory
-				is_ai = yes
-			}
-			force_remove_civic = civic_warp_ftl_theory
 		}
 	}
 
@@ -256,6 +248,7 @@ fleet_event = {
 					save_event_target_as = warp_situation
 				}
 			}
+			save_event_target_as = warp_target_system # used for MIA
 		}
 		if = { # mia check
 			limit = {
@@ -278,7 +271,7 @@ fleet_event = {
 				variable = {
 					type = name
 					localization = SYSTEM
-					scope = solar_system
+					scope = event_target:warp_target_system
 				}
 			}
 			remove_fleet_flag = warp_plugin_active

@@ -3,6 +3,15 @@
  WARP_DRIVE_4:0 "Warp Drive IV"
  WARP_DRIVE_4_DESC:1 "$WARP_DRIVE_1_DESC$"
 
+ WARP_DRIVE_1_AI:0 "$WARP_DRIVE_1$ (AI)"
+ WARP_DRIVE_1_AI_DESC:1 "$WARP_DRIVE_1_DESC$"
+ WARP_DRIVE_2_AI:0 "$WARP_DRIVE_2$ (AI)"
+ WARP_DRIVE_2_AI_DESC:1 "$WARP_DRIVE_1_DESC$"
+ WARP_DRIVE_3_AI:0 "$WARP_DRIVE_3$ (AI)"
+ WARP_DRIVE_3_AI_DESC:1 "$WARP_DRIVE_1_DESC$"
+ WARP_DRIVE_4_AI:0 "$WARP_DRIVE_4$ (AI)"
+ WARP_DRIVE_4_AI_DESC:1 "$WARP_DRIVE_1_DESC$"
+
  # civics
  civic_warp_ftl_theory:0 "Warp FTL Theory"
  civic_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
@@ -56,6 +65,13 @@
  # tech
  tech_warp_drive_4:0 "Warp Optimization"
  tech_warp_drive_4_desc:0 "Optimizations into warp calculations will allow our ships to jump faster at even longer distances."
+
+ TECH_UNLOCK_WARPDRIVE_1_TITLE:0 "§HUnlocks Component:§! Warp Drive I"
+ TECH_UNLOCK_WARPDRIVE_1_DESC:0 "§HWarp Drive I§!\n$tech_warp_drive_1_desc$"
+ TECH_UNLOCK_WARPDRIVE_2_TITLE:0 "§HUnlocks Component:§! Warp Drive II"
+ TECH_UNLOCK_WARPDRIVE_2_DESC:0 "§HWarp Drive II§!\n$tech_warp_drive_2_desc$"
+ TECH_UNLOCK_WARPDRIVE_3_TITLE:0 "§HUnlocks Component:§! Warp Drive III"
+ TECH_UNLOCK_WARPDRIVE_3_DESC:0 "§HWarp Drive III§!\n$tech_warp_drive_3_desc$"
  TECH_UNLOCK_WARPDRIVE_4_TITLE:0 "§HUnlocks Component:§! Warp Drive IV"
  TECH_UNLOCK_WARPDRIVE_4_DESC:0 "§HWarp Drive IV§!\n$tech_warp_drive_4_desc$"
 
