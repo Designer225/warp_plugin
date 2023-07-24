@@ -27,9 +27,9 @@ utility_component_template = {
 			alloys = @cost1
 		}
 	}
-	# valid_for_country = {
-	# 	is_ai = no
-	# }
+	valid_for_country = {
+		always = no # obsolete until Paradox allows non-FTL ships to use bypasses
+	}
 
 	ftl = yes
 	jumpdrive = yes
@@ -41,15 +41,7 @@ utility_component_template = {
 	}
 
 	ai_weight = {
-		weight = 0.5
-		modifier = {
-			factor = 4
-			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = no
-		}
+		weight = 0
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }
@@ -70,9 +62,9 @@ utility_component_template = {
 			alloys = @cost2
 		}
 	}
-	# valid_for_country = {
-	# 	is_ai = no
-	# }
+	valid_for_country = {
+		always = no # obsolete until Paradox allows non-FTL ships to use bypasses
+	}
 	
 	ftl = yes
 	jumpdrive = yes
@@ -84,15 +76,7 @@ utility_component_template = {
 	}
 
 	ai_weight = {
-		weight = 1
-		modifier = {
-			factor = 4
-			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = no
-		}
+		weight = 0
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }
@@ -113,9 +97,9 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-	# valid_for_country = {
-	# 	is_ai = no
-	# }
+	valid_for_country = {
+		always = no # obsolete until Paradox allows non-FTL ships to use bypasses
+	}
 	
 	ftl = yes
 	jumpdrive = yes
@@ -127,15 +111,7 @@ utility_component_template = {
 	}
 
 	ai_weight = {
-		weight = 1.5
-		modifier = {
-			factor = 4
-			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = no
-		}
+		weight = 0
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }
@@ -156,9 +132,9 @@ utility_component_template = {
 			alloys = @cost4
 		}
 	}
-	# valid_for_country = {
-	# 	is_ai = no
-	# }
+	valid_for_country = {
+		always = no # obsolete until Paradox allows non-FTL ships to use bypasses
+	}
 	
 	ftl = yes
 	jumpdrive = yes
@@ -170,15 +146,7 @@ utility_component_template = {
 	}
 
 	ai_weight = {
-		weight = 2
-		modifier = {
-			factor = 5
-			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = no
-		}
+		weight = 0
 	}
 
 	class_restriction = { shipclass_military shipclass_constructor shipclass_colonizer shipclass_science_ship shipclass_transport shipclass_military_special shipclass_starbase }

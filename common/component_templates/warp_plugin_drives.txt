@@ -27,11 +27,8 @@ utility_component_template = {
 			alloys = @cost1
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
 
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -45,10 +42,6 @@ utility_component_template = {
 		modifier = {
 			factor = 4
 			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = yes
 		}
 	}
 
@@ -70,11 +63,8 @@ utility_component_template = {
 			alloys = @cost2
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
 	
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 1
@@ -88,10 +78,6 @@ utility_component_template = {
 		modifier = {
 			factor = 4
 			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = yes
 		}
 	}
 
@@ -113,11 +99,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
 	
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -131,10 +114,6 @@ utility_component_template = {
 		modifier = {
 			factor = 4
 			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = yes
 		}
 	}
 
@@ -156,11 +135,8 @@ utility_component_template = {
 			alloys = @cost4
 		}
 	}
-	valid_for_country = {
-		is_ai = no
-	}
 	
-	# ftl = yes
+	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
 		ship_disengage_opportunities_add = 2
@@ -174,10 +150,6 @@ utility_component_template = {
 		modifier = {
 			factor = 5
 			country_prefers_warp_drives = yes
-		}
-		modifier = {
-			factor = 0
-			is_ai = yes
 		}
 	}
 
