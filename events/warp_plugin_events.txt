@@ -37,9 +37,21 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				has_country_flag = uses_warp_drives
+				NOT = { has_civic = civic_warp_ftl_theory }
 			}
-			force_add_civic = civic_warp_ftl_theory
+			if = {
+				limit = {
+					has_country_flag = uses_warp_drives
+				}
+				force_add_civic = civic_warp_ftl_theory
+				give_technology = {
+					tech = tech_warp_drive_1
+					message = no
+				}
+			}
+			else = {
+				add_research_option = tech_warp_drive_1
+			}
 		}
 	}
 
@@ -49,6 +61,9 @@ country_event = {
 			not = { has_civic = civic_warp_ftl_theory }
 		}
 		force_add_civic = civic_warp_ftl_theory
+		give_technology = {
+			tech = tech_warp_drive_1
+		}
 		ai_chance = {
 			weight = 0
 		}

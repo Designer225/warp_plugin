@@ -30,6 +30,17 @@ tech_warp_drive_1 = {
 
 	ai_weight = {
 		weight = 10000
+		modifier = {
+			factor = @warp_drive_preference_roll_bias
+			country_prefers_warp_drives = yes
+		}
+	}
+
+	starting_potential = {
+		OR = {
+			NOT = { is_eager_explorer_empire = yes }
+			country_prefers_warp_drives = yes
+		}
 	}
 }
 
