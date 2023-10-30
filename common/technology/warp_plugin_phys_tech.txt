@@ -10,7 +10,7 @@ tech_warp_drive_1 = {
 	tier = 0
 	category = { particles }
 	start_tech = yes
-
+	ai_update_type = all
 	is_reverse_engineerable = no
 
 	feature_flags = {
@@ -37,10 +37,7 @@ tech_warp_drive_1 = {
 	}
 
 	starting_potential = {
-		OR = {
-			NOT = { is_eager_explorer_empire = yes }
-			country_prefers_warp_drives = yes
-		}
+		country_prefers_warp_drives = yes
 	}
 }
 
