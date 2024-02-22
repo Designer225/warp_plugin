@@ -25,7 +25,33 @@ tech_warp_drive_1 = {
 	}
 
 	weight_modifier = {
-		factor = 1000
+		base = 0
+		modifier = {
+			add = 1
+			OR = {
+				can_research_tier = {
+					area = physics
+					tier = 4
+				}
+				country_prefers_warp_drives = yes
+			}
+		}
+		modifier = {
+			factor = 1.25
+			has_tradition = tr_discovery_adopt
+		}
+		modifier = {
+			factor = @ap_grasp_the_void_travel_tech
+			has_ascension_perk = ap_grasp_the_void
+		}
+		modifier = {
+			factor = @eager_explorer_effect
+			is_eager_explorer_empire = yes
+		}
+		modifier = {
+			factor = @warp_drive_preference_roll_bias
+			country_prefers_warp_drives = yes
+		}
 	}
 
 	ai_weight = {
@@ -38,6 +64,7 @@ tech_warp_drive_1 = {
 
 	starting_potential = {
 		country_prefers_warp_drives = yes
+		is_eager_explorer_empire = no
 	}
 }
 

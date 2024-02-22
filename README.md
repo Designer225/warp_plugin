@@ -10,6 +10,8 @@ Reimplements warp travel within the confines of post-Cherryh/Apocalypse Stellari
     * An event at game start will give the option to take the civic if you haven't already have one. The AI will never take it.
     * Alternatively, adding the `uses_warp_drives` to an empire will force the mod to give it the civic at game start, and only at game start.
         * Note that only direct relations are affected, though any potential indirect relations are a moot point because usually an empire can be independent, in a federation, or a vassal, but not any combination of the three (except for hegemonic federations, but those are direct relations and thus moot), at game start.
+    * Note: with Eager Explorer (or similar civic), a research option is given instead.
+    * Without the civic, the option becomes available once Tech 4 is reached.
 
 # Limitations
 The warp system is implemented within the confines of post-Cherryh/Apocalypse Stellaris. Specifically, version 3.8. The last version with built-in warp drive code was 1.9. Unsurprisingly, some workarounds had to be done.

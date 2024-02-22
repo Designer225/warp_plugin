@@ -18,8 +18,9 @@ fleet_has_warp_drive = {
 }
 
 country_prefers_warp_drives = {
-	or = {
+	OR = {
 		has_civic = civic_warp_ftl_theory
+		has_country_flag = uses_warp_drives
 	}
 }
 

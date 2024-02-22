@@ -37,20 +37,25 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				country_prefers_warp_drives = no
+				country_prefers_warp_drives = yes
 			}
 			if = {
 				limit = {
-					has_country_flag = uses_warp_drives
+					NOT = { has_civic = civic_warp_ftl_theory }
 				}
 				force_add_civic = civic_warp_ftl_theory
+			}
+			if = {
+				limit = {
+					is_eager_explorer_empire = yes # does not start with FTL tech
+				}
+				add_research_option = tech_warp_drive_1
+			}
+			else = {
 				give_technology = {
 					tech = tech_warp_drive_1
 					message = no
 				}
-			}
-			else = {
-				add_research_option = tech_warp_drive_1
 			}
 		}
 	}
@@ -58,11 +63,24 @@ country_event = {
 	option = {
 		name = warp_plugin.0.a
 		trigger = {
-			not = { has_civic = civic_warp_ftl_theory }
+			NOT = { has_civic = civic_warp_ftl_theory }
 		}
-		force_add_civic = civic_warp_ftl_theory
-		give_technology = {
-			tech = tech_warp_drive_1
+		if = {
+			limit = {
+				NOT = { has_civic = civic_warp_ftl_theory }
+			}
+			force_add_civic = civic_warp_ftl_theory
+		}
+		if = {
+			limit = {
+				is_eager_explorer_empire = yes # does not start with FTL tech
+			}
+			add_research_option = tech_warp_drive_1
+		}
+		else = {
+			give_technology = {
+				tech = tech_warp_drive_1
+			}
 		}
 		ai_chance = {
 			weight = 0
@@ -72,7 +90,7 @@ country_event = {
 	option = {
 		name = warp_plugin.0.b
 		trigger = {
-			not = { has_civic = civic_warp_ftl_theory }
+			NOT = { has_civic = civic_warp_ftl_theory }
 		}
 	}
 
