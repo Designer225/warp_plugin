@@ -123,6 +123,10 @@ fleet_event = {
 				has_fleet_flag = warp_plugin_warp_completed
 			}
 			remove_fleet_flag = warp_plugin_warp_completed
+			# save destination as event target, will be used to unload later
+			solar_system = {
+				save_event_target_as = warp_to
+			}
 			# get distance from jump source to jump destination
 			export_trigger_value_to_variable = {
 				trigger = distance
@@ -167,6 +171,13 @@ fleet_event = {
 					}
 					save_event_target_as = warp_situation
 				}
+			}
+			# move to departure
+			set_location = {
+				target = event_target:warp_from
+				distance = @warp_entry_distance
+				angle = random
+				direction = out_system
 			}
 			fleet_event = { id = warp_plugin.10 }
 		}
@@ -285,7 +296,15 @@ fleet_event = {
 		}
 		if = { # mia check
 			limit = {
-				not = { exists = solar_system }
+				OR = {
+					not = { exists = solar_system }
+					event_target:warp_to = {
+						exists = owner
+						owner = {
+							has_closed_borders = root.owner
+						}
+					}
+				}
 			}
 			clear_variable = distance_traveled
 			set_event_locked = no
@@ -308,6 +327,7 @@ fleet_event = {
 				}
 			}
 			remove_fleet_flag = warp_plugin_active
+			set_mia = mia_return_home
 		}
 		else_if = { # duration check
 			limit = {
@@ -349,6 +369,12 @@ fleet_event = {
 				}
 			}
 			remove_fleet_flag = warp_plugin_active
+			set_location = {
+				target = event_target:warp_to
+				distance = @warp_entry_distance
+				angle = random
+				direction = in_system
+			}
 		}
 	}
 }

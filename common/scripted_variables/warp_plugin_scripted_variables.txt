@@ -3,17 +3,17 @@
 
 # warp variable defines
 # given vanilla define of jump drive range being 100, the goal is to achieve the following max distance for a given tier at the given time:
-# T1: 40 -> 100 days
-# T2: 60 -> 100 days
-# T3: 80 -> 100 days
-# T4: 100 -> 100 days
+# T1: 40 -> 160 days
+# T2: 60 -> 200 days
+# T3: 80 -> 200 days
+# T4: 100 -> 200 days
 
 # warp speed
 @empty_drive_speed_mult = 0.01
-@warp_drive_1_speed_mult = 0.4
-@warp_drive_2_speed_mult = 0.6
-@warp_drive_3_speed_mult = 0.8
-@warp_drive_4_speed_mult = 1
+@warp_drive_1_speed_mult = 0.25
+@warp_drive_2_speed_mult = 0.3
+@warp_drive_3_speed_mult = 0.4
+@warp_drive_4_speed_mult = 0.5
 
 # warp range
 @empty_drive_range_mult = -0.8
@@ -22,6 +22,8 @@
 @warp_drive_3_range = -0.2
 @warp_drive_4_range = 0
 
+# warp entry distance - randomized
+@warp_entry_distance = 1000
 
 # important: adjust with define jump cooldown and each other
 @warp_cooldown_reduction = -0.99
