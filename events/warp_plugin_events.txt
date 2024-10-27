@@ -172,13 +172,6 @@ fleet_event = {
 					save_event_target_as = warp_situation
 				}
 			}
-			# move to departure
-			set_location = {
-				target = event_target:warp_from
-				distance = @warp_entry_distance
-				angle = random
-				direction = out_system
-			}
 			fleet_event = { id = warp_plugin.10 }
 		}
 		else_if = {
@@ -292,18 +285,13 @@ fleet_event = {
 					save_event_target_as = warp_situation
 				}
 			}
-			save_event_target_as = warp_target_system # used for MIA
+			# save_event_target_as = warp_target_system # used for MIA
 		}
 		if = { # mia check
 			limit = {
 				OR = {
 					not = { exists = solar_system }
-					event_target:warp_to = {
-						exists = owner
-						owner = {
-							has_closed_borders = root.owner
-						}
-					}
+					not = { can_access_system = event_target:warp_to }
 				}
 			}
 			clear_variable = distance_traveled
@@ -323,7 +311,7 @@ fleet_event = {
 				variable = {
 					type = name
 					localization = SYSTEM
-					scope = event_target:warp_target_system
+					scope = event_target:warp_to
 				}
 			}
 			remove_fleet_flag = warp_plugin_active
@@ -349,7 +337,6 @@ fleet_event = {
 		else = { # on warp end
 			clear_variable = distance_traveled
 			# remove_modifier = warp_plugin_warp_in_progress
-			set_event_locked = no
 			remove_modifier = warp_plugin_warp_in_progress
 			abort_situation = event_target:warp_situation
 			create_message = {
@@ -375,6 +362,7 @@ fleet_event = {
 				angle = random
 				direction = in_system
 			}
+			set_event_locked = no
 		}
 	}
 }
