@@ -5,6 +5,12 @@
 @cost3 = 15
 @cost4 = 20
 
+@cost_fauna_1 = 20
+@cost_fauna_2 = 40
+@cost_fauna_3 = 60
+@cost_fauna_4 = 80
+
+@power0 = -5
 @power1 = -10
 @power2 = -15
 @power3 = -20
@@ -28,7 +34,15 @@ utility_component_template = {
 		ship_interstellar_speed_mult = @empty_drive_speed_mult
 	}
 
-	class_restriction = { shipclass_military shipclass_transport shipclass_military_special shipclass_starbase }
+	potential = {
+		from = {
+			country_uses_bio_ships = no
+		}
+	}
+
+	show_tech_unlock_if = {
+		country_uses_bio_ships = no
+	}
 	component_set = "ftl_components"
 	# upgrades_to = "HYPER_DRIVE_1"
 
@@ -38,7 +52,7 @@ utility_component_template = {
 }
 
 utility_component_template = {
-	key = "EMPTY_DRIVE_CIVILIAN"
+	key = "BIO_EMPTY_DRIVE"
 	size = small
 	icon = "GFX_ship_part_empty_ftl_drive"
 	icon_frame = 1
@@ -50,31 +64,209 @@ utility_component_template = {
 		ship_interstellar_speed_mult = @empty_drive_speed_mult
 	}
 
-	class_restriction = { shipclass_constructor shipclass_colonizer shipclass_science_ship }
+	potential = {
+		is_eager_explorer_ship = no
+		from = {
+			country_uses_bio_ships = yes
+		}
+	}
+
+	show_tech_unlock_if = {
+		country_uses_bio_ships = yes
+	}
+
 	component_set = "ftl_components"
-	# upgrades_to = "HYPER_DRIVE_1_CIVILIAN"
+	# upgrades_to = "BIO_HYPER_DRIVE_1"
 
 	ai_weight = {
 		base = 0
 	}
 }
 
-# BIO
+# GUARDIAN
 utility_component_template = {
-	key = "BIO_DRIVE"
+	key = "GUARDIAN_DRIVE"
 	hidden = yes
 	size = small
-	icon = "GFX_ship_part_warp_drive_1"
+	icon = "GFX_ship_part_warp_drive_3"
 	icon_frame = 1
 	power = 0
 	ftl = yes
 	jumpdrive = yes
 
 	ship_modifier = {
+		ship_windup_mult = -0.8
+		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
+		ship_ftl_jumpdrive_range_mult = @warp_drive_4_range
+		ship_interstellar_speed_mult = @warp_drive_4_speed_mult
+	}
+
+	component_set = "ftl_components"
+}
+
+# BIO
+utility_component_template = {
+	key = "BIO_DRIVE"
+	size = small
+	icon = "GFX_ship_part_bio_warp_drive_1"
+	icon_frame = 1
+	power = 0
+	ftl = yes
+	jumpdrive = yes
+
+	resources = {
+		category = ship_components
+		inline_script = {
+			script = "grand_archive/mutations/component_dynamic_cost"
+			COST = @cost_fauna_1
+		}
+	}
+
+	ship_modifier = {
+		ship_disengage_opportunities_add = 1
 		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
 		ship_ftl_jumpdrive_range_mult = @warp_drive_1_range
 		ship_interstellar_speed_mult = @warp_drive_1_speed_mult
 	}
 
-	component_set = "ftl_components"
+	ai_weight = {
+		weight = 1
+	}
+
+	component_set = "ftl_components_bio"
+	upgrades_to = "BIO_DRIVE_2"
+}
+
+utility_component_template = {
+	key = "BIO_DRIVE_2"
+	size = small
+	icon = "GFX_ship_part_bio_warp_drive_2"
+	icon_frame = 1
+	power = 0
+	ftl = yes
+	jumpdrive = yes
+
+	resources = {
+		category = ship_components
+		inline_script = {
+			script = "grand_archive/mutations/component_dynamic_cost"
+			COST = @cost_fauna_2
+		}
+	}
+
+	ship_modifier = {
+		ship_disengage_opportunities_add = 1
+		ship_windup_mult = -0.2
+		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
+		ship_ftl_jumpdrive_range_mult = @warp_drive_2_range
+		ship_interstellar_speed_mult = @warp_drive_2_speed_mult
+	}
+
+	ai_weight = {
+		weight = 2
+	}
+
+	prerequisites = { "tech_hyper_drive_2" "tech_hyper_drive_bio_integration" }
+	component_set = "ftl_components_bio"
+	upgrades_to = "BIO_DRIVE_3"
+}
+
+utility_component_template = {
+	key = "BIO_DRIVE_3"
+	size = small
+	icon = "GFX_ship_part_bio_subspace_drive"
+	icon_frame = 1
+	power = 0
+	ftl = yes
+	jumpdrive = yes
+
+	resources = {
+		category = ship_components
+		inline_script = {
+			script = "grand_archive/mutations/component_dynamic_cost"
+			COST = @cost_fauna_3
+		}
+	}
+
+	ship_modifier = {
+		ship_disengage_opportunities_add = 1
+		ship_windup_mult = -0.4
+		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
+		ship_ftl_jumpdrive_range_mult = @warp_drive_3_range
+		ship_interstellar_speed_mult = @warp_drive_3_speed_mult
+	}
+
+	ai_weight = {
+		weight = 3
+	}
+
+	prerequisites = { "tech_hyper_drive_3" "tech_hyper_drive_bio_integration" }
+	component_set = "ftl_components_bio"
+	upgrades_to = "BIO_DRIVE_4"
+}
+
+utility_component_template = {
+	key = "BIO_DRIVE_4"
+	size = small
+	icon = "GFX_ship_part_bio_jump_drive_1"
+	icon_frame = 1
+	power = 0
+	ftl = yes
+	jumpdrive = yes
+
+	resources = {
+		category = ship_components
+		inline_script = {
+			script = "grand_archive/mutations/component_dynamic_cost"
+			COST = @cost_fauna_4
+		}
+	}
+
+	ai_weight = {
+		weight = 4
+	}
+
+	ship_modifier = {
+		ship_disengage_opportunities_add = 1
+		ship_windup_mult = -0.6
+		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
+		ship_ftl_jumpdrive_range_mult = @warp_drive_4_range
+		ship_interstellar_speed_mult = @warp_drive_4_speed_mult
+	}
+
+	prerequisites = { "tech_jump_drive_1" "tech_hyper_drive_bio_integration" }
+	component_set = "ftl_components_bio"
+}
+
+utility_component_template = {
+	key = "BIO_DRIVE_5"
+	size = small
+	icon = "GFX_ship_part_bio_psi_jump_drive_1"
+	icon_frame = 1
+	power = 0
+	ftl = yes
+	jumpdrive = yes
+
+	resources = {
+		category = ship_components
+		inline_script = {
+			script = "grand_archive/mutations/component_dynamic_cost"
+			COST = @cost_fauna_4
+		}
+	}
+
+	ship_modifier = {
+		ship_disengage_opportunities_add = 2
+		ship_windup_mult = -0.7
+		ship_jumpdrive_cooldown_mult = @warp_cooldown_reduction
+		ship_ftl_jumpdrive_range_mult = @warp_drive_5_range
+		ship_interstellar_speed_mult = @warp_drive_5_speed_mult
+	}
+
+	ai_weight = {
+		weight = 5
+	}
+
+	prerequisites = { "tech_psi_jump_drive_1" "tech_hyper_drive_bio_integration" }
+	component_set = "ftl_components_bio"
 }

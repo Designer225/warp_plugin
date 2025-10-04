@@ -3,8 +3,9 @@ fleet_get_warp_speed_mult = {
 	random_owned_ship = {
 		limit = {
 			OR = {
-				has_component = WARP_DRIVE_3
-				# has_component = WARP_DRIVE_3_AI
+				has_component = BIO_DRIVE_5
+				has_component = WARP_DRIVE_5
+				has_component = BIO_WARP_DRIVE_5
 			}
 		}
 		save_event_target_as = warp_plugin_temp_fastest_ship
@@ -12,8 +13,30 @@ fleet_get_warp_speed_mult = {
 	random_owned_ship = {
 		limit = {
 			OR = {
+				has_component = BIO_DRIVE_4
+				has_component = WARP_DRIVE_4
+				has_component = BIO_WARP_DRIVE_4
+				has_component = GUARDIAN_DRIVE
+			}
+		}
+		save_event_target_as = warp_plugin_temp_fastest_ship
+	}
+	random_owned_ship = {
+		limit = {
+			OR = {
+				has_component = BIO_DRIVE_3
+				has_component = WARP_DRIVE_3
+				has_component = BIO_WARP_DRIVE_3
+			}
+		}
+		save_event_target_as = warp_plugin_temp_fastest_ship
+	}
+	random_owned_ship = {
+		limit = {
+			OR = {
+				has_component = BIO_DRIVE_2
 				has_component = WARP_DRIVE_2
-				# has_component = WARP_DRIVE_2_AI
+				has_component = BIO_WARP_DRIVE_2
 			}
 		}
 		save_event_target_as = warp_plugin_temp_fastest_ship
@@ -23,7 +46,7 @@ fleet_get_warp_speed_mult = {
 			or = {
 				has_component = BIO_DRIVE
 				has_component = WARP_DRIVE_1
-				# has_component = WARP_DRIVE_1_AI
+				has_component = BIO_WARP_DRIVE_1
 			}
 		}
 		save_event_target_as = warp_plugin_temp_fastest_ship
@@ -32,7 +55,7 @@ fleet_get_warp_speed_mult = {
 		limit = {
 			or = {
 				has_component = EMPTY_DRIVE
-				has_component = EMPTY_DRIVE_CIVILIAN
+				has_component = BIO_EMPTY_DRIVE
 			}
 		}
 		save_event_target_as = warp_plugin_temp_fastest_ship

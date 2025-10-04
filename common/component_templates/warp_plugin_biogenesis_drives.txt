@@ -1,30 +1,30 @@
-# Icons set here are the ones show in the actual slot.
+####################
+# FTL Drives
+####################
 
 @cost1 = 5
 @cost2 = 10
 @cost3 = 15
 @cost4 = 20
 
+@power0 = -5
 @power1 = -10
 @power2 = -15
 @power3 = -20
 @power4 = -30
 
-#############
-# UTILITIES #
-#############
-
-### WARP DRIVES
+### HYPER DRIVES
 utility_component_template = {
-	key = "WARP_DRIVE_1"
+	key = "BIO_WARP_DRIVE_1"
 	size = small
-	icon = "GFX_ship_part_warp_drive_1"
+	icon = "GFX_ship_part_bioship_warp_drive_1"
 	icon_frame = 1
 	power = @power1
 	resources = {
 		category = ship_components
 		cost = {
-			alloys = @cost1
+			food = @cost1
+			mult = @alloy_to_food_cost_ratio
 		}
 	}
 	ftl = yes
@@ -48,28 +48,29 @@ utility_component_template = {
 	potential = {
 		is_eager_explorer_ship = no
 		from = {
-			country_uses_bio_ships = no
+			country_uses_bio_ships = yes
 		}
 	}
 
 	show_tech_unlock_if = {
-		country_uses_bio_ships = no
+		country_uses_bio_ships = yes
 	}
 	prerequisites = { "tech_hyper_drive_1" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_2"
+	upgrades_to = "BIO_WARP_DRIVE_2"
 }
 
 utility_component_template = {
-	key = "WARP_DRIVE_2"
+	key = "BIO_WARP_DRIVE_2"
 	size = small
-	icon = "GFX_ship_part_warp_drive_2"
+	icon = "GFX_ship_part_bioship_warp_drive_2"
 	icon_frame = 1
 	power = @power2
 	resources = {
 		category = ship_components
 		cost = {
-			alloys = @cost2
+			food = @cost2
+			mult = @alloy_to_food_cost_ratio
 		}
 	}
 	ftl = yes
@@ -93,28 +94,29 @@ utility_component_template = {
 	potential = {
 		is_eager_explorer_ship = no
 		from = {
-			country_uses_bio_ships = no
+			country_uses_bio_ships = yes
 		}
 	}
 
 	show_tech_unlock_if = {
-		country_uses_bio_ships = no
+		country_uses_bio_ships = yes
 	}
 	prerequisites = { "tech_hyper_drive_2" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_3"
+	upgrades_to = "BIO_WARP_DRIVE_3"
 }
 
 utility_component_template = {
-	key = "WARP_DRIVE_3"
+	key = "BIO_WARP_DRIVE_3"
 	size = small
-	icon = "GFX_ship_part_warp_drive_3"
+	icon = "GFX_ship_part_bioship_warp_drive_3"
 	icon_frame = 1
 	power = @power3
 	resources = {
 		category = ship_components
 		cost = {
-			alloys = @cost3
+			food = @cost3
+			mult = @alloy_to_food_cost_ratio
 		}
 	}
 	ftl = yes
@@ -138,42 +140,33 @@ utility_component_template = {
 	potential = {
 		is_eager_explorer_ship = no
 		from = {
-			country_uses_bio_ships = no
+			country_uses_bio_ships = yes
 		}
 	}
 
 	show_tech_unlock_if = {
-		country_uses_bio_ships = no
+		country_uses_bio_ships = yes
 	}
 	prerequisites = { "tech_hyper_drive_3" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_4"
+	upgrades_to = "BIO_WARP_DRIVE_4"
 }
 
+### Jump drives
+
 utility_component_template = {
-	key = "WARP_DRIVE_4"
+	key = "BIO_WARP_DRIVE_4"
 	size = small
-	icon = "GFX_ship_part_warp_drive_4"
+	icon = "GFX_ship_part_bioship_warp_drive_4"
 	icon_frame = 1
 	power = @power4
 	resources = {
 		category = ship_components
 		cost = {
-			alloys = @cost4
+			food = @cost4
+			mult = @alloy_to_food_cost_ratio
 		}
 	}
-
-	potential = {
-		ship_uses_jump_drives = yes
-		from = {
-			country_uses_bio_ships = no
-		}
-	}
-
-	show_tech_unlock_if = {
-		country_uses_bio_ships = no
-	}
-
 	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
@@ -192,36 +185,36 @@ utility_component_template = {
 		}
 	}
 
+	potential = {
+		ship_uses_jump_drives = yes
+		from = {
+			country_uses_bio_ships = yes
+		}
+	}
+
+	show_tech_unlock_if = {
+		country_uses_bio_ships = yes
+	}
+
 	prerequisites = { "tech_jump_drive_1" }
 	component_set = "ftl_components"
-	upgrades_to = "WARP_DRIVE_5"
+	upgrades_to = "BIO_WARP_DRIVE_5"
 }
 
 ### Jump drives
 utility_component_template = {
-	key = "WARP_DRIVE_5"
+	key = "BIO_WARP_DRIVE_5"
 	size = small
-	icon = "GFX_ship_part_warp_drive_5"
+	icon = "GFX_ship_part_bioship_warp_drive_5"
 	icon_frame = 1
 	power = @power4
 	resources = {
 		category = ship_components
 		cost = {
-			alloys = @cost4
+			food = @cost4
+			mult = @alloy_to_food_cost_ratio
 		}
 	}
-
-	potential = {
-		ship_uses_jump_drives = yes
-		from = {
-			country_uses_bio_ships = no
-		}
-	}
-
-	show_tech_unlock_if = {
-		country_uses_bio_ships = no
-	}
-
 	ftl = yes
 	jumpdrive = yes
 	ship_modifier = {
@@ -240,6 +233,16 @@ utility_component_template = {
 		}
 	}
 
+	potential = {
+		ship_uses_jump_drives = yes
+		from = {
+			country_uses_bio_ships = yes
+		}
+	}
+
+	show_tech_unlock_if = {
+		country_uses_bio_ships = yes
+	}
 	prerequisites = { "tech_psi_jump_drive_1" }
 	component_set = "ftl_components"
 }

@@ -1,4 +1,0 @@
-	# NAI = {
-	# 	SHIP_DESIGN_STALE_MONTHS = 6 # 24			# AI will redesign its per-role custom designs this often (from scratch;
-	# 												# new tech will upgrade individual components more often however)
-	# }

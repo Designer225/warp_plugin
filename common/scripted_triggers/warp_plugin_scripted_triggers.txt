@@ -2,12 +2,23 @@
 ship_has_warp_drives = {
 	or = {
 		has_component = EMPTY_DRIVE
-		has_component = EMPTY_DRIVE_CIVILIAN
+		has_component = BIO_EMPTY_DRIVE
+		has_component = GUARDIAN_DRIVE
 		has_component = BIO_DRIVE
+		has_component = BIO_DRIVE_2
+		has_component = BIO_DRIVE_3
+		has_component = BIO_DRIVE_4
+		has_component = BIO_DRIVE_5
 		has_component = WARP_DRIVE_1
 		has_component = WARP_DRIVE_2
 		has_component = WARP_DRIVE_3
 		has_component = WARP_DRIVE_4
+		has_component = WARP_DRIVE_5
+		has_component = BIO_WARP_DRIVE_1
+		has_component = BIO_WARP_DRIVE_2
+		has_component = BIO_WARP_DRIVE_3
+		has_component = BIO_WARP_DRIVE_4
+		has_component = BIO_WARP_DRIVE_5
 	}
 }
 
@@ -18,10 +29,7 @@ fleet_has_warp_drive = {
 }
 
 country_prefers_warp_drives = {
-	OR = {
-		has_civic = civic_warp_ftl_theory
-		has_country_flag = uses_warp_drives
-	}
+	has_modifier = warp_plugin_warp_ftl_theory
 }
 
 fleet_has_warp_failure = {

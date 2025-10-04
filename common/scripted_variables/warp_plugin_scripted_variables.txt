@@ -7,6 +7,7 @@
 # T2: 60 -> 200 days
 # T3: 80 -> 200 days
 # T4: 100 -> 200 days
+# T5: 150 -> 250 days
 
 # warp speed
 @empty_drive_speed_mult = 0.01
@@ -14,6 +15,7 @@
 @warp_drive_2_speed_mult = 0.3
 @warp_drive_3_speed_mult = 0.4
 @warp_drive_4_speed_mult = 0.5
+@warp_drive_5_speed_mult = 0.6
 
 # warp range
 @empty_drive_range_mult = -0.8
@@ -21,6 +23,7 @@
 @warp_drive_2_range = -0.4
 @warp_drive_3_range = -0.2
 @warp_drive_4_range = 0
+@warp_drive_5_range = 0.5
 
 # warp entry distance - randomized
 @warp_entry_distance = 1000

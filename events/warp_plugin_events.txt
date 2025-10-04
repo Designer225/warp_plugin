@@ -7,6 +7,7 @@ event = {
 	id = warp_plugin.1000
 	hide_window = yes
 	is_triggered_only = yes
+	fire_only_once = yes
 
 	immediate = {
 		set_global_flag = warp_plugin_installed
@@ -15,90 +16,42 @@ event = {
 
 # called on game start
 country_event = {
-	id = warp_plugin.0
-	title = warp_plugin.0.name
+	id = warp_plugin.1001
+	title = warp_plugin.1001.name
 	picture = GFX_evt_ship_travel
 	show_sound = event_ship_thrusters
 	is_triggered_only = yes
+	fire_only_once = yes
 	
 	desc = {
 		trigger = {
-			not = { has_civic = civic_warp_ftl_theory }
+			country_prefers_warp_drives = yes
 		}
-		text = warp_plugin.0.desc
+		text = warp_plugin.1001.desc
 	}
+
 	desc = {
 		trigger = {
-			has_civic = civic_warp_ftl_theory
+			country_prefers_warp_drives = no
 		}
-		text = warp_plugin.0.desc.civic
+		text = warp_plugin.1001.desc.hyper
 	}
 
 	immediate = {
 		if = {
 			limit = {
-				country_prefers_warp_drives = yes
-			}
-			if = {
-				limit = {
-					NOT = { has_civic = civic_warp_ftl_theory }
+				owner_main_species = {
+					has_trait = trait_warp_ftl_theory
 				}
-				force_add_civic = civic_warp_ftl_theory
 			}
-			if = {
-				limit = {
-					is_eager_explorer_empire = yes # does not start with FTL tech
-				}
-				add_research_option = tech_warp_drive_1
-			}
-			else = {
-				give_technology = {
-					tech = tech_warp_drive_1
-					message = no
-				}
+			add_modifier = {
+				modifier = warp_plugin_warp_ftl_theory
 			}
 		}
 	}
-
-	option = {
-		name = warp_plugin.0.a
-		trigger = {
-			NOT = { has_civic = civic_warp_ftl_theory }
-		}
-		if = {
-			limit = {
-				NOT = { has_civic = civic_warp_ftl_theory }
-			}
-			force_add_civic = civic_warp_ftl_theory
-		}
-		if = {
-			limit = {
-				is_eager_explorer_empire = yes # does not start with FTL tech
-			}
-			add_research_option = tech_warp_drive_1
-		}
-		else = {
-			give_technology = {
-				tech = tech_warp_drive_1
-			}
-		}
-		ai_chance = {
-			weight = 0
-		}
-	}
-
-	option = {
-		name = warp_plugin.0.b
-		trigger = {
-			NOT = { has_civic = civic_warp_ftl_theory }
-		}
-	}
-
+	
 	option = {
 		name = ACKNOWLEDGED
-		trigger = {
-			has_civic = civic_warp_ftl_theory
-		}
 	}
 }
 

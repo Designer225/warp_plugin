@@ -2,16 +2,11 @@
 Reimplements warp travel within the confines of post-Cherryh/Apocalypse Stellaris.
 
 # Features
-* Simulates warp travel, complete with variable travel time based on travel distance (minimum 20 days).
+* Simulates warp travel, complete with variable travel time based on travel distance (minimum 10 days).
 * Fleet arrival timers - implemented as situations, has the option to rush jumps (for a possibility of failure).
     * Notifications for when a fleet has arrived or gone MIA. (Currently reuses ESN alerts to avoid overwriting alerts.txt.)
-* Four tiers of warp drives, each with longer range and faster warp speeds.
-* New civic: Warp FTL Theory - increased chance to receive warp drive tech research choices, and AI will prefer warp drives over hyper drives.
-    * An event at game start will give the option to take the civic if you haven't already have one. The AI will never take it.
-    * Alternatively, adding the `uses_warp_drives` to an empire will force the mod to give it the civic at game start, and only at game start.
-        * Note that only direct relations are affected, though any potential indirect relations are a moot point because usually an empire can be independent, in a federation, or a vassal, but not any combination of the three (except for hegemonic federations, but those are direct relations and thus moot), at game start.
-    * Note: with Eager Explorer (or similar civic), a research option is given instead.
-    * Without the civic, the option becomes available once Tech 4 is reached.
+* Five tiers of warp drives, each with longer range and faster warp speeds.
+* New trait: Warp FTL Theory - enhanced warp drives for empire species, and AI will prefer warp drives over hyper drives.
 
 # Limitations
 The warp system is implemented within the confines of post-Cherryh/Apocalypse Stellaris. Specifically, version 3.8. The last version with built-in warp drive code was 1.9. Unsurprisingly, some workarounds had to be done.
@@ -22,6 +17,6 @@ The warp system is implemented within the confines of post-Cherryh/Apocalypse St
     * Approaches exist to either speed up the warp while risking possible failures, or just keep warping as normal.
 * For some reason, only civilian ships (and possibly single-ship fleets - need testing) can trigger the on_ship_order on-action. An event that triggers on daily (with checks to make sure only a fleet that is jumping is eligible) is used as a workaround.
     * This may affect performance if a large number of fleets are using warp drives.
-* To avoid overwriting files too much, only "No Drive" and "Bio-Drive" options have been overwritten. Countries will start with Warp Drives only if they have the __Warp FTL Theory__ civic, but they can research it otherwise.
-    * This is a compromise done to maximize mod compatibility. The affected drives are also not commonly used by playable countries anyway (Bubbles excepting).
+* To avoid overwriting files too much, only "No Drive" and "Bio-Drive" options have been overwritten. For now, due to ongoing rewrite, countries will start with Warp Drives alongside Hyper Drives.
+    * This is a compromise done to maximize mod compatibility. As of Grand Archive (3.14), most of the affected drives are used by space fauna.
 * Some builds have FTL enabled to allow the AI to use warp drives in a limited capacity since **the AI just. Doesn't. Know. How. To. Pathfind. Using. Only. Jump. Drives.** (Except in wartime, apparently.) After some back-and-forth, I decided on keeping hyper FTL on the warp drives since disabling it also causes bypasses to be unusable for normal players for some reason.

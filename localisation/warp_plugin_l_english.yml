@@ -1,12 +1,34 @@
 ﻿l_english:
  # components
+ WARP_DRIVE_1:0 "Warp Drive I"
+ WARP_DRIVE_1_DESC:1 "Warp Drives allow FTL travel from anywhere in a star system to the edge of another, with limited range and wind-up and wind-down periods at departure and arrival."
+ WARP_DRIVE_2:0 "Warp Drive II"
+ WARP_DRIVE_2_DESC:1 "$WARP_DRIVE_1_DESC$"
+ WARP_DRIVE_3:0 "Warp Drive III"
+ WARP_DRIVE_3_DESC:1 "$WARP_DRIVE_1_DESC$"
  WARP_DRIVE_4:0 "Warp Drive IV"
  WARP_DRIVE_4_DESC:1 "$WARP_DRIVE_1_DESC$"
+ WARP_DRIVE_5:0 "Warp Drive V"
+ WARP_DRIVE_5_DESC:1 "$WARP_DRIVE_1_DESC$"
 
- # civics
- civic_warp_ftl_theory:0 "Warp FTL Theory"
- civic_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
- civic_warp_ftl_theory_effects:0 "Significantly §Yincreased§! chance to receive research options for warp drives. In addition, AI empires with this civic will §Yfavor§! warp drives over hyperdrives.\nThis option §Hdoes not block off§! hyperdrives; both options will exist simultaneously, unless starting as an §HEager Explorers§!-type empire. In that case, the empire will start with Warp Drives only if it has this civic, and in any case both (where applicable) will be researchable options."
+ BIO_WARP_DRIVE_1:0 "Bio-Warp Field I"
+ BIO_WARP_DRIVE_1_DESC:1 "Constantly warping subspace allows a ship to travel from anywhere in a star system to the edge of another, with limited range and wind-up and wind-down periods at departure and arrival."
+ BIO_WARP_DRIVE_2:0 "Bio-Warp Field II"
+ BIO_WARP_DRIVE_2_DESC:1 "$WARP_DRIVE_1_DESC$"
+ BIO_WARP_DRIVE_3:0 "Bio-Warp Field III"
+ BIO_WARP_DRIVE_3_DESC:1 "$WARP_DRIVE_1_DESC$"
+ BIO_WARP_DRIVE_4:0 "Bio-Warp Field IV"
+ BIO_WARP_DRIVE_4_DESC:1 "$WARP_DRIVE_1_DESC$"
+ BIO_WARP_DRIVE_5:0 "Bio-Warp Field V"
+ BIO_WARP_DRIVE_5_DESC:1 "$WARP_DRIVE_1_DESC$"
+
+ # traits
+ trait_warp_ftl_theory:0 "Warp FTL Theory"
+ trait_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary.\n\n$trait_warp_ftl_theory_effects$"
+ trait_warp_ftl_theory_effects:0 "Enhances §Ywarp drives§!, increasing their range and speed, and decreases the influence cost for §Ynew outposts§!. In addition, AI empires with this civic will §Yfavor§! warp drives over hyperdrives.\nThis option §Hdoes not block off§! hyperdrives; both options will exist simultaneously."
+
+ warp_plugin_warp_ftl_theory:0 "$trait_warp_ftl_theory$"
+ warp_plugin_warp_ftl_theory_desc:0 "$trait_warp_ftl_theory_desc$"
 
  # situation: warp in progress
  situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.distance_traveled]§! Days)"
@@ -53,25 +75,12 @@
  warp_plugin_warp_in_progress:0 "Warp in Progress"
  warp_plugin_warp_in_progress_first_contact:0 "Warp in Progress"
 
- # tech
- tech_warp_drive_4:0 "Warp Optimization"
- tech_warp_drive_4_desc:0 "Optimizations into warp calculations will allow our ships to jump faster at even longer distances."
-
- TECH_UNLOCK_WARPDRIVE_1_TITLE:0 "§HUnlocks Component:§! Warp Drive I"
- TECH_UNLOCK_WARPDRIVE_1_DESC:0 "§HWarp Drive I§!\n$tech_warp_drive_1_desc$"
- TECH_UNLOCK_WARPDRIVE_2_TITLE:0 "§HUnlocks Component:§! Warp Drive II"
- TECH_UNLOCK_WARPDRIVE_2_DESC:0 "§HWarp Drive II§!\n$tech_warp_drive_2_desc$"
- TECH_UNLOCK_WARPDRIVE_3_TITLE:0 "§HUnlocks Component:§! Warp Drive III"
- TECH_UNLOCK_WARPDRIVE_3_DESC:0 "§HWarp Drive III§!\n$tech_warp_drive_3_desc$"
- TECH_UNLOCK_WARPDRIVE_4_TITLE:0 "§HUnlocks Component:§! Warp Drive IV"
- TECH_UNLOCK_WARPDRIVE_4_DESC:0 "§HWarp Drive IV§!\n$tech_warp_drive_4_desc$"
-
  # events
- warp_plugin.0.name:0 "Warp Drives Activated"
- warp_plugin.0.desc:0 "Thank you for installing §YWarp Drives§!!\n\nCurrently, you don't have the §HWarp FTL Theory§! civic. Do you want to add it now? This will make your country prefer warp drives in weight calculations."
- warp_plugin.0.desc.civic:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, no action is necessary. Happy warp travelling!"
- warp_plugin.0.a:0 "To parts unknown!"
- warp_plugin.0.b:0 "We'll stay on the beaten path..."
+ warp_plugin.1001.name:0 "Warp Drives Activated"
+ warp_plugin.1001.desc:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, your ships will prefer equipping §HWarp Drives§! unless they are eclipsed by more advanced FTL tech. Your warp drives have also been enhanced.\n\n$warp_drive_instructions$"
+ warp_plugin.1001.desc.hyper:0 "Thank you for installing §YWarp Drives§!!\n\nSince you do not have the §HWarp FTL Theory§! civic, your ships will prefer §HHyper Drives§! unless they are eclipsed by more advanced FTL tech. However, you may manually mount §HWarp Drives§! on your ships at any time.\n\n$warp_drive_instructions$"
+ warp_drive_instructions:0 "Currently, warp drives work through the §HFTL Jump§! mechanic, but simulates the travel by event-locking the warping fleet until it 'arrives' in the system. You can thus travel unbounded by hyperlanes, but note that if your ship travels to a system you loses access to and it has no direct hyperlane connections to your territory, the Emergency FTL back home §Pmay take significantly longer§!."
+
  warp_plugin.102.name:0 "Fleet System Overstress"
  warp_plugin.102.desc:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! one or more of its ships' systems.\n\nIt will take a month to restore the faulted systems back to full operation."
 

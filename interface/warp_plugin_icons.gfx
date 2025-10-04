@@ -1,7 +1,52 @@
 spriteTypes = {
 
 	spriteType = {
+		name = "GFX_ship_part_warp_drive_1"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_1.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_warp_drive_2"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_2.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_warp_drive_3"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
+	}
+
+	spriteType = {
 		name = "GFX_ship_part_warp_drive_4"
-		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_4.dds"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_warp_drive_5"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_bioship_warp_drive_1"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_1.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_bioship_warp_drive_2"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_2.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_bioship_warp_drive_3"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_bioship_warp_drive_4"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
+	}
+
+	spriteType = {
+		name = "GFX_ship_part_bioship_warp_drive_5"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
 	}
 }

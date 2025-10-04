@@ -37,7 +37,7 @@ defined_text = {
 	text = {
 		localization_key = colony.3022.warp
 		trigger = {
-			has_civic = civic_warp_ftl_theory
+			has_modifier = warp_plugin_warp_ftl_theory
 		}
 	}
 	default = colony.3022.default
@@ -50,7 +50,7 @@ defined_text = {
 	text = {
 		localization_key = colony.3023.desc.warp
 		trigger = {
-			has_civic = civic_warp_ftl_theory
+			has_modifier = warp_plugin_warp_ftl_theory
 		}
 	}
 	default = colony.3023.desc.default
@@ -63,7 +63,7 @@ defined_text = {
 	text = {
 		localization_key = colony.3023.a.warp
 		trigger = {
-			has_civic = civic_warp_ftl_theory
+			has_modifier = warp_plugin_warp_ftl_theory
 		}
 	}
 	default = colony.3023.a.default
@@ -76,7 +76,7 @@ defined_text = {
 	text = {
 		localization_key = colony.3024.desc.warp
 		trigger = {
-			has_civic = civic_warp_ftl_theory
+			has_modifier = warp_plugin_warp_ftl_theory
 		}
 	}
 	default = colony.3024.desc.default
