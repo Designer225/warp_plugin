@@ -22,13 +22,23 @@
  BIO_WARP_DRIVE_5:0 "Bio-Warp Field V"
  BIO_WARP_DRIVE_5_DESC:1 "$WARP_DRIVE_1_DESC$"
 
- # traits
+ # traits and concepts
+ concept_warp_drive:0 "Warp Drive"
+ concept_warp_drives:0 "Warp Drives"
+ concept_warp_drives_desc:0 "A heterodox means of interstellar travel, §H$concept_warp_drives$§! distorts the spacetime around their ships, achieving faster-than-light travel by moving space around them."
+
+ concept_hyper_drive:0 "Hyper Drive"
+ concept_hyper_drives:0 "Hyper Drives"
+ concept_hyper_drives_desc:0 "Serving as the primary means of interstellar travel, §H$concept_hyper_drives$§! access ['concept_hyperlanes'], naturally occuring subspace conduits that connect between two systems, to travel between the stars."
+
+ concept_warp_ftl_theory:0 "Warp FTL Theory"
+ concept_warp_ftl_theory_desc:0 "- $MOD_SHIP_INTERSTELLAR_SPEED_MULT$: §G+25%§!\n- $MOD_SHIP_FTL_JUMPDRIVE_RANGE_MULT$: §G+10%§!\n- $MOD_COUNTRY_STARBASE_INFLUENCE_COST_DISTANCE_MULT$: §G-75%§!\n- Ship designer will §Yfavor§! ['concept_warp_drives'] over ['concept_hyper_drives'].\n\n§L$warp_plugin_warp_ftl_theory_desc$§!"
+
  trait_warp_ftl_theory:0 "Warp FTL Theory"
- trait_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary.\n\n$trait_warp_ftl_theory_effects$"
- trait_warp_ftl_theory_effects:0 "Enhances §Ywarp drives§!, increasing their range and speed, and decreases the influence cost for §Ynew outposts§!. In addition, AI empires with this civic will §Yfavor§! warp drives over hyperdrives.\nThis option §Hdoes not block off§! hyperdrives; both options will exist simultaneously."
+ trait_warp_ftl_theory_desc:0 "$warp_plugin_warp_ftl_theory_desc$\n\nStarting ships of ths species' empire will receive ['concept_warp_drives'] in place of ['concept_hyper_drives']. Additionally, the empire gains the ['concept_warp_ftl_theory'] modifier."
 
  warp_plugin_warp_ftl_theory:0 "$trait_warp_ftl_theory$"
- warp_plugin_warp_ftl_theory_desc:0 "$trait_warp_ftl_theory_desc$"
+ warp_plugin_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
 
  # situation: warp in progress
  situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.distance_traveled]§! Days)"

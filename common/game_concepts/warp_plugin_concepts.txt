@@ -1,0 +1,21 @@
+concept_warp_drives = {
+	alias = { concept_warp_drive }
+	databank = {
+		category = db_empire
+		icon = GFX_text_databank_empire
+		picture = GFX_evt_treasure_hunt_1
+	}
+}
+
+concept_hyper_drives = {
+	alias = { concept_hyper_drive }
+	databank = {
+		category = db_empire
+		icon = GFX_text_databank_empire
+		picture = GFX_evt_treasure_hunt_1
+	}
+}
+
+concept_warp_ftl_theory = {
+	icon = "gfx/interface/icons/modifiers/mod_ship_ftl_jumpdrive_range_mult.dds"
+}

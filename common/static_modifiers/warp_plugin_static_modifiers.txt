@@ -1,8 +1,8 @@
 
 warp_plugin_warp_ftl_theory = {
+	icon = "gfx/interface/icons/modifiers/mod_ship_ftl_jumpdrive_range_mult.dds"
 	ship_interstellar_speed_mult = 0.25
 	ship_ftl_jumpdrive_range_mult = 0.1
-	country_government_civic_points_add = 1
 	country_starbase_influence_cost_distance_mult = -0.75
 }
 

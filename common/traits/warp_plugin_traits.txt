@@ -1,6 +1,6 @@
 trait_warp_ftl_theory = {
 	cost = 0
-	icon = "gfx/interface/icons/governments/civics/civic_warp_ftl_theory.dds"
+	icon = "gfx/interface/icons/traits/trait_warp_ftl_theory.dds"
 	species_potential_add = { always = no }
 	species_possible_remove = { always = yes }
 	species_possible_merge_add = { always = no }

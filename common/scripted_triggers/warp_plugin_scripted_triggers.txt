@@ -29,7 +29,12 @@ fleet_has_warp_drive = {
 }
 
 country_prefers_warp_drives = {
-	has_modifier = warp_plugin_warp_ftl_theory
+	OR = {
+		owner_species = {
+			has_trait = trait_warp_ftl_theory
+		}
+		has_modifier = warp_plugin_warp_ftl_theory
+	}
 }
 
 fleet_has_warp_failure = {
