@@ -10,7 +10,7 @@ situation_warp_in_progress = {
 		# monthly rate = 100 / total time * 30
 		set_variable = {
 			which = total_days
-			value = target.distance_traveled
+			value = target.warp_time_remaining
 		}
 		set_variable = {
 			which = progress_rate
@@ -37,7 +37,7 @@ situation_warp_in_progress = {
 	}
 	abort_trigger = {
 		target = {
-			not = { is_variable_set = distance_traveled }
+			not = { is_variable_set = warp_time_remaining }
 		}
 	}
 	
@@ -94,14 +94,14 @@ situation_warp_in_progress = {
 					remove_situation_flag = warp_in_progress_accelerating
 					target = {
 						multiply_variable = {
-							which = distance_traveled
+							which = warp_time_remaining
 							value = 5
 						}
 						divide_variable = {
-							which = distance_traveled
+							which = warp_time_remaining
 							value = 4
 						}
-						ceiling_variable = distance_traveled
+						ceiling_variable = warp_time_remaining
 					}
 				}
 			}
@@ -130,14 +130,14 @@ situation_warp_in_progress = {
 					set_situation_flag = warp_in_progress_accelerating
 					target = {
 						multiply_variable = {
-							which = distance_traveled
+							which = warp_time_remaining
 							value = 4
 						}
 						divide_variable = {
-							which = distance_traveled
+							which = warp_time_remaining
 							value = 5
 						}
-						ceiling_variable = distance_traveled
+						ceiling_variable = warp_time_remaining
 					}
 				}
 			}

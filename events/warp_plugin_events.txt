@@ -100,33 +100,19 @@ fleet_event = {
 			# get distance from jump source to jump destination
 			export_trigger_value_to_variable = {
 				trigger = distance
-				variable = distance_traveled
+				variable = warp_distance_total
 				parameters = {
 					source = event_target:warp_from
 					type = euclidean
 				}
 			}
 			fleet_get_warp_speed_mult = yes # get fleet min warp speed
-			# modify warp time based on interstellar speed multiplier
-			divide_variable = {
-				which = distance_traveled
-				value = warp_speed_mult
+			set_variable = {
+				which = warp_time_remaining
+				value = value:warp_travel_time
 			}
-			ceiling_variable = distance_traveled # make sure whole distances are traveled
+			clear_variable = warp_distance_total
 			clear_variable = warp_speed_mult
-			# ensure ship waits out cooldown
-			if = {
-				limit = {
-					check_variable = {
-						which = distance_traveled
-						value < @min_warp_time
-					}
-				}
-				set_variable = {
-					which = distance_traveled
-					value = @min_warp_time
-				}
-			}
 			owner = {
 				start_situation = {
 					type = situation_warp_in_progress
@@ -246,7 +232,7 @@ fleet_event = {
 					not = { can_access_system = event_target:warp_to }
 				}
 			}
-			clear_variable = distance_traveled
+			clear_variable = warp_time_remaining
 			set_event_locked = no
 			remove_modifier = warp_plugin_warp_in_progress
 			abort_situation = event_target:warp_situation
@@ -273,12 +259,12 @@ fleet_event = {
 		else_if = { # duration check
 			limit = {
 				check_variable = {
-					which = distance_traveled
+					which = warp_time_remaining
 					value > 0
 				}
 			}
 			subtract_variable = {
-				which = distance_traveled
+				which = warp_time_remaining
 				value = 1
 			}
 			event_target:warp_situation = {
@@ -288,7 +274,7 @@ fleet_event = {
 			fleet_event = { id = warp_plugin.110 days = 1 }
 		}
 		else = { # on warp end
-			clear_variable = distance_traveled
+			clear_variable = warp_time_remaining
 			# remove_modifier = warp_plugin_warp_in_progress
 			remove_modifier = warp_plugin_warp_in_progress
 			abort_situation = event_target:warp_situation

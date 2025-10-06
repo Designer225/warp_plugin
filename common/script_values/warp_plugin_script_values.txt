@@ -1,0 +1,13 @@
+
+warp_travel_time = {
+	modifier = {
+		set = warp_distance_total
+		is_variable_set = warp_distance_total
+	}
+	modifier = {
+		divide = warp_speed_mult
+		is_variable_set = warp_speed_mult
+	}
+	ceiling = yes
+	min = @min_warp_time
+}

@@ -41,9 +41,9 @@
  warp_plugin_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
 
  # situation: warp in progress
- situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.distance_traveled]§! Days)"
+ situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.warp_time_remaining]§! Days)"
  situation_warp_in_progress_type:0 "Warp in Progress"
- situation_warp_in_progress_desc:0 "The fleet is currently performing a §Hwarp jump§!. It will arrive in §Y[Target.distance_traveled]§! days."
+ situation_warp_in_progress_desc:0 "The fleet is currently performing a §Hwarp jump§!. It will arrive in §Y[Target.warp_time_remaining]§! days."
  situation_warp_in_progress_monthly_change_tooltip:0 "The fleet has the option to §Haccelerate its warp jump§!, §Rrisking potential failure modes§! upon arrival. These actions can only be attempted if the fleet is §Enot on final approach§!."
 
  warp_accelerating:0 "Accelerating"
