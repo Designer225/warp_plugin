@@ -68,41 +68,57 @@ fleet_event = {
 	}
 
 	immediate = {
-		fleet_event = { id = warp_plugin.101 }
+		# Sets flag for current fleet. This will be retrieved upon jump.
+		# Set to 2 days in case the fleet jumped and we need to retrieve the source location.
+		set_timed_fleet_flag = {
+			flag = warp_plugin_fleet_location_@solar_system
+			days = 2
+		}
 	}
 }
 
-# main pulse event, called after jump order has been started
-fleet_event = {
-	id = warp_plugin.101
+# called when ship with prototype drive jumps
+ship_event = {
+	id = warp_plugin.102
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
-		exists = this
-		fleet_has_warp_drive = yes
+		fleet = {
+			not = { has_fleet_flag = warp_plugin_active }
+			fleet_has_warp_drive = yes
+		}
 	}
 
 	immediate = {
-		set_timed_fleet_flag = {
-			flag = warp_plugin_active
-			days = 2
-		}
-		if = {
-			limit = {
-				has_fleet_flag = warp_plugin_warp_completed
-			}
-			remove_fleet_flag = warp_plugin_warp_completed
-			# save destination as event target, will be used to unload later
+		fleet = {
+			# Save destination scope.
 			solar_system = {
-				save_event_target_as = warp_to
+				save_event_target_as = warp_plugin_fleet_destination
+			}
+			# Remove the warp_plugin_fleet_location_@solar_system if it's set for this system.
+			# We need the other one; there's a reason the flag was set for 2 days.
+			if = {
+				limit = {
+					has_fleet_flag = warp_plugin_fleet_location_@solar_system
+				}
+				remove_fleet_flag = warp_plugin_fleet_location_@solar_system
+			}
+			# Now save the source scope.
+			random_system = {
+				limit = {
+					root.fleet = {
+						has_fleet_flag = warp_plugin_fleet_location_@prev
+					}
+				}
+				save_event_target_as = warp_plugin_fleet_source
 			}
 			# get distance from jump source to jump destination
 			export_trigger_value_to_variable = {
 				trigger = distance
 				variable = warp_distance_total
 				parameters = {
-					source = event_target:warp_from
+					source = event_target:warp_plugin_fleet_source
 					type = euclidean
 				}
 			}
@@ -122,7 +138,7 @@ fleet_event = {
 					limit = {
 						is_situation_type = situation_warp_in_progress
 						target = {
-							is_same_value = root
+							is_same_value = root.fleet
 						}
 					}
 					save_event_target_as = warp_situation
@@ -130,66 +146,6 @@ fleet_event = {
 			}
 			fleet_event = { id = warp_plugin.110 }
 		}
-		else_if = {
-			limit = {
-				has_fleet_order = jumpdrive_order
-			}
-			solar_system = {
-				save_event_target_as = warp_from
-			}
-			fleet_event = { id = warp_plugin.101 days = 1 }
-		}
-		else = {
-			remove_fleet_flag = warp_plugin_active
-		}
-	}
-}
-
-# called when ship with prototype drive jumps
-ship_event = {
-	id = warp_plugin.102
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		fleet = {
-			not = { has_fleet_flag = warp_plugin_warp_completed }
-			has_fleet_flag = warp_plugin_active
-			fleet_has_warp_drive = yes
-		}
-	}
-
-	immediate = {
-		fleet = {
-			set_timed_fleet_flag = {
-				flag = warp_plugin_warp_completed
-				days = 21
-			}
-			set_event_locked = yes
-			add_modifier = { modifier = warp_plugin_warp_in_progress }
-			# clear_orders = yes
-			fleet_event = {
-				id = warp_plugin.103
-				days = 20
-			}
-		}
-	}
-}
-
-# remove if warp is somehow not detected
-# called after waiting out the cooldown period (20 days with vanilla defines)
-fleet_event = {
-	id = warp_plugin.103
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		has_fleet_flag = warp_plugin_warp_completed
-	}
-
-	immediate = {
-		set_event_locked = no
-		remove_modifier = warp_plugin_warp_in_progress
 	}
 }
 
@@ -229,7 +185,7 @@ fleet_event = {
 			limit = {
 				OR = {
 					not = { exists = solar_system }
-					not = { can_access_system = event_target:warp_to }
+					not = { can_access_system = event_target:warp_plugin_fleet_destination }
 				}
 			}
 			clear_variable = warp_time_remaining
@@ -249,7 +205,7 @@ fleet_event = {
 				variable = {
 					type = name
 					localization = SYSTEM
-					scope = event_target:warp_to
+					scope = event_target:warp_plugin_fleet_destination
 				}
 			}
 			remove_fleet_flag = warp_plugin_active
@@ -296,7 +252,7 @@ fleet_event = {
 			}
 			remove_fleet_flag = warp_plugin_active
 			set_location = {
-				target = event_target:warp_to
+				target = event_target:warp_plugin_fleet_destination
 				distance = @warp_entry_distance
 				angle = random
 				direction = in_system
