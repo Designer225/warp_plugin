@@ -86,13 +86,13 @@
  warp_plugin_warp_in_progress_first_contact:0 "Warp in Progress"
 
  # events
- warp_plugin.1001.name:0 "Warp Drives Activated"
- warp_plugin.1001.desc:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, your ships will prefer equipping §HWarp Drives§! unless they are eclipsed by more advanced FTL tech. Your warp drives have also been enhanced.\n\n$warp_drive_instructions$"
- warp_plugin.1001.desc.hyper:0 "Thank you for installing §YWarp Drives§!!\n\nSince you do not have the §HWarp FTL Theory§! civic, your ships will prefer §HHyper Drives§! unless they are eclipsed by more advanced FTL tech. However, you may manually mount §HWarp Drives§! on your ships at any time.\n\n$warp_drive_instructions$"
+ warp_plugin.1.name:0 "Warp Drives Activated"
+ warp_plugin.1.desc:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, your ships will prefer equipping §HWarp Drives§! unless they are eclipsed by more advanced FTL tech. Your warp drives have also been enhanced.\n\n$warp_drive_instructions$"
+ warp_plugin.1.desc.hyper:0 "Thank you for installing §YWarp Drives§!!\n\nSince you do not have the §HWarp FTL Theory§! civic, your ships will prefer §HHyper Drives§! unless they are eclipsed by more advanced FTL tech. However, you may manually mount §HWarp Drives§! on your ships at any time.\n\n$warp_drive_instructions$"
  warp_drive_instructions:0 "Currently, warp drives work through the §HFTL Jump§! mechanic, but simulates the travel by event-locking the warping fleet until it 'arrives' in the system. You can thus travel unbounded by hyperlanes, but note that if your ship travels to a system you loses access to and it has no direct hyperlane connections to your territory, the Emergency FTL back home §Pmay take significantly longer§!."
 
- warp_plugin.102.name:0 "Fleet System Overstress"
- warp_plugin.102.desc:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! one or more of its ships' systems.\n\nIt will take a month to restore the faulted systems back to full operation."
+ warp_plugin.120.name:0 "Fleet System Overstress"
+ warp_plugin.120.desc:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! one or more of its ships' systems.\n\nIt will take a month to restore the faulted systems back to full operation."
 
  colony.3022.default:0 "The Warp Drive? We travel by Hyperlanes!"
  colony.3022.warp:0 "We travel by Warp Drives, too! We are aware of Hyperlanes, but..."

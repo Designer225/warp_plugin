@@ -4,7 +4,7 @@ namespace = warp_plugin
 # called on start and single player save load
 # if added after multiplayer start, blame the host for indecision
 event = {
-	id = warp_plugin.1000
+	id = warp_plugin.0
 	hide_window = yes
 	is_triggered_only = yes
 	fire_only_once = yes
@@ -28,8 +28,8 @@ event = {
 
 # called on game start
 country_event = {
-	id = warp_plugin.1001
-	title = warp_plugin.1001.name
+	id = warp_plugin.1
+	title = warp_plugin.1.name
 	picture = GFX_evt_ship_travel
 	show_sound = event_ship_thrusters
 	is_triggered_only = yes
@@ -39,14 +39,14 @@ country_event = {
 		trigger = {
 			country_prefers_warp_drives = yes
 		}
-		text = warp_plugin.1001.desc
+		text = warp_plugin.1.desc
 	}
 
 	desc = {
 		trigger = {
 			country_prefers_warp_drives = no
 		}
-		text = warp_plugin.1001.desc.hyper
+		text = warp_plugin.1.desc.hyper
 	}
 	
 	option = {
@@ -54,9 +54,27 @@ country_event = {
 	}
 }
 
+# triggers on every tick, but requires a warp drive and a jump order to execute
+fleet_event = {
+	id = warp_plugin.100
+	hide_window = yes
+	# is_triggered_only = yes
+	mean_time_to_happen = { days = 1 }
+
+	trigger = {
+		not = { has_fleet_flag = warp_plugin_active }
+		has_fleet_order = jumpdrive_order
+		fleet_has_warp_drive = yes
+	}
+
+	immediate = {
+		fleet_event = { id = warp_plugin.101 }
+	}
+}
+
 # main pulse event, called after jump order has been started
 fleet_event = {
-	id = warp_plugin.1
+	id = warp_plugin.101
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -124,7 +142,7 @@ fleet_event = {
 					save_event_target_as = warp_situation
 				}
 			}
-			fleet_event = { id = warp_plugin.10 }
+			fleet_event = { id = warp_plugin.110 }
 		}
 		else_if = {
 			limit = {
@@ -133,7 +151,7 @@ fleet_event = {
 			solar_system = {
 				save_event_target_as = warp_from
 			}
-			fleet_event = { id = warp_plugin.1 days = 1 }
+			fleet_event = { id = warp_plugin.101 days = 1 }
 		}
 		else = {
 			remove_fleet_flag = warp_plugin_active
@@ -141,27 +159,9 @@ fleet_event = {
 	}
 }
 
-# triggers on every tick, but requires a warp drive and a jump order to execute
-fleet_event = {
-	id = warp_plugin.2
-	hide_window = yes
-	# is_triggered_only = yes
-	mean_time_to_happen = { days = 1 }
-
-	trigger = {
-		not = { has_fleet_flag = warp_plugin_active }
-		has_fleet_order = jumpdrive_order
-		fleet_has_warp_drive = yes
-	}
-
-	immediate = {
-		fleet_event = { id = warp_plugin.1 }
-	}
-}
-
 # called when ship with prototype drive jumps
 ship_event = {
-	id = warp_plugin.3
+	id = warp_plugin.102
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -183,7 +183,7 @@ ship_event = {
 			add_modifier = { modifier = warp_plugin_warp_in_progress }
 			# clear_orders = yes
 			fleet_event = {
-				id = warp_plugin.4
+				id = warp_plugin.103
 				days = 20
 			}
 		}
@@ -193,7 +193,7 @@ ship_event = {
 # remove if warp is somehow not detected
 # called after waiting out the cooldown period (20 days with vanilla defines)
 fleet_event = {
-	id = warp_plugin.4
+	id = warp_plugin.103
 	hide_window = yes
 	is_triggered_only = yes
 
@@ -209,7 +209,7 @@ fleet_event = {
 
 # pulse event for when ship has jumped
 fleet_event = {
-	id = warp_plugin.10
+	id = warp_plugin.110
 	is_triggered_only = yes
 	hide_window = yes
 
@@ -285,7 +285,7 @@ fleet_event = {
 				add_situation_progress = progress_rate
 			}
 			warp_plugin_failure_roll = yes
-			fleet_event = { id = warp_plugin.10 days = 1 }
+			fleet_event = { id = warp_plugin.110 days = 1 }
 		}
 		else = { # on warp end
 			clear_variable = distance_traveled
@@ -323,9 +323,9 @@ fleet_event = {
 ## Situation: Warp in Progress
 # on abort - failures
 fleet_event = {
-	id = warp_plugin.102
-	title = warp_plugin.102.name
-	desc = warp_plugin.102.desc
+	id = warp_plugin.120
+	title = warp_plugin.120.name
+	desc = warp_plugin.120.desc
 	picture = GFX_evt_ship_travel
 	show_sound = event_ship_thrusters
 	is_triggered_only = yes

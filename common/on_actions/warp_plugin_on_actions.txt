@@ -2,13 +2,13 @@
 # Triggers when the game starts
 on_game_start = {
 	events = {
-		warp_plugin.1000
+		warp_plugin.0
 	}
 }
 
 on_game_start_country = {
 	events = {
-		warp_plugin.1001
+		warp_plugin.1
 	}
 }
 
@@ -16,13 +16,13 @@ on_game_start_country = {
 # Does not run when loading MP saves due to OOS concerns
 on_single_player_save_game_load = {
 	events = {
-		warp_plugin.1000
+		warp_plugin.0
 	}
 }
 
 # THIS = Ship
 on_jump_drive = {
 	events = {
-		warp_plugin.3
+		warp_plugin.102
 	}
 }

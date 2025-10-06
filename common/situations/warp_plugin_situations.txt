@@ -31,7 +31,7 @@ situation_warp_in_progress = {
 	on_abort = {
 		target = {
 			fleet_event = {
-				id = warp_plugin.102
+				id = warp_plugin.120
 			}
 		}
 	}
