@@ -122,10 +122,13 @@ ship_event = {
 					type = euclidean
 				}
 			}
-			fleet_get_warp_speed_mult = yes # get fleet min warp speed
+			fleet_get_warp_speed_mult = {
+				FLEET = this
+				OUTPUT = warp_speed_mult
+			}
 			set_variable = {
 				which = warp_time_remaining
-				value = value:warp_travel_time
+				value = value:warp_travel_time|DISTANCE|warp_distance_total|SPEED|warp_speed_mult|
 			}
 			clear_variable = warp_distance_total
 			clear_variable = warp_speed_mult
@@ -144,6 +147,7 @@ ship_event = {
 					save_event_target_as = warp_situation
 				}
 			}
+			set_event_locked = yes
 			fleet_event = { id = warp_plugin.110 }
 		}
 	}
@@ -226,7 +230,9 @@ fleet_event = {
 			event_target:warp_situation = {
 				add_situation_progress = progress_rate
 			}
-			warp_plugin_failure_roll = yes
+			warp_plugin_failure_roll = {
+				FLEET = this
+			}
 			fleet_event = { id = warp_plugin.110 days = 1 }
 		}
 		else = { # on warp end

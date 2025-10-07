@@ -1,109 +1,113 @@
 
 fleet_get_warp_speed_mult = {
-	random_owned_ship = {
-		limit = {
-			OR = {
-				has_component = BIO_DRIVE_5
-				has_component = WARP_DRIVE_5
-				has_component = BIO_WARP_DRIVE_5
+	$FLEET$ = {
+		random_owned_ship = {
+			limit = {
+				OR = {
+					has_component = BIO_DRIVE_5
+					has_component = WARP_DRIVE_5
+					has_component = BIO_WARP_DRIVE_5
+				}
 			}
+			save_event_target_as = warp_plugin_temp_fastest_ship
 		}
-		save_event_target_as = warp_plugin_temp_fastest_ship
-	}
-	random_owned_ship = {
-		limit = {
-			OR = {
-				has_component = BIO_DRIVE_4
-				has_component = WARP_DRIVE_4
-				has_component = BIO_WARP_DRIVE_4
-				has_component = GUARDIAN_DRIVE
+		random_owned_ship = {
+			limit = {
+				OR = {
+					has_component = BIO_DRIVE_4
+					has_component = WARP_DRIVE_4
+					has_component = BIO_WARP_DRIVE_4
+					has_component = GUARDIAN_DRIVE
+				}
 			}
+			save_event_target_as = warp_plugin_temp_fastest_ship
 		}
-		save_event_target_as = warp_plugin_temp_fastest_ship
-	}
-	random_owned_ship = {
-		limit = {
-			OR = {
-				has_component = BIO_DRIVE_3
-				has_component = WARP_DRIVE_3
-				has_component = BIO_WARP_DRIVE_3
+		random_owned_ship = {
+			limit = {
+				OR = {
+					has_component = BIO_DRIVE_3
+					has_component = WARP_DRIVE_3
+					has_component = BIO_WARP_DRIVE_3
+				}
 			}
+			save_event_target_as = warp_plugin_temp_fastest_ship
 		}
-		save_event_target_as = warp_plugin_temp_fastest_ship
-	}
-	random_owned_ship = {
-		limit = {
-			OR = {
-				has_component = BIO_DRIVE_2
-				has_component = WARP_DRIVE_2
-				has_component = BIO_WARP_DRIVE_2
+		random_owned_ship = {
+			limit = {
+				OR = {
+					has_component = BIO_DRIVE_2
+					has_component = WARP_DRIVE_2
+					has_component = BIO_WARP_DRIVE_2
+				}
 			}
+			save_event_target_as = warp_plugin_temp_fastest_ship
 		}
-		save_event_target_as = warp_plugin_temp_fastest_ship
-	}
-	random_owned_ship = {
-		limit = {
-			or = {
-				has_component = BIO_DRIVE
-				has_component = WARP_DRIVE_1
-				has_component = BIO_WARP_DRIVE_1
+		random_owned_ship = {
+			limit = {
+				or = {
+					has_component = BIO_DRIVE
+					has_component = WARP_DRIVE_1
+					has_component = BIO_WARP_DRIVE_1
+				}
 			}
+			save_event_target_as = warp_plugin_temp_fastest_ship
 		}
-		save_event_target_as = warp_plugin_temp_fastest_ship
-	}
-	random_owned_ship = {
-		limit = {
-			or = {
-				has_component = EMPTY_DRIVE
-				has_component = BIO_EMPTY_DRIVE
+		random_owned_ship = {
+			limit = {
+				or = {
+					has_component = EMPTY_DRIVE
+					has_component = BIO_EMPTY_DRIVE
+				}
 			}
+			save_event_target_as = warp_plugin_temp_fastest_ship
 		}
-		save_event_target_as = warp_plugin_temp_fastest_ship
-	}
 
-	if = {
-		limit = {
-			exists = event_target:warp_plugin_temp_fastest_ship
-		}
-		set_variable = {
-			which = warp_speed_mult
-			value = event_target:warp_plugin_temp_fastest_ship.modifier:ship_interstellar_speed_mult
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_temp_fastest_ship
+			}
+			set_variable = {
+				which = $OUTPUT$
+				value = event_target:warp_plugin_temp_fastest_ship.modifier:ship_interstellar_speed_mult
+			}
 		}
 	}
 }
 
 warp_plugin_failure_roll = {
-	random_list = {
-		99 = {}
-		1 = {
-			random_list = {
-				1 = {
-					set_fleet_flag = warp_plugin_weapon_failure
-				}
-				1 = {
-					set_fleet_flag = warp_plugin_propulsion_failure
-				}
-				1 = {
-					set_fleet_flag = warp_plugin_shield_failure
-				}
-				1 = {
-					set_fleet_flag = warp_plugin_armor_failure
-				}
-				1 = {
-					set_fleet_flag = warp_plugin_cloak_failure
-					modifier = {
-						factor = 0
-						has_first_contact_dlc = no
+	$FLEET$ = {	
+		random_list = {
+			99 = {}
+			1 = {
+				random_list = {
+					1 = {
+						set_fleet_flag = warp_plugin_weapon_failure
+					}
+					1 = {
+						set_fleet_flag = warp_plugin_propulsion_failure
+					}
+					1 = {
+						set_fleet_flag = warp_plugin_shield_failure
+					}
+					1 = {
+						set_fleet_flag = warp_plugin_armor_failure
+					}
+					1 = {
+						set_fleet_flag = warp_plugin_cloak_failure
+						modifier = {
+							factor = 0
+							has_first_contact_dlc = no
+						}
+					}
+					1 = {
+						set_fleet_flag = warp_plugin_sensor_failure
 					}
 				}
-				1 = {
-					set_fleet_flag = warp_plugin_sensor_failure
-				}
-			}
-			modifier = {
-				factor = 0
-				event_target:warp_situation = {
-					current_situation_approach = approach_normal_operations
+				modifier = {
+					factor = 0
+					event_target:warp_situation = {
+						current_situation_approach = approach_normal_operations
+					}
 				}
 			}
 		}
