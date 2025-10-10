@@ -1,5 +1,7 @@
 
 fleet_get_warp_speed_mult = {
+	optimize_memory
+
 	$FLEET$ = {
 		random_owned_ship = {
 			limit = {
@@ -75,6 +77,8 @@ fleet_get_warp_speed_mult = {
 }
 
 warp_plugin_failure_roll = {
+	optimize_memory
+
 	$FLEET$ = {	
 		random_list = {
 			99 = {}
@@ -115,6 +119,8 @@ warp_plugin_failure_roll = {
 }
 
 warp_plugin_wip_retrieve_scopes = {
+	optimize_memory
+
 	$FLEET$ = {
 		owner = {
 			random_situation = {
@@ -147,6 +153,8 @@ warp_plugin_wip_retrieve_scopes = {
 }
 
 warp_plugin_warp_end_cleanup = {
+	optimize_memory
+
 	$FLEET$ = {
 		# abort situation and clear flags
 		abort_situation = event_target:warp_situation
@@ -156,5 +164,409 @@ warp_plugin_warp_end_cleanup = {
 		set_event_locked = no
 		# clear variables 
 		clear_variable = warp_time_remaining
+		clear_variable = warp_time_total
+	}
+}
+
+# dynamically set MIA timer
+# Because set_mia_return_delay does not accept a variable, this workaround had to be used. This is absolutely bullshit.
+# Capped to 1000 days because it's unlikely warps will take that long, and because a line had to be drawn
+warp_plugin_get_digit = {
+	optimize_memory
+
+	set_variable = {
+		which = $OUTPUT$
+		value = $INPUT$
+	}
+	divide_variable = {
+		which = $OUTPUT$
+		value = $TENS_MULT$
+	}
+	modulo_variable = {
+		which = $OUTPUT$
+		value = 10
+	}
+	floor_variable = $OUTPUT$
+}
+
+warp_plugin_initiate_return_mia = {
+	optimize_memory
+
+	if = {
+		limit = {
+			can_go_mia = yes
+		}
+		set_mia = mia_return_home
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = $TIMER_VAR$
+				value > 999
+			}
+		}
+		set_mia_return_delay = 1000
+	}
+	else = {
+		# hundreds phase
+		warp_plugin_get_digit = {
+			INPUT = $TIMER_VAR$
+			TENS_MULT = 100
+			OUTPUT = digit
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 0
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 0
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 1
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 1
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 2
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 2
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 3
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 3
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 4
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 4
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 5
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 5
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 6
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 6
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 7
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 7
+			}
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = digit
+					value = 8
+				}
+			}
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 8
+			}
+		}
+		else = {
+			warp_plugin_initiate_return_mia_tens = {
+				TIMER_VAR = $TIMER_VAR$
+				HUNDREDS = 9
+			}
+		}
+	}
+}
+
+warp_plugin_initiate_return_mia_tens = {
+	optimize_memory
+
+	# tens phase
+	warp_plugin_get_digit = {
+		INPUT = $TIMER_VAR$
+		TENS_MULT = 10
+		OUTPUT = digit
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 0
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 0
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 1
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 1
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 2
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 2
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 3
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 3
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 4
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 4
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 5
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 5
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 6
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 6
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 7
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 7
+		}
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 8
+			}
+		}
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 8
+		}
+	}
+	else = {
+		warp_plugin_initiate_return_mia_ones = {
+			TIMER_VAR = $TIMER_VAR$
+			HUNDREDS = $HUNDREDS$
+			TENS = 9
+		}
+	}
+}
+
+warp_plugin_initiate_return_mia_ones = {
+	optimize_memory
+
+	# ones phase
+	warp_plugin_get_digit = {
+		INPUT = $TIMER_VAR$
+		TENS_MULT = 1
+		OUTPUT = digit
+	}
+	if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 0
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$0
+		log = $HUNDREDS$$TENS$0
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 1
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$1
+		log = $HUNDREDS$$TENS$1
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 2
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$2
+		log = $HUNDREDS$$TENS$2
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 3
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$3
+		log = $HUNDREDS$$TENS$3
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 4
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$4
+		log = $HUNDREDS$$TENS$4
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 5
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$5
+		log = $HUNDREDS$$TENS$5
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 6
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$6
+		log = $HUNDREDS$$TENS$6
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 7
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$7
+		log = $HUNDREDS$$TENS$7
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				which = digit
+				value = 8
+			}
+		}
+		set_mia_return_delay = $HUNDREDS$$TENS$8
+		log = $HUNDREDS$$TENS$8
+	}
+	else = {
+		set_mia_return_delay = $HUNDREDS$$TENS$9
+		log = $HUNDREDS$$TENS$9
 	}
 }

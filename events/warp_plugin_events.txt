@@ -143,6 +143,10 @@ ship_event = {
 				which = warp_time_remaining
 				value = value:warp_travel_time|DISTANCE|warp_distance_total|SPEED|warp_speed_mult|
 			}
+			set_variable = {
+				which = warp_time_total
+				value = warp_time_remaining
+			}
 			clear_variable = warp_distance_total
 			clear_variable = warp_speed_mult
 			# start situation
@@ -202,8 +206,18 @@ fleet_event = {
 				}
 			}
 			# send fleet to mia and notify owner
-			set_mia = mia_return_home
-			set_mia_return_delay = @mia_time
+			set_variable = {
+				which = warp_time_remaining
+				value = value:warp_mia_return_time|TOTAL|warp_time_total|REMAINING|warp_time_remaining|
+			}
+			set_saved_date = {
+				key = warp_plugin_arrival_date
+				days_from_present = warp_time_remaining
+				expires = warp_time_remaining
+			}
+			warp_plugin_initiate_return_mia = {
+				TIMER_VAR = warp_time_remaining
+			}
 			create_message = {
 				type = MESSAGE_TYPE_WARP_ABORTED
 				localization = MESSAGE_WARP_ABORTED
@@ -218,6 +232,12 @@ fleet_event = {
 					type = name
 					localization = SYSTEM
 					scope = event_target:warp_plugin_warp_destination
+				}
+				variable = {
+					type = variable
+					varname = warp_time_remaining
+					localization = DAYS
+					scope = this
 				}
 			}
 			# common cleanup

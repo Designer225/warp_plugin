@@ -45,7 +45,7 @@
  MESSAGE_WARP_ARRIVED:0 "$FLEET_NAME|Y$ has arrived in the $SYSTEM|Y$ system."
 
  MESSAGE_WARP_ABORTED_TITLE:0 "Warp Aborted"
- MESSAGE_WARP_ABORTED:0 "$FLEET_NAME|Y$'s order was aborted. The $SYSTEM|Y$ system became unavailable. It will now take §Y200§! days for the fleet to turn around and return."
+ MESSAGE_WARP_ABORTED:0 "$FLEET_NAME|Y$'s order was aborted. The $SYSTEM|Y$ system became unavailable. It will now take $DAYS|Y$ days for the fleet to turn around and return on §Y[This.warp_plugin_arrival_date]§!."
 
  # situation: warp in progress
  situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.warp_time_remaining]§! Days)"

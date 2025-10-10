@@ -11,3 +11,16 @@ warp_travel_time = {
 	ceiling = yes
 	min = @min_warp_time
 }
+
+warp_mia_return_time = {
+	modifier = {
+		set = $TOTAL$
+		is_variable_set = $TOTAL$
+	}
+	modifier = {
+		subtract = $REMAINING$
+		is_variable_set = $REMAINING$
+	}
+	ceiling = yes
+	min = @min_warp_time
+}

@@ -31,4 +31,3 @@
 # important: adjust with define jump cooldown and each other
 @warp_cooldown_reduction = -0.99
 @min_warp_time = 10
-@mia_time = 200 # hardcoded because set_mia_return_timer accepts only a hard-coded number

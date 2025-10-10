@@ -1,5 +1,7 @@
 
 ship_has_warp_drives = {
+	optimize_memory
+
 	or = {
 		has_component = EMPTY_DRIVE
 		has_component = BIO_EMPTY_DRIVE
@@ -23,12 +25,16 @@ ship_has_warp_drives = {
 }
 
 fleet_has_warp_drive = {
+	optimize_memory
+
 	any_owned_ship = {
 		ship_has_warp_drives = yes
 	}
 }
 
 country_prefers_warp_drives = {
+	optimize_memory
+
 	OR = {
 		owner_species = {
 			has_trait = trait_warp_ftl_theory
@@ -38,6 +44,8 @@ country_prefers_warp_drives = {
 }
 
 fleet_has_warp_failure = {
+	optimize_memory
+
 	OR = {
 		has_fleet_flag = warp_plugin_weapon_failure
 		has_fleet_flag = warp_plugin_propulsion_failure
