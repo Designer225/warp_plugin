@@ -54,25 +54,35 @@ country_event = {
 	}
 }
 
-# triggers on every tick, but requires a warp drive and a jump order to execute
+# triggers on every tick
 fleet_event = {
 	id = warp_plugin.100
 	hide_window = yes
-	# is_triggered_only = yes
 	mean_time_to_happen = { days = 1 }
 
 	trigger = {
-		not = { has_fleet_flag = warp_plugin_active }
-		has_fleet_order = jumpdrive_order
 		fleet_has_warp_drive = yes
 	}
 
 	immediate = {
-		# Sets flag for current fleet. This will be retrieved upon jump.
-		# Set to 2 days in case the fleet jumped and we need to retrieve the source location.
-		set_timed_fleet_flag = {
-			flag = warp_plugin_fleet_location_@solar_system
-			days = 2
+		if = {
+			limit = {
+				has_fleet_flag = warp_plugin_active
+			}
+			fleet_event = {
+				id = warp_plugin.110
+			}
+		}
+		else_if = {
+			limit = {
+				has_fleet_order = jumpdrive_order
+			}
+			# Sets flag for current fleet. This will be retrieved upon jump.
+			# Set to 2 days in case the fleet jumped and we need to retrieve the source location.
+			set_timed_fleet_flag = {
+				flag = warp_plugin_fleet_location_@solar_system
+				days = 2
+			}
 		}
 	}
 }
@@ -94,7 +104,7 @@ ship_event = {
 		fleet = {
 			# Save destination scope.
 			solar_system = {
-				save_event_target_as = warp_plugin_fleet_destination
+				save_event_target_as = warp_plugin_warp_destination
 			}
 			# Remove the warp_plugin_fleet_location_@solar_system if it's set for this system.
 			# We need the other one; there's a reason the flag was set for 2 days.
@@ -111,14 +121,17 @@ ship_event = {
 						has_fleet_flag = warp_plugin_fleet_location_@prev
 					}
 				}
-				save_event_target_as = warp_plugin_fleet_source
+				save_event_target_as = warp_plugin_warp_source
 			}
+			# set flags for both source and destination
+			set_fleet_flag = warp_plugin_warp_source_@event_target:warp_plugin_warp_source
+			set_fleet_flag = warp_plugin_warp_destination_@event_target:warp_plugin_warp_destination
 			# get distance from jump source to jump destination
 			export_trigger_value_to_variable = {
 				trigger = distance
 				variable = warp_distance_total
 				parameters = {
-					source = event_target:warp_plugin_fleet_source
+					source = event_target:warp_plugin_warp_source
 					type = euclidean
 				}
 			}
@@ -132,6 +145,7 @@ ship_event = {
 			}
 			clear_variable = warp_distance_total
 			clear_variable = warp_speed_mult
+			# start situation
 			owner = {
 				start_situation = {
 					type = situation_warp_in_progress
@@ -147,59 +161,49 @@ ship_event = {
 					save_event_target_as = warp_situation
 				}
 			}
+			# final setup, set relevant flags
 			set_event_locked = yes
+			set_fleet_flag = warp_plugin_active
 			set_saved_date = {
 				key = warp_plugin_arrival_date
 				days_from_present = warp_time_remaining
 				expires = warp_time_remaining
 			}
-			fleet_event = { id = warp_plugin.110 }
 		}
 	}
 }
 
-# pulse event for when ship has jumped
+# pulse event for when ship is warping (called from warp_plugin.100)
 fleet_event = {
 	id = warp_plugin.110
-	is_triggered_only = yes
 	hide_window = yes
-
-	trigger = {
-		exists = this
-	}
+	is_triggered_only = yes
 
 	immediate = {
-		set_timed_fleet_flag = {
-			flag = warp_plugin_active
-			days = 2
+		# get scopes
+		warp_plugin_wip_retrieve_scopes = {
+			FLEET = this
+			SITUATION_OUT = warp_situation
+			SOURCE_OUT = warp_plugin_warp_source
+			DESTINATION_OUT = warp_plugin_warp_destination
 		}
+
+		# tick down
+		subtract_variable = {
+			which = warp_time_remaining
+			value = 1
+		}
+
 		if = {
-			limit = {
-				not = { exists = event_target:warp_situation }
-			}
-			owner = {
-				random_situation = {
-					limit = {
-						is_situation_type = situation_warp_in_progress
-						target = {
-							is_same_value = root
-						}
-					}
-					save_event_target_as = warp_situation
-				}
-			}
-			# save_event_target_as = warp_target_system # used for MIA
-		}
-		if = { # mia check
-			limit = {
+			limit = { # mia check
 				OR = {
 					not = { exists = solar_system }
-					not = { can_access_system = event_target:warp_plugin_fleet_destination }
+					not = { can_access_system = event_target:warp_plugin_warp_destination }
 				}
 			}
-			clear_variable = warp_time_remaining
-			set_event_locked = no
-			abort_situation = event_target:warp_situation
+			# send fleet to mia and notify owner
+			set_mia = mia_return_home
+			set_mia_return_delay = @mia_time
 			create_message = {
 				type = MESSAGE_TYPE_WARP_ABORTED
 				localization = MESSAGE_WARP_ABORTED
@@ -213,35 +217,22 @@ fleet_event = {
 				variable = {
 					type = name
 					localization = SYSTEM
-					scope = event_target:warp_plugin_fleet_destination
+					scope = event_target:warp_plugin_warp_destination
 				}
 			}
-			remove_fleet_flag = warp_plugin_active
-			set_mia = mia_return_home
-			set_mia_return_delay = @mia_time
+			# common cleanup
+			warp_plugin_warp_end_cleanup = {
+				FLEET = this
+			}
 		}
-		else_if = { # duration check
+		else_if = { # warp complete
 			limit = {
 				check_variable = {
 					which = warp_time_remaining
-					value > 0
+					value = 0
 				}
 			}
-			subtract_variable = {
-				which = warp_time_remaining
-				value = 1
-			}
-			event_target:warp_situation = {
-				add_situation_progress = progress_rate
-			}
-			warp_plugin_failure_roll = {
-				FLEET = this
-			}
-			fleet_event = { id = warp_plugin.110 days = 1 }
-		}
-		else = { # on warp end
-			clear_variable = warp_time_remaining
-			abort_situation = event_target:warp_situation
+			# randomize fleet location in system and notify owner of arrival
 			create_message = {
 				type = MESSAGE_TYPE_WARP_ARRIVED
 				localization = MESSAGE_WARP_ARRIVED
@@ -258,14 +249,24 @@ fleet_event = {
 					scope = solar_system
 				}
 			}
-			remove_fleet_flag = warp_plugin_active
 			set_location = {
-				target = event_target:warp_plugin_fleet_destination
+				target = event_target:warp_plugin_warp_destination
 				distance = @warp_entry_distance
 				angle = random
 				direction = in_system
 			}
-			set_event_locked = no
+			# common cleanup
+			warp_plugin_warp_end_cleanup = {
+				FLEET = this
+			}
+		}
+		else = { # update situation
+			event_target:warp_situation = {
+				add_situation_progress = progress_rate
+			}
+			warp_plugin_failure_roll = {
+				FLEET = this
+			}
 		}
 	}
 }

@@ -33,6 +33,8 @@ situation_warp_in_progress = {
 			fleet_event = {
 				id = warp_plugin.120
 			}
+			clear_variable = total_days
+			clear_variable = progress_rate
 		}
 	}
 	abort_trigger = {

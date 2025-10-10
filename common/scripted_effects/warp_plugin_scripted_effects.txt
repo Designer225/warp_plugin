@@ -113,3 +113,48 @@ warp_plugin_failure_roll = {
 		}
 	}
 }
+
+warp_plugin_wip_retrieve_scopes = {
+	$FLEET$ = {
+		owner = {
+			random_situation = {
+				limit = {
+					is_situation_type = situation_warp_in_progress
+					target = {
+						is_same_value = root
+					}
+				}
+				save_event_target_as = $SITUATION_OUT$
+			}
+		}
+		random_system = {
+			limit = {
+				root = {
+					has_fleet_flag = warp_plugin_warp_source_@prev
+				}
+			}
+			save_event_target_as = $SOURCE_OUT$
+		}
+		random_system = {
+			limit = {
+				root = {
+					has_fleet_flag = warp_plugin_warp_destination_@prev
+				}
+			}
+			save_event_target_as = $DESTINATION_OUT$
+		}
+	}
+}
+
+warp_plugin_warp_end_cleanup = {
+	$FLEET$ = {
+		# abort situation and clear flags
+		abort_situation = event_target:warp_situation
+		remove_fleet_flag = warp_plugin_active
+		remove_fleet_flag = warp_plugin_warp_source_@event_target:warp_plugin_warp_source
+		remove_fleet_flag = warp_plugin_warp_destination_@event_target:warp_plugin_warp_destination
+		set_event_locked = no
+		# clear variables 
+		clear_variable = warp_time_remaining
+	}
+}
