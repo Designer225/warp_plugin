@@ -148,6 +148,11 @@ ship_event = {
 				}
 			}
 			set_event_locked = yes
+			set_saved_date = {
+				key = warp_plugin_arrival_date
+				days_from_present = warp_time_remaining
+				expires = warp_time_remaining
+			}
 			fleet_event = { id = warp_plugin.110 }
 		}
 	}
