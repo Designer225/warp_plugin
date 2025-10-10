@@ -40,6 +40,13 @@
  warp_plugin_warp_ftl_theory:0 "$trait_warp_ftl_theory$"
  warp_plugin_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
 
+ # messages
+ MESSAGE_WARP_ARRIVED_TITLE:0 "Warp Complete"
+ MESSAGE_WARP_ARRIVED:0 "$FLEET_NAME|Y$ has arrived in the $SYSTEM|Y$ system."
+
+ MESSAGE_WARP_ABORTED_TITLE:0 "Warp Aborted"
+ MESSAGE_WARP_ABORTED:0 "$FLEET_NAME|Y$'s order was aborted. The $SYSTEM|Y$ system became unavailable. It will now take §Y200§! days for the fleet to turn around and return."
+
  # situation: warp in progress
  situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.warp_time_remaining]§! Days)"
  situation_warp_in_progress_type:0 "Warp in Progress"
