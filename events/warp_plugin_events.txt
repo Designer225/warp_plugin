@@ -75,13 +75,21 @@ fleet_event = {
 		}
 		else_if = {
 			limit = {
-				has_fleet_order = jumpdrive_order
+				exists = solar_system
 			}
 			# Sets flag for current fleet. This will be retrieved upon jump.
 			# Set to 2 days in case the fleet jumped and we need to retrieve the source location.
 			set_timed_fleet_flag = {
 				flag = warp_plugin_fleet_location_@solar_system
 				days = 2
+			}
+		}
+		else_if = {
+			limit = {
+				not = { has_fleet_flag = warp_plugin_mia_in_progress }
+			}
+			fleet_event = {
+				id = warp_plugin.111
 			}
 		}
 	}
@@ -165,8 +173,11 @@ ship_event = {
 					save_event_target_as = warp_situation
 				}
 			}
-			# final setup, set relevant flags
+			# final setup, set relevant flags and modifiers
 			set_event_locked = yes
+			add_modifier = {
+				modifier = warp_plugin_warp_in_progress
+			}
 			set_fleet_flag = warp_plugin_active
 			set_saved_date = {
 				key = warp_plugin_arrival_date
@@ -205,6 +216,10 @@ fleet_event = {
 					not = { can_access_system = event_target:warp_plugin_warp_destination }
 				}
 			}
+			# force situation approach to correctly update... maybe
+			event_target:warp_situation = {
+				set_situation_approach = approach_normal_operations
+			}
 			# send fleet to mia and notify owner
 			set_variable = {
 				which = warp_time_remaining
@@ -214,9 +229,6 @@ fleet_event = {
 				key = warp_plugin_arrival_date
 				days_from_present = warp_time_remaining
 				expires = warp_time_remaining
-			}
-			warp_plugin_initiate_return_mia = {
-				TIMER_VAR = warp_time_remaining
 			}
 			create_message = {
 				type = MESSAGE_TYPE_WARP_ABORTED
@@ -239,6 +251,20 @@ fleet_event = {
 					localization = DAYS
 					scope = this
 				}
+			}
+			# make mia
+			warp_plugin_initiate_return_mia = {
+				TIMER_VAR = warp_time_remaining
+			}
+			# add additional day to allow mia to resolve
+			change_variable = {
+				which = warp_time_remaining
+				value = 2
+			}
+			# set timed flag to block new mia
+			set_timed_fleet_flag = {
+				flag = warp_plugin_mia_in_progress
+				days = warp_time_remaining
 			}
 			# common cleanup
 			warp_plugin_warp_end_cleanup = {
@@ -287,6 +313,79 @@ fleet_event = {
 			warp_plugin_failure_roll = {
 				FLEET = this
 			}
+		}
+	}
+}
+
+fleet_event = {
+	id = warp_plugin.111
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		# get home base, using capital as fallback
+		if = {
+			limit = {
+				exists = root.starbase
+			}
+			root.starbase.fleet.solar_system = {
+				save_event_target_as = warp_plugin_home_base
+			}
+		}
+		else = {
+			root.owner.capital_scope.solar_system = {
+				save_event_target_as = warp_plugin_home_base
+			}
+		}
+		# find previous location and compute distance
+		random_system = {
+			limit = {
+				root = { has_fleet_flag = warp_plugin_fleet_location_@prev }
+			}
+			export_trigger_value_to_variable = {
+				trigger = distance
+				variable = warp_distance_total
+				parameters = {
+					source = event_target:warp_plugin_home_base
+					type = euclidean
+				}
+			}
+			root = {
+				set_variable = {
+					which = warp_distance_total
+					value = prev.warp_distance_total
+				}
+			}
+			clear_variable = warp_distance_total
+		}
+		# compute time needed to reach destination
+		fleet_get_warp_speed_mult = {
+			FLEET = this
+			OUTPUT = warp_speed_mult
+		}
+		set_variable = {
+			which = warp_time_remaining
+			value = value:warp_travel_time|DISTANCE|warp_distance_total|SPEED|warp_speed_mult|
+		}
+		clear_variable = warp_distance_total
+		clear_variable = warp_speed_mult
+		# make mia
+		warp_plugin_initiate_return_mia = {
+			TIMER_VAR = warp_time_remaining
+		}
+		# add additional day to allow mia to resolve
+		change_variable = {
+			which = warp_time_remaining
+			value = 2
+		}
+		# set timed flag to block new mia
+		set_timed_fleet_flag = {
+			flag = warp_plugin_mia_in_progress
+			days = warp_time_remaining
+		}
+		# common cleanup
+		warp_plugin_warp_end_cleanup = {
+			FLEET = this
 		}
 	}
 }

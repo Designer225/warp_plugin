@@ -156,11 +156,27 @@ warp_plugin_warp_end_cleanup = {
 	optimize_memory
 
 	$FLEET$ = {
-		# abort situation and clear flags
-		abort_situation = event_target:warp_situation
+		# abort situation, and clear flags and modifiers
+		if = {
+			limit = {
+				exists = event_target:warp_situation
+			}
+			abort_situation = event_target:warp_situation
+		}
 		remove_fleet_flag = warp_plugin_active
-		remove_fleet_flag = warp_plugin_warp_source_@event_target:warp_plugin_warp_source
-		remove_fleet_flag = warp_plugin_warp_destination_@event_target:warp_plugin_warp_destination
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_warp_source
+			}
+			remove_fleet_flag = warp_plugin_warp_source_@event_target:warp_plugin_warp_source
+		}
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_warp_destination
+			}
+			remove_fleet_flag = warp_plugin_warp_destination_@event_target:warp_plugin_warp_destination
+		}
+		remove_modifier = warp_plugin_warp_in_progress
 		set_event_locked = no
 		# clear variables 
 		clear_variable = warp_time_remaining
@@ -223,7 +239,6 @@ warp_plugin_initiate_return_mia = {
 			}
 			warp_plugin_initiate_return_mia_tens = {
 				TIMER_VAR = $TIMER_VAR$
-				HUNDREDS = 0
 			}
 		}
 		else_if = {
@@ -328,6 +343,7 @@ warp_plugin_initiate_return_mia = {
 				HUNDREDS = 9
 			}
 		}
+		clear_variable = digit
 	}
 }
 
@@ -349,8 +365,10 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
-			TENS = 0
+			[[HUNDREDS]
+				HUNDREDS = $HUNDREDS$
+				TENS = 0
+			]
 		}
 	}
 	else_if = {
@@ -362,7 +380,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 1
 		}
 	}
@@ -375,7 +393,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 2
 		}
 	}
@@ -388,7 +406,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 3
 		}
 	}
@@ -401,7 +419,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 4
 		}
 	}
@@ -414,7 +432,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 5
 		}
 	}
@@ -427,7 +445,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 6
 		}
 	}
@@ -440,7 +458,7 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 7
 		}
 	}
@@ -453,14 +471,14 @@ warp_plugin_initiate_return_mia_tens = {
 		}
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 8
 		}
 	}
 	else = {
 		warp_plugin_initiate_return_mia_ones = {
 			TIMER_VAR = $TIMER_VAR$
-			HUNDREDS = $HUNDREDS$
+			[[HUNDREDS] HUNDREDS = $HUNDREDS$]
 			TENS = 9
 		}
 	}
