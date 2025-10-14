@@ -11,18 +11,6 @@ event = {
 
 	immediate = {
 		set_global_flag = warp_plugin_installed
-		every_country = {
-			if = {
-				limit = {
-					owner_main_species = {
-						has_trait = trait_warp_ftl_theory
-					}
-				}
-				add_modifier = {
-					modifier = warp_plugin_warp_ftl_theory
-				}
-			}
-		}
 	}
 }
 
@@ -33,7 +21,6 @@ country_event = {
 	picture = GFX_evt_ship_travel
 	show_sound = event_ship_thrusters
 	is_triggered_only = yes
-	fire_only_once = yes
 	
 	desc = {
 		trigger = {
@@ -47,6 +34,24 @@ country_event = {
 			country_prefers_warp_drives = no
 		}
 		text = warp_plugin.1.desc.hyper
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				owner_main_species = {
+					has_trait = trait_warp_ftl_theory
+				}
+				not = { has_modifier = warp_plugin_warp_ftl_theory }
+			}
+			add_modifier = {
+				modifier = warp_plugin_warp_ftl_theory
+			}
+			refresh_auto_generated_ship_designs = yes
+		}
+		else = {
+			set_country_flag = warp_plugin_likes_hyperdrives
+		}
 	}
 	
 	option = {
