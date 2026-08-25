@@ -35,8 +35,11 @@ utility_component_template = {
 	}
 
 	potential = {
-		from = {
-			country_uses_bio_ships = no
+		OR = {
+			from = {
+				country_uses_bio_ships = no
+			}
+			is_arkship_ship = yes
 		}
 	}
 
@@ -66,6 +69,7 @@ utility_component_template = {
 
 	potential = {
 		is_eager_explorer_ship = no
+		is_arkship_ship = no
 		from = {
 			country_uses_bio_ships = yes
 		}

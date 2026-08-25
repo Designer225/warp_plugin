@@ -47,8 +47,11 @@ utility_component_template = {
 
 	potential = {
 		is_eager_explorer_ship = no
-		from = {
-			country_uses_bio_ships = no
+		OR = {
+			from = {
+				country_uses_bio_ships = no
+			}
+			is_arkship_ship = yes
 		}
 	}
 
@@ -92,8 +95,11 @@ utility_component_template = {
 
 	potential = {
 		is_eager_explorer_ship = no
-		from = {
-			country_uses_bio_ships = no
+		OR = {
+			from = {
+				country_uses_bio_ships = no
+			}
+			is_arkship_ship = yes
 		}
 	}
 
@@ -137,8 +143,11 @@ utility_component_template = {
 
 	potential = {
 		is_eager_explorer_ship = no
-		from = {
-			country_uses_bio_ships = no
+		OR = {
+			from = {
+				country_uses_bio_ships = no
+			}
+			is_arkship_ship = yes
 		}
 	}
 
@@ -165,8 +174,11 @@ utility_component_template = {
 
 	potential = {
 		ship_uses_jump_drives = yes
-		from = {
-			country_uses_bio_ships = no
+		OR = {
+			from = {
+				country_uses_bio_ships = no
+			}
+			is_arkship_ship = yes
 		}
 	}
 
@@ -213,8 +225,11 @@ utility_component_template = {
 
 	potential = {
 		ship_uses_jump_drives = yes
-		from = {
-			country_uses_bio_ships = no
+		OR = {
+			from = {
+				country_uses_bio_ships = no
+			}
+			is_arkship_ship = yes
 		}
 	}
 

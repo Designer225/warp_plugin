@@ -1,4 +1,6 @@
 
+# warp_plugin - general events
+# id: 0-10000
 namespace = warp_plugin
 
 # called on start and single player save load
