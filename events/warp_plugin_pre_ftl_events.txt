@@ -1,0 +1,39 @@
+
+# warp_plugin - pre-FTL events
+# id: 10000-20000
+namespace = warp_plugin
+
+# second-chance options - general
+country_event = {
+	id = warp_plugin.10001
+	title = warp_plugin.10001.name
+	desc = warp_plugin.10001.desc
+	picture = GFX_evt_ship_travel
+	show_sound = event_ship_thrusters
+	is_triggered_only = yes
+
+	trigger = {
+		last_increased_tech = tech_hyper_drive_1
+		OR = {
+			has_civic = civic_eager_explorers
+			has_origin = origin_adastra
+		}
+	}
+
+	option = {
+		name = warp_plugin.10001.a
+		force_add_civic = civic_warp_ftl_theory
+		refresh_auto_generated_ship_designs = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	# warp is irregular for gameplay so hyperlanes will be prioritized more often
+	option = {
+		name = warp_plugin.10001.b
+		ai_chance = {
+			factor = 9
+		}
+	}
+}

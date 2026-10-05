@@ -38,3 +38,9 @@ on_jump_drive = {
 		warp_plugin.102
 	}
 }
+
+on_tech_increased = {
+	events = {
+		warp_plugin.10001
+	}
+}

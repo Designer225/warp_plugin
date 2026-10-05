@@ -1,0 +1,27 @@
+
+civic_warp_ftl_theory = {
+	description = "civic_warp_ftl_theory_effects"
+	potential = {
+		always = yes
+	}
+	pickable_at_start = yes
+	modification = {
+		add = { always = yes }
+		remove = { is_ai = no } # allow players to remove the civic, but not AI because they are dumber about that
+	}
+
+	modifier = {
+		ship_interstellar_speed_mult = 0.25
+		ship_ftl_jumpdrive_range_mult = 0.1
+		country_government_civic_points_add = 1
+		country_starbase_influence_cost_distance_mult = -0.75
+	}
+
+	random_weight = {
+		base = 1
+	}
+
+	ai_weight = {
+		base = 1
+	}
+}

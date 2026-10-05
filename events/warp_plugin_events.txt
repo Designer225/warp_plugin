@@ -40,24 +40,28 @@ country_event = {
 	
 	immediate = {
 		if = {
-			limit = {
-				owner_main_species = {
-					has_trait = trait_warp_ftl_theory
-				}
-				not = { has_modifier = warp_plugin_warp_ftl_theory }
+			limit = { country_prefers_warp_drives = yes }
+			add_resource = { unity = 1000 }
+			set_government_cooldown = no
+			country_event = {
+				id = warp_plugin.2
+				months = 2
 			}
-			add_modifier = {
-				modifier = warp_plugin_warp_ftl_theory
-			}
-			refresh_auto_generated_ship_designs = yes
-		}
-		else = {
-			set_country_flag = warp_plugin_likes_hyperdrives
 		}
 	}
 	
 	option = {
 		name = ACKNOWLEDGED
+	}
+}
+
+country_event = {
+	id = warp_plugin.2
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		set_government_cooldown = no
 	}
 }
 
@@ -329,11 +333,26 @@ fleet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
+	trigger = {
+		OR = {
+			AND = {
+				exists = root.starbase
+				exists = root.starbase.solar_system
+			}
+			AND = {
+				exists = root.owner.capital_scope
+				exists = root.owner.capital_scope.solar_system
+			}
+		}
+		NOT = { has_fleet_order = experimental_subspace_navigation_fleet_order } # ESN should still process normally
+	}
+
 	immediate = {
 		# get home base, using capital as fallback
 		if = {
 			limit = {
 				exists = root.starbase
+				exists = root.starbase.solar_system
 			}
 			root.starbase.fleet.solar_system = {
 				save_event_target_as = warp_plugin_home_base

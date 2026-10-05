@@ -22,7 +22,7 @@
  BIO_WARP_DRIVE_5:0 "Bio-Warp Field V"
  BIO_WARP_DRIVE_5_DESC:1 "$WARP_DRIVE_1_DESC$"
 
- # traits and concepts
+ # civics and concepts
  concept_warp_drive:0 "Warp Drive"
  concept_warp_drives:0 "Warp Drives"
  concept_warp_drives_desc:0 "A heterodox means of interstellar travel, §H$concept_warp_drives$§! distorts the spacetime around their ships, achieving faster-than-light travel by moving space around them."
@@ -32,13 +32,11 @@
  concept_hyper_drives_desc:0 "Serving as the primary means of interstellar travel, §H$concept_hyper_drives$§! access ['concept_hyperlanes'], naturally occuring subspace conduits that connect between two systems, to travel between the stars."
 
  concept_warp_ftl_theory:0 "Warp FTL Theory"
- concept_warp_ftl_theory_desc:0 "- $MOD_SHIP_INTERSTELLAR_SPEED_MULT$: §G+25%§!\n- $MOD_SHIP_FTL_JUMPDRIVE_RANGE_MULT$: §G+10%§!\n- $MOD_COUNTRY_STARBASE_INFLUENCE_COST_DISTANCE_MULT$: §G-75%§!\n- Ship designer will §Yfavor§! ['concept_warp_drives'] over ['concept_hyper_drives'].\n\n§L$warp_plugin_warp_ftl_theory_desc$§!"
+ concept_warp_ftl_theory_desc:0 " - $MOD_SHIP_INTERSTELLAR_SPEED_MULT$: §G+25%§!\n - $MOD_SHIP_FTL_JUMPDRIVE_RANGE_MULT$: §G+10%§!\n - $MOD_COUNTRY_STARBASE_INFLUENCE_COST_DISTANCE_MULT$: §G-75%§!\n - $civic_warp_ftl_theory_preference$\n\n§L$civic_warp_ftl_theory_effects$§!"
 
- trait_warp_ftl_theory:0 "Warp FTL Theory"
- trait_warp_ftl_theory_desc:0 "$warp_plugin_warp_ftl_theory_desc$\n\nStarting ships of ths species' empire will receive ['concept_warp_drives'] in place of ['concept_hyper_drives']. Additionally, the empire gains the ['concept_warp_ftl_theory'] modifier."
-
- warp_plugin_warp_ftl_theory:0 "$trait_warp_ftl_theory$"
- warp_plugin_warp_ftl_theory_desc:0 "In the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
+ civic_warp_ftl_theory:0 "Warp FTL Theory"
+ civic_warp_ftl_theory_effects:0 " - $civic_warp_ftl_theory_preference$\n\nIn the decades prior, the scientific community has been pursuing the promise of breaking the light barrier via warp travel. Though the discovery of hyperlanes and a means of exploiting them offered the allure of speed unmatched even by the most optimistic estimates of warp travel, we strived not to stray from our path unless absolutely necessary."
+ civic_warp_ftl_theory_preference:0 "Ship designer will §Yfavor§! ['concept_warp_drives'] over ['concept_hyper_drives']."
 
  # messages
  MESSAGE_WARP_ARRIVED_TITLE:0 "Warp Complete"
@@ -94,12 +92,17 @@
 
  # events
  warp_plugin.1.name:0 "Warp Drives Activated"
- warp_plugin.1.desc:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, your ships will prefer equipping §HWarp Drives§! unless they are eclipsed by more advanced FTL tech. Your warp drives have also been enhanced.\n\n$warp_drive_instructions$"
+ warp_plugin.1.desc:0 "Thank you for installing §YWarp Drives§!!\n\nSince you have the §HWarp FTL Theory§! civic, your ships will prefer equipping §HWarp Drives§! unless they are eclipsed by more advanced FTL tech. Your warp drives have also been enhanced. Also, in 2 months, your civic change cooldown will reset, so add a civic while you can - albeit at a cost. Or you can keep the extra unity :).\n\n$warp_drive_instructions$"
  warp_plugin.1.desc.hyper:0 "Thank you for installing §YWarp Drives§!!\n\nSince you do not have the §HWarp FTL Theory§! civic, your ships will prefer §HHyper Drives§! unless they are eclipsed by more advanced FTL tech. However, you may manually mount §HWarp Drives§! on your ships at any time.\n\n$warp_drive_instructions$"
  warp_drive_instructions:0 "Currently, warp drives work through the §HFTL Jump§! mechanic, but simulates the travel by event-locking the warping fleet until it 'arrives' in the system. You can thus travel unbounded by hyperlanes, but note that if your ship travels to a system you loses access to and it has no direct hyperlane connections to your territory, the Emergency FTL back home §Pmay take significantly longer§!."
 
  warp_plugin.120.name:0 "Fleet System Overstress"
  warp_plugin.120.desc:0 "Attempting to accelerating the fleet's warp jump has §Poverstressed§! one or more of its ships' systems.\n\nIt will take a month to restore the faulted systems back to full operation."
+
+ warp_plugin.10001.name:0 "The Travels Ahead"
+ warp_plugin.10001.desc:0 "As our scientists work to complete a basic, but practical faster-than-light theory, they find themselves putting into practice two competing theories.\n\n§HHyperspace travel§!, confirmed by the detection of hyperlanes in our stellar neighborhood and the development of a device that allows us to enter and exit them, would allow us to travel vast distances very quickly. However, there appears to be a finite number of hyperlanes in each system, and we have yet to fully ascertain how widespread they are.\n\nBy contrast, §Hwarp travel§! utilizes a field generated by a warp drive to move a ship across vast distances, largely unrestrained by stellar geography. Early results showed however that for various reasons, including - but not limited to - static buildup and geolocational targeting issues, the practical warp drive has a rather limited range.\n\nIt is likely that both FTL methods will be further refined in the upcoming years. However, we can only prioritize one at this time, and we must decide on our path as soon as possible."
+ warp_plugin.10001.a:0 "Warp Drive it is."
+ warp_plugin.10001.b:0 "Stick with Hyper Drive."
 
  colony.3022.default:0 "The Warp Drive? We travel by Hyperlanes!"
  colony.3022.warp:0 "We travel by Warp Drives, too! We are aware of Hyperlanes, but..."

@@ -34,16 +34,7 @@ fleet_has_warp_drive = {
 
 country_prefers_warp_drives = {
 	optimize_memory
-
-	OR = {
-		has_modifier = warp_plugin_warp_ftl_theory # this flag is handed out to warp travel countries
-		AND = {
-			not = { has_country_flag = warp_plugin_likes_hyperdrives } # this flag is handed out to hyperlane countries
-			owner_species = {
-				has_trait = trait_warp_ftl_theory
-			}
-		}
-	}
+	has_civic = civic_warp_ftl_theory
 }
 
 fleet_has_warp_failure = {

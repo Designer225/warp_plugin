@@ -4,6 +4,17 @@
  BIO_EMPTY_DRIVE: "$EMPTY_DRIVE$"
  BIO_EMPTY_DRIVE_DESC: "$EMPTY_DRIVE_DESC$"
 
+ tech_hyper_drive_1:0 "Practical FTL Theory"
+ tech_hyper_drive_1_desc:0 "Unlocks the ability to use hyper lanes and warp travel.\n - §HHyperspace Travel§!: Like the strands of a spider web, the extra-dimensional realm of hyperspace runs between the gravity wells of most stars. Faster than light travel is theoretically possible along these hyperlanes.\n - §HWarp Travel§!: By enveloping a vessel in a warp field and forming a subspace bubble around it, velocities exceeding the speed of light are theoretically possible."
+ tech_hyper_drive_2:0 "FTL Theory Advancement I"
+ tech_hyper_drive_2_desc:0 "Improves hyperspace and warp travel.\n - §HHyperlane Breach Points§!: We have identified the existence of points in space where a ship expends less energy to "breach" their way into a hyperlane. This will lead to a new generation of hyper drives.\n - §HWarp Field Stabilizers§!: Improved stabilization techniques for warp fields will enable our ships to travel farther while expending less energy."
+ tech_hyper_drive_3:0 "FTL Theory Advancement II"
+ tech_hyper_drive_3_desc:0 "Further improves hyperspace and warp travel.\n - §HHyperspace Slipstreams§!: A new generation of hyper drives capable of accessing the subspace slipstreams that are present within hyperspace. This leads to dramatically improved drive performance.\n - §HWarp Drive Ramscoops§!: These revolutionary ramscoops are attached to warp drives and function as particle collectors, replenishing a starship's fuel supply."
+ tech_jump_drive_1:0 "FTL Theory Advancement III"
+ tech_jump_drive_1_desc:1 "Unlocks jump travel and further improves hyperspace and warp travel.\n - §HJump Drive§!: A groundbreaking technological marvel, the Jump Drive shreds the local space-time continuum and rearranges it on the quantum level to be identical to that of the target destination - and thus the ship appears to near-instantly "jump" from system to system.\n - §HWarp Static Recycling§!: Recycling static buildup produced by warp travel increases the endurance of our warp drives, enhancing range further."
+ tech_psi_jump_drive_1:0 "FTL Theory Psi-Advancements"
+ tech_psi_jump_drive_1_desc:1 "Improves jump, hyperspace, and warp travel with psionic research.\n - §HPsi Jump Drive§!: The Psi Jump Drive harnesses the psi energies emitted by the crew to force the vessel through the very fabric of reality, instantly "jumping" vast distances.\n - §HPsi-based Warp Enhancements§!: harnessing psionic energies emitted by the crew helps warding off disruptions against warp fields, enabling rapid travel across vast distances."
+
  colony.3022.a:0 "[This.GetColony3022ResponseText]"
  colony.3023.desc:0 "[This.GetColony3023DescText]"
  colony.3023.a:0 "[This.GetColony3023ResponseText]"
