@@ -1,26 +1,24 @@
 
+#	Computes the total travel time given a distance and a speed.
+#	Parameters:
+#	- DISTANCE	:	The distance to travel.
+#	- SPEED		:	The speed to travel.
+#	Returns		:	The time required to travel DISTANCE at SPEED.
 warp_travel_time = {
-	modifier = {
-		set = $DISTANCE$
-		is_variable_set = $DISTANCE$
-	}
-	modifier = {
-		divide = $SPEED$
-		is_variable_set = $SPEED$
-	}
+	set = $DISTANCE$
+	divide = $SPEED$
 	ceiling = yes
 	min = @min_warp_time
 }
 
+#	Computes the return time, given total time and remaining time.
+#	Parameters:
+#	- TOTAL		:	Total time required to travel a certain distance.
+#	- REMAINING	:	The remaining time required to travel the rest of the distance.
+#	Returns		:	The time required to return.
 warp_mia_return_time = {
-	modifier = {
-		set = $TOTAL$
-		is_variable_set = $TOTAL$
-	}
-	modifier = {
-		subtract = $REMAINING$
-		is_variable_set = $REMAINING$
-	}
+	set = $TOTAL$
+	subtract = $REMAINING$
 	ceiling = yes
 	min = @min_warp_time
 }

@@ -265,7 +265,7 @@ fleet_event = {
 			}
 			# make mia
 			warp_plugin_initiate_return_mia = {
-				TIMER_VAR = warp_time_remaining
+				VALUE = warp_time_remaining
 			}
 			# add additional day to allow mia to resolve
 			change_variable = {
@@ -397,7 +397,7 @@ fleet_event = {
 		clear_variable = warp_speed_mult
 		# make mia
 		warp_plugin_initiate_return_mia = {
-			TIMER_VAR = warp_time_remaining
+			VALUE = warp_time_remaining
 		}
 		# add additional day to allow mia to resolve
 		change_variable = {

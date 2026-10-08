@@ -1,0 +1,70 @@
+
+#   Returns a value as a script value, optionally performing a simple operation on it.
+#   Parameters:
+#   - VALUE :   The value to return as a script value.
+#   - OP    :   (Optional) The simple mathematical operation to call.
+#               Must be a supported simple operation per 00_script_values.txt.
+#   Returns :   VALUE.
+d225_lib_as_value = {
+    set = $VALUE$
+    [[OP]
+        $OP$ = yes
+    ]
+}
+
+#   Converts the floating-point value to an integer value.
+#   Parameters:
+#   - VALUE :   The value to convert to an integer.
+#   Returns :   VALUE converted to an integer.
+d225_lib_to_int = {
+    set = $VALUE$
+    abs = yes
+    floor = yes
+    multiply = value:d225_lib_get_sign|VALUE|$VALUE$|
+}
+
+#   Computes an operation with a specified value.
+#   Parameters:
+#   - BASE  :   The first value to compute from.
+#   - OP    :   The operation to execute when computing. Ignored if VALUE is not specified.
+#   - VAL   :   The value to compute OP with. Must be specified in order to execute OP.
+#   Returns :   The EXP-th power of BASE.
+d225_lib_compute = {
+    set = $BASE$
+    $OP$ = $VAL$
+}
+
+#   Gets the digit of the specified value at a specified position.
+#   Parameters:
+#   - VALUE :   The value to get the digit from.
+#   - EXP   :   The 0-based position of the digit of VALUE to get, starting from the right.
+#   Returns :   The value of the EXP-th digit of VALUE, starting from the right. This is always a nonnegative integer.
+d225_lib_get_digit = {
+    set = $VALUE$
+    divide = value:d225_lib_compute|BASE|10|OP|pow|VAL|$EXP$|
+    modulo = 10
+    abs = yes
+    floor = yes
+}
+
+#   Gets the sign of the specified value. This is represented by an integer in the range [-1, 1].
+#   Parameters:
+#   - VALUE :   The value to get the sign from.
+#   Returns :   -1 if VALUE is negative, 1 if VALUE is positive; otherwise, 0.
+d225_lib_get_sign = {
+    base = 0
+    modifier = {
+        set = -1
+        check_variable_arithmetic = {
+            which = value:d225_lib_as_value|VALUE|$VALUE$|
+            value < 0
+        }
+    }
+    modifier = {
+        set = 1
+        check_variable_arithmetic = {
+            which = value:d225_lib_as_value|VALUE|$VALUE$|
+            value > 0
+        }
+    }
+}
