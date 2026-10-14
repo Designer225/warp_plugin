@@ -30,9 +30,6 @@ situation_warp_in_progress = {
 	}
 	on_abort = {
 		target = {
-			fleet_event = {
-				id = warp_plugin.120
-			}
 			clear_variable = total_days
 			clear_variable = progress_rate
 		}
@@ -107,51 +104,6 @@ situation_warp_in_progress = {
 					}
 				}
 			}
-		}
-	}
-
-	approach = {
-		name = approach_accelerate_ftl
-		icon = GFX_situation_approach_fleet
-		icon_background = GFX_situation_approach_bg_red
-		on_select = {
-			custom_tooltip = approach_accelerate_ftl_on_select
-			hidden_effect = {
-				set_variable = {
-					which = progress_rate
-					value = 125
-				}
-				divide_variable = {
-					which = progress_rate
-					value = total_days
-				}
-				if = {
-					limit = {
-						not = { has_situation_flag = warp_in_progress_accelerating }
-					}
-					set_situation_flag = warp_in_progress_accelerating
-					target = {
-						multiply_variable = {
-							which = warp_time_remaining
-							value = 4
-						}
-						divide_variable = {
-							which = warp_time_remaining
-							value = 5
-						}
-						ceiling_variable = warp_time_remaining
-					}
-				}
-			}
-		}
-		allow = {
-			custom_tooltip_fail = {
-				text = warp_plugin_arrival_soon
-				not = { current_stage = warp_final_approach }
-			}
-		}
-		ai_weight = {
-			base = 0
 		}
 	}
 

@@ -25,26 +25,13 @@ d225_lib_to_int = {
 
 #   Computes an operation with a specified value.
 #   Parameters:
-#   - BASE  :   The first value to compute from.
+#   - VAL1  :   The first value to compute from.
 #   - OP    :   The operation to execute when computing. Ignored if VALUE is not specified.
-#   - VAL   :   The value to compute OP with. Must be specified in order to execute OP.
+#   - VAL2  :   The value to compute OP with. Must be specified in order to execute OP.
 #   Returns :   The EXP-th power of BASE.
 d225_lib_compute = {
-    set = $BASE$
-    $OP$ = $VAL$
-}
-
-#   Gets the digit of the specified value at a specified position.
-#   Parameters:
-#   - VALUE :   The value to get the digit from.
-#   - EXP   :   The 0-based position of the digit of VALUE to get, starting from the right.
-#   Returns :   The value of the EXP-th digit of VALUE, starting from the right. This is always a nonnegative integer.
-d225_lib_get_digit = {
-    set = $VALUE$
-    divide = value:d225_lib_compute|BASE|10|OP|pow|VAL|$EXP$|
-    modulo = 10
-    abs = yes
-    floor = yes
+    set = $VAL1$
+    $OP$ = $VAL2$
 }
 
 #   Gets the sign of the specified value. This is represented by an integer in the range [-1, 1].

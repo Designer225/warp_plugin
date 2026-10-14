@@ -3,7 +3,7 @@ Reimplements warp travel within the confines of post-Cherryh/Apocalypse Stellari
 
 ## Features
 * Simulates warp travel, complete with variable travel time based on travel distance (minimum 10 days).
-* Fleet arrival timers - implemented as situations, has the option to rush jumps (for a possibility of failure).
+* Fleet arrival timers - implemented as situations.
     * Notifications for when a fleet has arrived or gone MIA. (Currently reuses ESN alerts to avoid overwriting alerts.txt.)
 * Five tiers of warp drives, each with longer range and faster warp speeds.
 * New trait: Warp FTL Theory - enhanced warp drives for empire species, and AI will prefer warp drives over hyper drives.
@@ -17,7 +17,6 @@ The last version with built-in warp drive code was 1.9. Unsurprisingly, some wor
     * The event lock is done in the event triggered by the jump to block all other orders from being executed until
   the ship is event-unlocked.
 * A situation is used to show how long until a fleet "arrives" at the destination (read: the current system it is in).
-    * Approaches exist to either speed up the warp while risking possible failures, or just keep warping as normal.
 * For some reason, only civilian ships (and possibly single-ship fleets - need testing) can trigger
 the on_ship_order on-action. An event that triggers on daily (with checks to make sure only a fleet that is jumping
 is eligible) is used as a workaround.

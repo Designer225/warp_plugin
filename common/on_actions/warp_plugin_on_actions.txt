@@ -32,15 +32,41 @@ on_single_player_save_game_load = {
 	}
 }
 
-# THIS = Ship
-on_jump_drive = {
-	events = {
-		warp_plugin.102
-	}
-}
-
 on_tech_increased = {
 	events = {
 		warp_plugin.10001
+	}
+}
+
+# THIS = Ship
+on_jump_drive = {
+	events = {
+		warp_plugin.100
+	}
+}
+
+# A fleet has entered a system | See also: on_fleet_auto_move_arrival
+# Scope = Fleet
+# From = System
+on_entering_system_fleet = {
+	events = {
+		warp_plugin.101
+	}
+}
+
+# This = fleet
+on_fleet_went_mia = {
+	events = {
+		warp_plugin.111
+	}
+}
+
+# Scope: Ship Event
+#A ship has been built
+# Root = Ship
+# From = Planet
+on_ship_built = {
+	events = {
+		warp_plugin.103
 	}
 }

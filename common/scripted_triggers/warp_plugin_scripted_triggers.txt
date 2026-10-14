@@ -34,18 +34,6 @@ fleet_has_warp_drive = {
 
 country_prefers_warp_drives = {
 	optimize_memory
+
 	has_civic = civic_warp_ftl_theory
-}
-
-fleet_has_warp_failure = {
-	optimize_memory
-
-	OR = {
-		has_fleet_flag = warp_plugin_weapon_failure
-		has_fleet_flag = warp_plugin_propulsion_failure
-		has_fleet_flag = warp_plugin_shield_failure
-		has_fleet_flag = warp_plugin_armor_failure
-		has_fleet_flag = warp_plugin_cloak_failure
-		has_fleet_flag = warp_plugin_sensor_failure
-	}
 }

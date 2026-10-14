@@ -1,0 +1,25 @@
+
+#   Retrieves the first scope of a specified type by a flag on the specified scope.
+#   Parameters:
+#   - TYPE  :   The type of scope to retrieve. This is used in 'random_TYPE'.
+#   - SCOPE :   The scope whose flags to check.
+#   - FTYPE :   The type of SCOPE. This is used in 'has_FTYPE_flag'.
+#   - FLAG  :   The prefix of the flag to retrieve. The actual flag is in the format 'FLAG_@prev', where 'prev' is a random TYPE.
+#   - OUTPUT:   The event target to save the scope as.
+#   Remarks:
+#   - If multiple scopes fit, one is chosen randomly.
+d225_lib_get_scope_by_flag = {
+    optimize_memory
+
+    $SCOPE$ = {
+        save_event_target_as = get_scope_by_flag_scope
+    }
+    random_$TYPE$ = {
+        limit = {
+            event_target:get_scope_by_flag_scope = {
+                has_$FTYPE$_flag = $FLAG$_@prev
+            }
+        }
+        save_event_target_as = $OUTPUT$
+    }
+}

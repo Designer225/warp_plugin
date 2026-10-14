@@ -1,200 +1,251 @@
 
-fleet_get_warp_speed_mult = {
-	optimize_memory
+#   Gets the speed of the fleet. This is the speed of the slowest ship that warps or slow-boats.
+#   Parameters:
+#   - FLEET :   The fleet whose speed to retrieve.
+#   - OUTPUT:   The variable to save the speed to.
+warp_plugin_get_warp_speed = {
+    optimize_memory
 
-	$FLEET$ = {
-		random_owned_ship = {
-			limit = {
-				OR = {
-					has_component = BIO_DRIVE_5
-					has_component = WARP_DRIVE_5
-					has_component = BIO_WARP_DRIVE_5
-				}
-			}
-			save_event_target_as = warp_plugin_temp_fastest_ship
-		}
-		random_owned_ship = {
-			limit = {
-				OR = {
-					has_component = BIO_DRIVE_4
-					has_component = WARP_DRIVE_4
-					has_component = BIO_WARP_DRIVE_4
-					has_component = GUARDIAN_DRIVE
-				}
-			}
-			save_event_target_as = warp_plugin_temp_fastest_ship
-		}
-		random_owned_ship = {
-			limit = {
-				OR = {
-					has_component = BIO_DRIVE_3
-					has_component = WARP_DRIVE_3
-					has_component = BIO_WARP_DRIVE_3
-				}
-			}
-			save_event_target_as = warp_plugin_temp_fastest_ship
-		}
-		random_owned_ship = {
-			limit = {
-				OR = {
-					has_component = BIO_DRIVE_2
-					has_component = WARP_DRIVE_2
-					has_component = BIO_WARP_DRIVE_2
-				}
-			}
-			save_event_target_as = warp_plugin_temp_fastest_ship
-		}
-		random_owned_ship = {
-			limit = {
-				or = {
-					has_component = BIO_DRIVE
-					has_component = WARP_DRIVE_1
-					has_component = BIO_WARP_DRIVE_1
-				}
-			}
-			save_event_target_as = warp_plugin_temp_fastest_ship
-		}
-		random_owned_ship = {
-			limit = {
-				or = {
-					has_component = EMPTY_DRIVE
-					has_component = BIO_EMPTY_DRIVE
-				}
-			}
-			save_event_target_as = warp_plugin_temp_fastest_ship
-		}
+    $FLEET$ = {
+        save_event_target_as = get_warp_speed_fleet
+    }
 
-		if = {
-			limit = {
-				exists = event_target:warp_plugin_temp_fastest_ship
-			}
-			set_variable = {
-				which = $OUTPUT$
-				value = event_target:warp_plugin_temp_fastest_ship.modifier:ship_interstellar_speed_mult
-			}
-		}
-	}
+    event_target:get_warp_speed_fleet = {
+        random_owned_ship = {
+            limit = {
+                OR = {
+                    has_component = BIO_DRIVE_5
+                    has_component = WARP_DRIVE_5
+                    has_component = BIO_WARP_DRIVE_5
+                }
+            }
+            save_event_target_as = get_waro_speed_fastest_ship
+        }
+        random_owned_ship = {
+            limit = {
+                OR = {
+                    has_component = BIO_DRIVE_4
+                    has_component = WARP_DRIVE_4
+                    has_component = BIO_WARP_DRIVE_4
+                    has_component = GUARDIAN_DRIVE
+                }
+            }
+            save_event_target_as = get_waro_speed_fastest_ship
+        }
+        random_owned_ship = {
+            limit = {
+                OR = {
+                    has_component = BIO_DRIVE_3
+                    has_component = WARP_DRIVE_3
+                    has_component = BIO_WARP_DRIVE_3
+                }
+            }
+            save_event_target_as = get_waro_speed_fastest_ship
+        }
+        random_owned_ship = {
+            limit = {
+                OR = {
+                    has_component = BIO_DRIVE_2
+                    has_component = WARP_DRIVE_2
+                    has_component = BIO_WARP_DRIVE_2
+                }
+            }
+            save_event_target_as = get_waro_speed_fastest_ship
+        }
+        random_owned_ship = {
+            limit = {
+                or = {
+                    has_component = BIO_DRIVE
+                    has_component = WARP_DRIVE_1
+                    has_component = BIO_WARP_DRIVE_1
+                }
+            }
+            save_event_target_as = get_waro_speed_fastest_ship
+        }
+        random_owned_ship = {
+            limit = {
+                or = {
+                    has_component = EMPTY_DRIVE
+                    has_component = BIO_EMPTY_DRIVE
+                }
+            }
+            save_event_target_as = get_waro_speed_fastest_ship
+        }
+
+        if = {
+            limit = {
+                exists = event_target:get_waro_speed_fastest_ship
+            }
+            set_variable = {
+                which = $OUTPUT$
+                value = event_target:get_waro_speed_fastest_ship.modifier:ship_interstellar_speed_mult
+            }
+        }
+        else = {
+            set_variable = {
+                which = $OUTPUT$
+                value = @empty_drive_speed_mult
+            }
+        }
+    }
 }
 
-warp_plugin_failure_roll = {
-	optimize_memory
+#   Updates the location of the specified fleet, and sets a temporary source and destination flag.
+#   Parameters:
+#   - FLEET     :   The fleet to update its location for.
+#   - LOCATION  :   The current location of the fleet.
+#   Remarks:
+#   - The current location is represented as a flag with a 'warp_plugin_location_' prefix.
+#   - The source location is represented as a flag with a 'warp_plugin_source_' prefix, and lasts 1 day.
+#   - The destination is represented as a flag with a 'warp_plugin_destination_' prefix, and lasts 1 day.
+warp_plugin_update_location = {
+    optimize_memory
 
-	$FLEET$ = {	
-		random_list = {
-			99 = {}
-			1 = {
-				random_list = {
-					1 = {
-						set_fleet_flag = warp_plugin_weapon_failure
-					}
-					1 = {
-						set_fleet_flag = warp_plugin_propulsion_failure
-					}
-					1 = {
-						set_fleet_flag = warp_plugin_shield_failure
-					}
-					1 = {
-						set_fleet_flag = warp_plugin_armor_failure
-					}
-					1 = {
-						set_fleet_flag = warp_plugin_cloak_failure
-						modifier = {
-							factor = 0
-							has_first_contact_dlc = no
-						}
-					}
-					1 = {
-						set_fleet_flag = warp_plugin_sensor_failure
-					}
-				}
-				modifier = {
-					factor = 0
-					event_target:warp_situation = {
-						current_situation_approach = approach_normal_operations
-					}
-				}
-			}
-		}
-	}
+    $FLEET$ = {
+        save_event_target_as = update_location_fleet
+    }
+    $LOCATION$ = {
+        save_event_target_as = update_location_location
+    }
+
+    d225_lib_get_scope_by_flag = {
+        TYPE = system
+        SCOPE = event_target:update_location_fleet
+        FTYPE = fleet
+        FLAG = warp_plugin_location
+        OUTPUT = warp_plugin_last_location
+    }
+    event_target:update_location_fleet = {
+        if = {
+            limit = {
+                exists = event_target:warp_plugin_last_location
+            }
+            remove_fleet_flag = warp_plugin_location_@event_target:warp_plugin_last_location
+            set_timed_fleet_flag = {
+                flag = warp_plugin_source_@event_target:warp_plugin_last_location
+                days = 1
+            }
+        }
+        set_fleet_flag = warp_plugin_location_@event_target:update_location_location
+        set_timed_fleet_flag = {
+            flag = warp_plugin_destination_@event_target:update_location_location
+            days = 1
+        }
+    }
 }
 
-warp_plugin_wip_retrieve_scopes = {
-	optimize_memory
+#   Prepares source and destination event targets and calls warp_plugin.102, which depends on both.
+#   Parameters:
+#   - FLEET :   The fleet to trigger warp_plugin.102 on.
+#   Remarks:
+#   - The source location, if one exists, is saved as event target 'warp_plugin_source'.
+#   - The destination, if one exists, is saved as event target 'warp_plugin_destination'.
+#   - Event warp_plugin.102 will be skipped if either target is cannot be retrieved.
+warp_plugin_trigger_warp_plugin.102 = {
+    optimize_memory
 
-	$FLEET$ = {
-		owner = {
-			random_situation = {
-				limit = {
-					is_situation_type = situation_warp_in_progress
-					target = {
-						is_same_value = root
-					}
-				}
-				save_event_target_as = $SITUATION_OUT$
-			}
-		}
-		random_system = {
-			limit = {
-				root = {
-					has_fleet_flag = warp_plugin_warp_source_@prev
-				}
-			}
-			save_event_target_as = $SOURCE_OUT$
-		}
-		random_system = {
-			limit = {
-				root = {
-					has_fleet_flag = warp_plugin_warp_destination_@prev
-				}
-			}
-			save_event_target_as = $DESTINATION_OUT$
-		}
-	}
+    $FLEET$ = {
+        save_event_target_as = warp_plugin_102_fleet
+    }
+
+    d225_lib_get_scope_by_flag = {
+        TYPE = system
+        SCOPE = event_target:warp_plugin_102_fleet
+        FTYPE = fleet
+        FLAG = warp_plugin_source
+        OUTPUT = warp_plugin_source
+    }
+    d225_lib_get_scope_by_flag = {
+        TYPE = system
+        SCOPE = event_target:warp_plugin_102_fleet
+        FTYPE = fleet
+        FLAG = warp_plugin_destination
+        OUTPUT = warp_plugin_destination
+    }
+    event_target:warp_plugin_102_fleet = {
+        fleet_event = {
+            id = warp_plugin.102
+        }
+    }
 }
 
-warp_plugin_warp_end_cleanup = {
-	optimize_memory
+#   Retrieves the fleet's warp situation, if it has one.
+#   Parameters:
+#   - FLEET :   The fleet whose situation to retrieve.
+#   - TARGET:   The name of the target to save the situation as.
+warp_plugin_retrieve_warp_situation = {
+    optimize_memory
 
-	$FLEET$ = {
-		# abort situation, and clear flags and modifiers
-		if = {
-			limit = {
-				exists = event_target:warp_situation
-			}
-			abort_situation = event_target:warp_situation
-		}
-		remove_fleet_flag = warp_plugin_active
-		if = {
-			limit = {
-				exists = event_target:warp_plugin_warp_source
-			}
-			remove_fleet_flag = warp_plugin_warp_source_@event_target:warp_plugin_warp_source
-		}
-		if = {
-			limit = {
-				exists = event_target:warp_plugin_warp_destination
-			}
-			remove_fleet_flag = warp_plugin_warp_destination_@event_target:warp_plugin_warp_destination
-		}
-		remove_modifier = warp_plugin_warp_in_progress
-		set_event_locked = no
-		# clear variables 
-		clear_variable = warp_time_remaining
-		clear_variable = warp_time_total
-	}
+    $FLEET$ = {
+        save_event_target_as = retrieve_situation_fleet
+    }
+
+    event_target:retrieve_situation_fleet.owner = {
+        random_situation = {
+            limit = {
+                is_situation_type = situation_warp_in_progress
+                target = {
+                    is_same_value = event_target:retrieve_situation_fleet
+                }
+            }
+            save_event_target_as = $TARGET$
+        }
+    }
 }
 
-# 	Places fleet into MIA and sets the MIA timer.
+# 	Places the specified fleet into MIA and sets the MIA timer.
 # 	Parameters:
+#   - SCOPE :   The fleet to place into MIA.
 #	- VALUE	: 	The number of days to place the fleet into MIA.
 warp_plugin_initiate_return_mia = {
-	optimize_memory
+    optimize_memory
 
-	if = {
-		limit = {
-			can_go_mia = yes
-		}
-		set_mia = mia_return_home
-	}
-	set_mia_return_delay = value:d225_lib_to_int|VALUE|$VALUE$|
+    $SCOPE$ = {
+        save_event_target_as = initiate_return_mia_scope
+    }
+
+    event_target:initiate_return_mia_scope = {
+        if = {
+            limit = {
+                can_go_mia = yes
+            }
+            set_mia = mia_return_home
+        }
+        set_mia_return_delay = value:d225_lib_to_int|VALUE|$VALUE$|
+    }
+}
+
+#   cleans up a warp, whether aborted by mia or completed as normal
+#   abort situation, and clear flags and modifiers
+#   Parameters:
+#   - FLEET :   The fleet to abort and clean up its warp on.
+#   - TARGET:   The scope of the situation. This can be an event target or a relative scope.
+warp_plugin_warp_end_cleanup = {
+    optimize_memory
+
+    $FLEET$ = {
+        save_event_target_as = warp_end_cleanup_fleet
+    }
+    if = {
+        limit = {
+            exists = $TARGET$
+        }
+        $TARGET$ = {
+            save_event_target_as = warp_end_cleanup_target
+        }
+    }
+
+    event_target:warp_end_cleanup_fleet = {
+        if = {
+            limit = {
+                exists = event_target:warp_end_cleanup_target
+            }
+            abort_situation = event_target:warp_end_cleanup_target
+        }
+        remove_modifier = warp_plugin_warp_in_progress
+        set_event_locked = no
+        # clear variables
+        clear_variable = warp_time_remaining
+        clear_variable = warp_time_total
+    }
 }
