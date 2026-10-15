@@ -24,7 +24,6 @@ situation_warp_in_progress = {
 	on_progress_complete = {
 		custom_tooltip = warp_plugin_arrived
 		hidden_effect = {
-			# abort_situation = this
 			set_situation_locked = yes
 		}
 	}

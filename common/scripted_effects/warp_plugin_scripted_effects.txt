@@ -151,7 +151,7 @@ warp_plugin_warp_end_cleanup = {
                 is_scope_type = situation
             }
         }
-        abort_situation = $TARGET$
+        destroy_situation = $TARGET$
     }
 
     $FLEET$ = {
