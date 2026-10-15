@@ -1,0 +1,521 @@
+
+# #   Computes the closest approach to some point C along side AB.
+# #   Parameters:
+# #   - BC    :   The length of the side BC.
+# #   - AC    :   The length of the side AC.
+# #   - AB    :   The length of the side AB.
+# #   - P     :   (Output) The location of the closest approach along path AB, measured as a distance from A.
+# #   - DIST  :   (Output) The distance from C at the closest approach.
+# warp_plugin_compute_closest_approach = {
+#     optimize_memory
+#
+#     # store parameters into variables: |BC| -> a, |AC| -> b, |AB| -> c
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_a
+#         value = $BC$
+#     }
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_b
+#         value = $AC$
+#     }
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_c
+#         value = $AB$
+#     }
+#
+#     # validate and order sides
+#     inline_script = {
+#         script = d225_lib.effects/order_and_validate_sides
+#         A = warp_plugin_compute_closest_approach_a
+#         B = warp_plugin_compute_closest_approach_b
+#         C = warp_plugin_compute_closest_approach_c
+#         P = warp_plugin_compute_closest_approach_p
+#         Q = warp_plugin_compute_closest_approach_q
+#         R = warp_plugin_compute_closest_approach_r
+#         POST_EFFECT = "
+#             clear_variable = warp_plugin_compute_closest_approach_a
+#             clear_variable = warp_plugin_compute_closest_approach_b
+#             clear_variable = warp_plugin_compute_closest_approach_c
+#         "
+#     }
+#
+#     # if c == 0, then A and B coincide
+#     if = {
+#         limit = {
+#             check_variable_arithmetic = {
+#                 which = value:d225_lib_as_value|VALUE|warp_plugin_compute_closest_approach_c|
+#                 value = 0
+#             }
+#         }
+#         set_variable = {
+#             which = $P$
+#             value = 0
+#         }
+#         set_variable = {
+#             which = $DIST$
+#             value = warp_plugin_compute_closest_approach_b
+#         }
+#         clear_variable = warp_plugin_compute_closest_approach_a
+#         clear_variable = warp_plugin_compute_closest_approach_b
+#         clear_variable = warp_plugin_compute_closest_approach_c
+#         clear_variable = warp_plugin_compute_closest_approach_p
+#         clear_variable = warp_plugin_compute_closest_approach_q
+#         clear_variable = warp_plugin_compute_closest_approach_r
+#         break = yes
+#     }
+#
+#     # project C onto line AB, measured from A (law of cosines)
+#     # x = (b^2 + c^2 - a^2) / 2c
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_x
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_b|OP|pow|VAL2|2|
+#     }
+#     change_variable = {
+#         which = warp_plugin_compute_closest_approach_x
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_c|OP|pow|VAL2|2|
+#     }
+#     subtract_variable = {
+#         which = warp_plugin_compute_closest_approach_x
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_a|OP|pow|VAL2|2|
+#     }
+#     divide_variable = {
+#         which = warp_plugin_compute_closest_approach_x
+#         value = value:d225_lib_compute|VAL1|2|OP|multiply|VAL2|warp_plugin_compute_closest_approach_c|
+#     }
+#
+#     # clamp intersection within AB
+#     # if intersection is outside AB, use closest point
+#     if = {
+#         limit = {
+#             check_variable = {
+#                 which = warp_plugin_compute_closest_approach_x
+#                 value <= 0
+#             }
+#         }
+#         set_variable = {
+#             which = $P$
+#             value = 0
+#         }
+#         set_variable = {
+#             which = $DIST$
+#             value = warp_plugin_compute_closest_approach_b
+#         }
+#         clear_variable = warp_plugin_compute_closest_approach_a
+#         clear_variable = warp_plugin_compute_closest_approach_b
+#         clear_variable = warp_plugin_compute_closest_approach_c
+#         clear_variable = warp_plugin_compute_closest_approach_p
+#         clear_variable = warp_plugin_compute_closest_approach_q
+#         clear_variable = warp_plugin_compute_closest_approach_r
+#         clear_variable = warp_plugin_compute_closest_approach_x
+#         break = yes
+#     }
+#     if = {
+#         limit = {
+#             check_variable = {
+#                 which = warp_plugin_compute_closest_approach_x
+#                 value >= warp_plugin_compute_closest_approach_c
+#             }
+#         }
+#         set_variable = {
+#             which = $P$
+#             value = warp_plugin_compute_closest_approach_c
+#         }
+#         set_variable = {
+#             which = $DIST$
+#             value = warp_plugin_compute_closest_approach_a
+#         }
+#     }
+#
+#     # intersection is within AB; now compute d as the height of triangle over AB
+#     # see Kahan's stable form of Heron's formula
+#     # prod = (p + (q + r)) * (r - (p - q)) * (r + (p - q)) * (p + (q - r))
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_prod
+#         value = warp_plugin_compute_closest_approach_p
+#     }
+#     change_variable = {
+#         which = warp_plugin_compute_closest_approach_prod
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_q|OP|add|VAL2|warp_plugin_compute_closest_approach_r|
+#     }
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_tmp
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_p|OP|subtract|VAL2|warp_plugin_compute_closest_approach_q|
+#     }
+#     multiply_variable = {
+#         which = warp_plugin_compute_closest_approach_prod
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_r|OP|subtract|VAL2|warp_plugin_compute_closest_approach_tmp|
+#     }
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_tmp
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_p|OP|subtract|VAL2|warp_plugin_compute_closest_approach_q|
+#     }
+#     multiply_variable = {
+#         which = warp_plugin_compute_closest_approach_prod
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_r|OP|add|VAL2|warp_plugin_compute_closest_approach_tmp|
+#     }
+#     set_variable = {
+#         which = warp_plugin_compute_closest_approach_tmp
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_q|OP|subtract|VAL2|warp_plugin_compute_closest_approach_r|
+#     }
+#     multiply_variable = {
+#         which = warp_plugin_compute_closest_approach_prod
+#         value = value:d225_lib_compute|VAL1|warp_plugin_compute_closest_approach_p|OP|add|VAL2|warp_plugin_compute_closest_approach_tmp|
+#     }
+#     # final steps
+#     set_variable = {
+#         which = $P$
+#         value = warp_plugin_compute_closest_approach_x
+#     }
+#     # if flat triangle (prod < 0), C is on AB
+#     if = {
+#         limit = {
+#             check_variable = {
+#                 which = warp_plugin_compute_closest_approach_prod
+#                 value <= 0
+#             }
+#         }
+#         set_variable = {
+#             which = $DIST$
+#             value = 0
+#         }
+#     }
+#     else = {
+#         set_variable = {
+#             which = $DIST$
+#             value = value:d225_lib_as_value|VALUE|warp_plugin_compute_closest_approach_prod|OP|square_root|
+#         }
+#         divide_variable = {
+#             which = $DIST$
+#             value = value:d225_lib_compute|VAL1|2|OP|multiply|VAL2|warp_plugin_compute_closest_approach_c|
+#         }
+#     }
+#
+#     clear_variable = warp_plugin_compute_closest_approach_a
+#     clear_variable = warp_plugin_compute_closest_approach_b
+#     clear_variable = warp_plugin_compute_closest_approach_c
+#     clear_variable = warp_plugin_compute_closest_approach_p
+#     clear_variable = warp_plugin_compute_closest_approach_q
+#     clear_variable = warp_plugin_compute_closest_approach_r
+#     clear_variable = warp_plugin_compute_closest_approach_x
+#     clear_variable = warp_plugin_compute_closest_approach_prod
+#     clear_variable = warp_plugin_compute_closest_approach_tmp
+# }
+
+#   Computes the distance to home, given a source, destination, and home, as well as the distance traveled from source.
+#   Parameters:
+#   - SRC   :   The source system.
+#   - DEST  :   The destination system.
+#   - HOME  :   The system to return to.
+#   - DIST  :   The distance traveled from SRC.
+#   - OUTPUT:   (Output) The distance to home, given the above parameters.
+warp_plugin_compute_distance_to_home = {
+    optimize_memory
+
+    # save provided scope as event targets
+    # non-global event targets are not easily clearable, but auto-clear once an event chain ends
+    # src -> A, dest -> B, home -> C
+    $SRC$ = {
+        save_event_target_as = warp_plugin_compute_distance_to_home_A
+    }
+    $DEST$ = {
+        save_event_target_as = warp_plugin_compute_distance_to_home_B
+    }
+    $HOME$ = {
+        save_event_target_as = warp_plugin_compute_distance_to_home_C
+    }
+    # save DIST as variable: DIST -> s
+    set_variable = {
+        which = warp_plugin_compute_distance_to_home_s
+        value = $DIST$
+    }
+
+    # compute distances between the points
+    # |BC| -> a, |AC| -> b, |AB| -> c
+    event_target:warp_plugin_compute_distance_to_home_B = {
+        export_trigger_value_to_variable = {
+            trigger = distance
+            variable = warp_plugin_compute_distance_to_home_a
+            parameters = {
+                source = event_target:warp_plugin_compute_distance_to_home_C
+                type = euclidean
+            }
+        }
+        prev = {
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_a
+                value = prev.warp_plugin_compute_distance_to_home_a
+            }
+        }
+        clear_variable = warp_plugin_compute_distance_to_home_a
+    }
+    event_target:warp_plugin_compute_distance_to_home_A = {
+        export_trigger_value_to_variable = {
+            trigger = distance
+            variable = warp_plugin_compute_distance_to_home_b
+            parameters = {
+                source = event_target:warp_plugin_compute_distance_to_home_C
+                type = euclidean
+            }
+        }
+        prev = {
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_b
+                value = prev.warp_plugin_compute_distance_to_home_b
+            }
+        }
+        clear_variable = warp_plugin_compute_distance_to_home_b
+    }
+    event_target:warp_plugin_compute_distance_to_home_A = {
+        export_trigger_value_to_variable = {
+            trigger = distance
+            variable = warp_plugin_compute_distance_to_home_c
+            parameters = {
+                source = event_target:warp_plugin_compute_distance_to_home_B
+                type = euclidean
+            }
+        }
+        prev = {
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_c
+                value = prev.warp_plugin_compute_distance_to_home_c
+            }
+        }
+        clear_variable = warp_plugin_compute_distance_to_home_c
+    }
+
+    # validate and order sides
+    inline_script = {
+        script = warp_plugin.effects/order_and_validate_sides
+        A = warp_plugin_compute_distance_to_home_a
+        B = warp_plugin_compute_distance_to_home_b
+        C = warp_plugin_compute_distance_to_home_c
+        P = warp_plugin_compute_distance_to_home_p
+        Q = warp_plugin_compute_distance_to_home_q
+        R = warp_plugin_compute_distance_to_home_r
+        POST_EFFECT = "
+            clear_variable = warp_plugin_compute_distance_to_home_a
+            clear_variable = warp_plugin_compute_distance_to_home_b
+            clear_variable = warp_plugin_compute_distance_to_home_c
+            clear_variable = warp_plugin_compute_distance_to_home_s
+        "
+    }
+
+    # if |AB| == 0, the ship never moves so just use a value
+    if = {
+        limit = {
+            check_variable = {
+                which = warp_plugin_compute_distance_to_home_c
+                value = 0
+            }
+        }
+        set_variable = {
+            which = $OUTPUT$
+            value = warp_plugin_compute_distance_to_home_b
+        }
+    }
+    else = {
+        # DIST must be between 0 and |AB|, inclusive
+        # clamp value if beyond
+        if = {
+            limit = {
+                check_variable = {
+                    which = warp_plugin_compute_distance_to_home_s
+                    value < 0
+                }
+            }
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_s
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                check_variable = {
+                    which = warp_plugin_compute_distance_to_home_s
+                    value > warp_plugin_compute_distance_to_home_c
+                }
+            }
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_s
+                value = warp_plugin_compute_distance_to_home_c
+            }
+        }
+
+        # Stewart's theorem (using Law of Cosines)
+        # d^2 = (b^2 * (c - s) + a^2 * s) / c - s * (c - s)
+        set_variable = {
+            which = warp_plugin_compute_distance_to_home_d2
+            value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_b|OP|pow|VAL2|2|
+        }
+        multiply_variable = {
+            which = warp_plugin_compute_distance_to_home_d2
+            value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_c|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_s|
+        }
+        set_variable = {
+            which = warp_plugin_compute_distance_to_home_tmp
+            value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_a|OP|pow|VAL2|2|
+        }
+        change_variable = {
+            which = warp_plugin_compute_distance_to_home_d2
+            value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_tmp|OP|multiply|VAL2|warp_plugin_compute_distance_to_home_s|
+        }
+        divide_variable = {
+            which = warp_plugin_compute_distance_to_home_d2
+            value = warp_plugin_compute_distance_to_home_c
+        }
+        set_variable = {
+            which = warp_plugin_compute_distance_to_home_tmp
+            value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_c|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_s|
+        }
+        subtract_variable = {
+            which = warp_plugin_compute_distance_to_home_d2
+            value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_s|OP|multiply|VAL2|warp_plugin_compute_distance_to_home_tmp|
+        }
+        clear_variable = warp_plugin_compute_distance_to_home_tmp
+        # check longer of BC and AC
+        if = {
+            limit = {
+                check_variable = {
+                    which = warp_plugin_compute_distance_to_home_a
+                    value > warp_plugin_compute_distance_to_home_b
+                }
+            }
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_longer2
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_a|OP|pow|VAL2|2|
+            }
+        }
+        else = {
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_longer2
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_b|OP|pow|VAL2|2|
+            }
+        }
+        # check precision
+        if = {
+            limit = {
+                check_variable = {
+                    which = warp_plugin_compute_distance_to_home_d2
+                    value >= value:d225_lib_compute|VAL1|0.01|OP|multiply|VAL2|warp_plugin_compute_distance_to_home_longer2|
+                }
+            }
+            set_variable = {
+                which = $OUTPUT$
+                value = value:d225_lib_as_value|VALUE|warp_plugin_compute_distance_to_home_d2|OP|square_root|
+            }
+        }
+        else = {
+
+            # d is small enough that Stewart's subtraction loses precision
+            # compute d^2 = (s - x)^2 + height^2 instead, where x is the projection of C onto AB and the height is computed from Heron's formula
+            # x = 0.5 * (c + (b - a) * (b + a) / c)
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_x
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_b|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_a|
+            }
+            multiply_variable = {
+                which = warp_plugin_compute_distance_to_home_x
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_b|OP|add|VAL2|warp_plugin_compute_distance_to_home_a|
+            }
+            divide_variable = {
+                which = warp_plugin_compute_distance_to_home_x
+                value = warp_plugin_compute_distance_to_home_c
+            }
+            change_variable = {
+                which = warp_plugin_compute_distance_to_home_x
+                value = warp_plugin_compute_distance_to_home_c
+            }
+            multiply_variable = {
+                which = warp_plugin_compute_distance_to_home_x
+                value = 0.5
+            }
+            # prod = (p + (q + r)) * (r - (p - q)) * (r + (p - q)) * (p + (q - r))
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_prod
+                value = warp_plugin_compute_distance_to_home_p
+            }
+            change_variable = {
+                which = warp_plugin_compute_distance_to_home_prod
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_q|OP|add|VAL2|warp_plugin_compute_distance_to_home_r|
+            }
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_tmp
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_p|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_q|
+            }
+            multiply_variable = {
+                which = warp_plugin_compute_distance_to_home_prod
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_r|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_tmp|
+            }
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_tmp
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_p|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_q|
+            }
+            multiply_variable = {
+                which = warp_plugin_compute_distance_to_home_prod
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_r|OP|add|VAL2|warp_plugin_compute_distance_to_home_tmp|
+            }
+            set_variable = {
+                which = warp_plugin_compute_distance_to_home_tmp
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_q|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_r|
+            }
+            multiply_variable = {
+                which = warp_plugin_compute_distance_to_home_prod
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_p|OP|add|VAL2|warp_plugin_compute_distance_to_home_tmp|
+            }
+            clear_variable = warp_plugin_compute_distance_to_home_tmp
+            if = {
+                limit = {
+                    check_variable = {
+                        which = warp_plugin_compute_distance_to_home_prod
+                        value > 0
+                    }
+                }
+                set_variable = {
+                    which = warp_plugin_compute_distance_to_home_y
+                    value = value:d225_lib_as_value|VALUE|warp_plugin_compute_distance_to_home_prod|OP|square_root|
+                }
+                divide_variable = {
+                    which = warp_plugin_compute_distance_to_home_y
+                    value = value:d225_lib_compute|VAL1|2|OP|multiply|VAL2|warp_plugin_compute_distance_to_home_c|
+                }
+            }
+            else = {
+                set_variable = {
+                    which = warp_plugin_compute_distance_to_home_y
+                    value = 0
+                }
+            }
+            # d^2 = (s - x)^2 + y^2
+            set_variable = {
+                which = $OUTPUT$
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_s|OP|subtract|VAL2|warp_plugin_compute_distance_to_home_x|
+            }
+            set_variable = {
+                which = $OUTPUT$
+                value = value:d225_lib_compute|VAL1|$OUTPUT$|OP|pow|VAL2|2|
+            }
+            change_variable = {
+                which = $OUTPUT$
+                value = value:d225_lib_compute|VAL1|warp_plugin_compute_distance_to_home_y|OP|pow|VAL2|2|
+            }
+            set_variable = {
+                which = $OUTPUT$
+                value = value:d225_lib_as_value|VALUE|$OUTPUT$|OP|square_root|
+            }
+        }
+    }
+
+    # clean up
+    clear_variable = warp_plugin_compute_distance_to_home_s
+    clear_variable = warp_plugin_compute_distance_to_home_a
+    clear_variable = warp_plugin_compute_distance_to_home_b
+    clear_variable = warp_plugin_compute_distance_to_home_c
+    clear_variable = warp_plugin_compute_distance_to_home_p
+    clear_variable = warp_plugin_compute_distance_to_home_q
+    clear_variable = warp_plugin_compute_distance_to_home_r
+    clear_variable = warp_plugin_compute_distance_to_home_d2
+    clear_variable = warp_plugin_compute_distance_to_home_longer2
+    clear_variable = warp_plugin_compute_distance_to_home_x
+    clear_variable = warp_plugin_compute_distance_to_home_prod
+    clear_variable = warp_plugin_compute_distance_to_home_y
+}

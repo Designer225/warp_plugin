@@ -1,0 +1,116 @@
+
+#   Validates that the specified sides of a triangle are valid, and returns three sides ordered from longest to shortest.
+#   Parameters:
+#   - A :   A side of the triangle.
+#   - B :   A side of the triangle.
+#   - C :   A side of the triangle.
+#   - P :   (Output) The longest side of the triangle. May be as short as $Q$ and/or $R$.
+#   - Q :   (Output) The second-longest side of the triangle. May be as long as $P$ and as short as $R$.
+#   - R :   (Output) The shortest side of the triangle. May be as long as $Q$. May be as long as $P$ and/or $Q$.
+#   - POST_EFFECT:  Any post-effects to execute if validation has failed. If nothing to execute, simply pass an empty string.
+#   Remarks:
+#   - If validation is failed, the post-effect is executed and the effect with the inline script is aborted.
+set_variable = {
+    which = $P$
+    value = $A$
+}
+set_variable = {
+    which = $Q$
+    value = $B$
+}
+set_variable = {
+    which = $R$
+    value = $C$
+}
+if = {
+    limit = {
+        check_variable = {
+            which = $P$
+            value < $Q$
+        }
+    }
+    set_variable = {
+        which = order_and_validate_triangle_tmp
+        value = $P$
+    }
+    set_variable = {
+        which = $P$
+        value = $Q$
+    }
+    set_variable = {
+        which = $Q$
+        value = order_and_validate_triangle_tmp
+    }
+}
+if = {
+    limit = {
+        check_variable = {
+            which = $Q$
+            value < $R$
+        }
+    }
+    set_variable = {
+        which = order_and_validate_triangle_tmp
+        value = $Q$
+    }
+    set_variable = {
+        which = $Q$
+        value = $R$
+    }
+    set_variable = {
+        which = $R$
+        value = order_and_validate_triangle_tmp
+    }
+}
+if = {
+    limit = {
+        check_variable = {
+            which = $P$
+            value < $Q$
+        }
+    }
+    set_variable = {
+        which = order_and_validate_triangle_tmp
+        value = $P$
+    }
+    set_variable = {
+        which = $P$
+        value = $Q$
+    }
+    set_variable = {
+        which = $Q$
+        value = order_and_validate_triangle_tmp
+    }
+}
+
+if = {
+    limit = {
+        check_variable = {
+            which = $R$
+            value < 0
+        }
+    }
+    log_error = "order_and_validate_sides: side lengths must be non-negative"
+    clear_variable = $P$
+    clear_variable = $Q$
+    clear_variable = $R$
+    $POST_EFFECT$
+    break = yes
+}
+if = {
+    limit = {
+        check_variable_arithmetic = {
+            which = $Q$
+            add = $R$
+            value < $P$
+        }
+    }
+    log_error = "order_and_validate_sides: sides do not form a triangle (even a collinear)"
+    clear_variable = $P$
+    clear_variable = $Q$
+    clear_variable = $R$
+    $POST_EFFECT$
+    break = yes
+}
+
+clear_variable = order_and_validate_triangle_tmp

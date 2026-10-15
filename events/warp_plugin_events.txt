@@ -72,14 +72,26 @@ ship_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
+	trigger = {
+		# prevent multiple ships within the same fleet from calling this method
+		# only 1 ship is needed to trigger the drive
+		fleet = {
+			NOT = {
+				has_fleet_flag = warp_plugin_drive_active
+			}
+		}
+	}
+
 	immediate = {
 		fleet = {
+			# set drive flag for the fleet
 			set_timed_fleet_flag = {
 				flag = warp_plugin_drive_active
 				days = 1
 			}
-			warp_plugin_trigger_warp_plugin.102 = {
-				FLEET = this
+			# attempt to call warp_plugin.103
+			fleet_event = {
+				id = warp_plugin.103
 			}
 		}
 	}
@@ -91,36 +103,126 @@ fleet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
+	# Scope = Fleet
+	# From = System
 	immediate = {
-		warp_plugin_update_location = {
-			FLEET = this
-			LOCATION = from
+		# get current location and clear its flag as it is outdated
+		d225_lib_get_scope_by_flag = {
+			TYPE = system
+			SCOPE = this
+			FTYPE = fleet
+			FLAG = warp_plugin_current_location
+			OUTPUT = warp_plugin_outdated_location
 		}
-		warp_plugin_trigger_warp_plugin.102 = {
-			FLEET = this
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_outdated_location
+			}
+			remove_fleet_flag = warp_plugin_current_location_@event_target:warp_plugin_outdated_location
+		}
+		# mark current system asw current location
+		set_fleet_flag = warp_plugin_current_location_@from
+		# set location change flag
+		set_timed_fleet_flag = {
+			flag = warp_plugin_current_location_changed
+			days = 1
+		}
+		# attempt to call warp_plugin.103
+		fleet_event = {
+			id = warp_plugin.103
 		}
 	}
 }
 
-# properly initializes a warp
-# called from warp_drive.100 or warp_drive.101, executes when a jump flag is set and both source and destination targets exist
+# triggers when fleet leaves a system (on_leaving_system_fleet)
 fleet_event = {
 	id = warp_plugin.102
 	hide_window = yes
 	is_triggered_only = yes
 
+	# Scope = Fleet
+	# From = System
+	immediate = {
+		# get prev-prev location and clear its flag as it is now outdated
+		d225_lib_get_scope_by_flag = {
+			TYPE = system
+			SCOPE = this
+			FTYPE = fleet
+			FLAG = warp_plugin_prev_prev_location
+			OUTPUT = warp_plugin_outdated_location
+		}
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_outdated_location
+			}
+			remove_fleet_flag = warp_plugin_prev_prev_location_@event_target:warp_plugin_outdated_location
+		}
+		# get prev location and re-mark it as prev-prev
+		d225_lib_get_scope_by_flag = {
+			TYPE = system
+			SCOPE = this
+			FTYPE = fleet
+			FLAG = warp_plugin_prev_location
+			OUTPUT = warp_plugin_prev_prev_location
+		}
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_prev_prev_location
+			}
+			set_fleet_flag = warp_plugin_prev_prev_location_@event_target:warp_plugin_prev_prev_location
+			remove_fleet_flag = warp_plugin_prev_location_@event_target:warp_plugin_prev_prev_location
+		}
+		# mark last system as prev
+		set_fleet_flag = warp_plugin_prev_location_@from
+		# set location change flag
+		set_timed_fleet_flag = {
+			flag = warp_plugin_prev_location_changed
+			days = 1
+		}
+		# attempt to call warp_plugin.103
+		fleet_event = {
+			id = warp_plugin.103
+		}
+		# attempt to call warp_plugin.102, in case the fleet left due to an mia
+		fleet_event = {
+			id = warp_plugin.121
+		}
+	}
+}
+
+# properly initializes a warp
+fleet_event = {
+	id = warp_plugin.103
+	hide_window = yes
+	is_triggered_only = yes
+
 	trigger = {
-		fleet_has_warp_drive = yes
-		has_fleet_flag = warp_plugin_drive_active
-		exists = event_target:warp_plugin_source
-		exists = event_target:warp_plugin_destination
+		fleet_has_warp_drive = yes # at least one ship in the jumping fleet must have a warp drive (it is already required that all ships can jump)
+		has_fleet_flag = warp_plugin_drive_active # warp_plugin.100
+		has_fleet_flag = warp_plugin_current_location_changed # warp_plugin.101
+		has_fleet_flag = warp_plugin_prev_location_changed # warp_plugin.102
 	}
 
 	immediate = {
+		# obtain the required scopes as targets
+		d225_lib_get_scope_by_flag = {
+			TYPE = system
+			SCOPE = this
+			FTYPE = fleet
+			FLAG = warp_plugin_prev_location
+			OUTPUT = warp_plugin_source
+		}
+		d225_lib_get_scope_by_flag = {
+			TYPE = system
+			SCOPE = this
+			FTYPE = fleet
+			FLAG = warp_plugin_current_location
+			OUTPUT = warp_plugin_destination
+		}
 		# get distance from jump source to jump destination
 		export_trigger_value_to_variable = {
 			trigger = distance
-			variable = warp_distance_total
+			variable = warp_plugin_distance_total
 			parameters = {
 				source = event_target:warp_plugin_source
 				type = euclidean
@@ -128,18 +230,17 @@ fleet_event = {
 		}
 		warp_plugin_get_warp_speed = {
 			FLEET = this
-			OUTPUT = warp_speed_mult
+			OUTPUT = warp_plugin_speed_mult
 		}
 		set_variable = {
-			which = warp_time_remaining
-			value = value:warp_travel_time|DISTANCE|warp_distance_total|SPEED|warp_speed_mult|
+			which = warp_plugin_time_remaining
+			value = value:warp_travel_time|DISTANCE|warp_plugin_distance_total|SPEED|warp_plugin_speed_mult|
 		}
 		set_variable = {
-			which = warp_time_total
-			value = warp_time_remaining
+			which = warp_plugin_time_total
+			value = warp_plugin_time_remaining
 		}
-		clear_variable = warp_distance_total
-		clear_variable = warp_speed_mult
+		log = "[This.GetName] travel distance: [This.warp_plugin_distance_total], speed: [This.warp_plugin_speed_mult], time: [This.warp_plugin_time_total]"
 		# start situation
 		owner = {
 			start_situation = {
@@ -149,7 +250,7 @@ fleet_event = {
 		}
 		warp_plugin_retrieve_warp_situation = {
 			FLEET = root
-			TARGET = warp_situation
+			TARGET = warp_plugin_situation
 		}
 		# final setup, set relevant flags and modifiers
 		set_event_locked = yes
@@ -158,8 +259,8 @@ fleet_event = {
 		}
 		set_saved_date = {
 			key = warp_plugin_arrival_date
-			days_from_present = warp_time_remaining
-			expires = warp_time_remaining
+			days_from_present = warp_plugin_time_remaining
+			expires = warp_plugin_time_remaining
 		}
 		fleet_event = {
 			id = warp_plugin.110
@@ -168,29 +269,6 @@ fleet_event = {
 	}
 }
 
-# called when a ship is built, done once per fleet to initialize fleet location
-ship_event = {
-	id = warp_plugin.103
-	hide_window = yes
-	is_triggered_only = yes
-
-	trigger = {
-		NOT = {
-			any_system = {
-				root.fleet = {
-					has_fleet_flag = warp_plugin_location_@prev
-				}
-			}
-		}
-	}
-
-	immediate = {
-		warp_plugin_update_location = {
-			FLEET = fleet
-			LOCATION = from.solar_system
-		}
-	}
-}
 
 # pulse event for when ship is warping
 # called from warp_plugin.102, then recursively until situation ends or timer reaches 0
@@ -200,20 +278,20 @@ fleet_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		exists = event_target:warp_situation
+		exists = event_target:warp_plugin_situation
 	}
 
 	immediate = {
 		# tick down
 		subtract_variable = {
-			which = warp_time_remaining
+			which = warp_plugin_time_remaining
 			value = 1
 		}
 
 		if = { # warp complete
 			limit = {
 				check_variable = {
-					which = warp_time_remaining
+					which = warp_plugin_time_remaining
 					value = 0
 				}
 			}
@@ -243,11 +321,11 @@ fleet_event = {
 			# common cleanup
 			warp_plugin_warp_end_cleanup = {
 				FLEET = root
-				TARGET = event_target:warp_situation
+				TARGET = event_target:warp_plugin_situation
 			}
 		}
-		else = { # update situation
-			event_target:warp_situation = {
+		else = { # update situation and recursively invoke in a day
+			event_target:warp_plugin_situation = {
 				add_situation_progress = progress_rate
 			}
 			fleet_event = {
@@ -260,22 +338,41 @@ fleet_event = {
 
 # called when fleet enters mia
 fleet_event = {
-	id = warp_plugin.111
+	id = warp_plugin.120
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
 		NOT = { has_fleet_order = experimental_subspace_navigation_fleet_order } # ESN should still process normally
-		OR = { # Nomads do not own systems and will have to use the locations of their capital arks instead
-			AND = {
-				exists = root.starbase
-				exists = root.starbase.solar_system
-			}
-			AND = {
-				exists = root.owner.capital_scope
-				exists = root.owner.capital_scope.solar_system
-			}
+		NOT = { has_fleet_flag = warp_plugin_mia_initiated }
+	}
+
+	immediate = {
+		# set mia flag for the fleet
+		set_timed_fleet_flag = {
+			flag = warp_plugin_mia_initiated
+			days = 1
 		}
+		# attempt to call warp_plugin.121
+		fleet_event = {
+			id = warp_plugin.121
+		}
+	}
+}
+
+# properly initiates an MIA return
+fleet_event = {
+	id = warp_plugin.121
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		fleet_has_warp_drive = yes
+		has_fleet_flag = warp_plugin_mia_initiated # warp_plugin.120
+		has_fleet_flag = warp_plugin_prev_location_changed # warp_plugin.102
+		# current location not needed because it currently does not exists; it becomes available upon return from mia
+		# make sure fleet can return to some home base or capital; otherwise let the game sort it out
+		# note that nomads do not own systems and will have to use the locations of their capital arks instead
 	}
 
 	immediate = {
@@ -294,64 +391,93 @@ fleet_event = {
 				save_event_target_as = warp_plugin_home_base
 			}
 		}
-		# find previous location and compute distance
+		# find current and previous locations and compute distance
 		d225_lib_get_scope_by_flag = {
 			TYPE = system
 			SCOPE = root
 			FTYPE = fleet
-			FLAG = warp_plugin_location
-			OUTPUT = warp_plugin_location
+			FLAG = warp_plugin_prev_location
+			OUTPUT = warp_plugin_destination
 		}
-		# get the shortest path (using either end of a path, provided the previous location is set)
-		event_target:warp_plugin_location = {
-			export_trigger_value_to_variable = {
-				trigger = distance
-				variable = warp_distance_total
-				parameters = {
-					source = event_target:warp_plugin_home_base
-					type = euclidean
-				}
+		d225_lib_get_scope_by_flag = {
+			TYPE = system
+			SCOPE = root
+			FTYPE = fleet
+			FLAG = warp_plugin_prev_prev_location
+			OUTPUT = warp_plugin_source
+		}
+		# check if warp situation exists; get return distance if it does, otherwise just use prev for distance calc
+		warp_plugin_retrieve_warp_situation = {
+			FLEET = root
+			TARGET = warp_plugin_situation
+		}
+		if = {
+			limit = {
+				exists = event_target:warp_plugin_situation
 			}
-			root = {
-				set_variable = {
-					which = warp_distance_total
-					value = prev.warp_distance_total
-				}
+			# compute distance traveled
+			set_variable = {
+				which = warp_plugin_distance_traveled
+				value = value:d225_lib_compute|VAL1|warp_plugin_time_total|OP|subtract|VAL2|warp_plugin_time_remaining|
 			}
-			clear_variable = warp_distance_total
+			multiply_variable = {
+				which = warp_plugin_distance_traveled
+				value = warp_plugin_distance_total
+			}
+			divide_variable = {
+				which = warp_plugin_distance_traveled
+				value = warp_plugin_time_total
+			}
+			# compute return distance
+			warp_plugin_compute_distance_to_home = {
+				SRC = event_target:warp_plugin_source
+				DEST = event_target:warp_plugin_destination
+				HOME = event_target:warp_plugin_home_base
+				DIST = warp_plugin_distance_traveled
+				OUTPUT = warp_plugin_return_distance
+			}
+			log = "[This.GetName] distance traveled: [This.warp_plugin_distance_traveled] out of [This.warp_plugin_distance_total]"
+			clear_variable = warp_plugin_distance_traveled
+		}
+		else = {
+			# get the return distance from the last location
+			event_target:warp_plugin_destination = {
+				export_trigger_value_to_variable = {
+					trigger = distance
+					variable = warp_plugin_return_distance
+					parameters = {
+						source = event_target:warp_plugin_home_base
+						type = euclidean
+					}
+				}
+				root = {
+					set_variable = {
+						which = warp_plugin_return_distance
+						value = prev.warp_plugin_return_distance
+					}
+				}
+				clear_variable = warp_plugin_return_distance
+			}
 		}
 		# compute time needed to reach destination
 		warp_plugin_get_warp_speed = {
 			FLEET = this
-			OUTPUT = warp_speed_mult
+			OUTPUT = warp_plugin_return_speed_mult
 		}
 		# add to warp time if one exists, otherwise set warp time
-		if = {
-			limit = {
-				is_variable_set = warp_time_remaining
-			}
-			change_variable = {
-				which = warp_time_remaining
-				value = value:warp_travel_time|DISTANCE|warp_distance_total|SPEED|warp_speed_mult|
-			}
+		set_variable = {
+			which = warp_plugin_return_time_remaining
+			value = value:warp_travel_time|DISTANCE|warp_plugin_return_distance|SPEED|warp_plugin_return_speed_mult|
 		}
-		else = {
-			set_variable = {
-				which = warp_time_remaining
-				value = value:warp_travel_time|DISTANCE|warp_distance_total|SPEED|warp_speed_mult|
-			}
-		}
-		clear_variable = warp_distance_total
-		clear_variable = warp_speed_mult
 		# make mia
 		warp_plugin_initiate_return_mia = {
 			SCOPE = this
-			VALUE = warp_time_remaining
+			VALUE = warp_plugin_return_time_remaining
 		}
 		set_saved_date = {
 			key = warp_plugin_arrival_date
-			days_from_present = warp_time_remaining
-			expires = warp_time_remaining
+			days_from_present = warp_plugin_return_time_remaining
+			expires = warp_plugin_return_time_remaining
 		}
 		create_message = {
 			type = MESSAGE_TYPE_WARP_ABORTED
@@ -366,23 +492,23 @@ fleet_event = {
 			variable = {
 				type = name
 				localization = SYSTEM
-				scope = event_target:warp_plugin_location
+				scope = event_target:warp_plugin_destination
 			}
 			variable = {
 				type = variable
-				varname = warp_time_remaining
+				varname = warp_plugin_return_time_remaining
 				localization = DAYS
 				scope = this
 			}
 		}
 		# common cleanup
-		warp_plugin_retrieve_warp_situation = {
-			FLEET = root
-			TARGET = warp_situation
-		}
 		warp_plugin_warp_end_cleanup = {
 			FLEET = root
-			TARGET = event_target:warp_situation
+			TARGET = event_target:warp_plugin_situation
 		}
+		log = "[This.GetName] return distance: [This.warp_plugin_return_distance], speed: [This.warp_plugin_return_speed_mult], time: [This.warp_plugin_return_time_remaining]"
+		clear_variable = warp_plugin_return_distance
+		clear_variable = warp_plugin_return_speed_mult
+		clear_variable = warp_plugin_return_time_remaining
 	}
 }

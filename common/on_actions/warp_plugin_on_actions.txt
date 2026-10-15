@@ -54,19 +54,18 @@ on_entering_system_fleet = {
 	}
 }
 
-# This = fleet
-on_fleet_went_mia = {
+# A fleet has left a system
+# Scope = Fleet
+# From = System
+on_leaving_system_fleet = {
 	events = {
-		warp_plugin.111
+		warp_plugin.102
 	}
 }
 
-# Scope: Ship Event
-#A ship has been built
-# Root = Ship
-# From = Planet
-on_ship_built = {
+# This = fleet
+on_fleet_went_mia = {
 	events = {
-		warp_plugin.103
+		warp_plugin.120
 	}
 }

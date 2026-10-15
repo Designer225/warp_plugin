@@ -46,9 +46,9 @@
  MESSAGE_WARP_ABORTED:0 "$FLEET_NAME|Y$'s order was aborted. The $SYSTEM|Y$ system became unavailable. It will now take $DAYS|Y$ days for the fleet to turn around and return on §Y[This.warp_plugin_arrival_date]§!."
 
  # situation: warp in progress
- situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.warp_time_remaining]§! Days)"
+ situation_warp_in_progress:0 "Warping [Target.GetName] (§Y[Target.warp_plugin_time_remaining]§! Days)"
  situation_warp_in_progress_type:0 "Warp in Progress"
- situation_warp_in_progress_desc:0 "The fleet is currently performing a §Hwarp jump§!. It will arrive in §Y[Target.warp_time_remaining]§! days on §Y[Target.warp_plugin_arrival_date]§!."
+ situation_warp_in_progress_desc:0 "The fleet is currently performing a §Hwarp jump§!. It will arrive in §Y[Target.warp_plugin_time_remaining]§! days on §Y[Target.warp_plugin_arrival_date]§!."
  situation_warp_in_progress_monthly_change_tooltip:0 "The fleet has the option to §Haccelerate its warp jump§!, §Rrisking potential failure modes§! upon arrival. These actions can only be attempted if the fleet is §Enot on final approach§!."
 
  warp_accelerating:0 "Accelerating"
@@ -80,13 +80,6 @@
  warp_plugin_on_abort_complete:0 "A temporary §Gbuff§! will be applied to all ships in the fleet, increasing with each progress above 50."
  warp_plugin_on_abort_normal:0 "The fleet will function as normal."
 
- # modifiers
- warp_plugin_weapon_failure:0 "Weapon System Disruption"
- warp_plugin_propulsion_failure:0 "Propulsion Disruption"
- warp_plugin_shield_failure:0 "Shield Degraded"
- warp_plugin_armor_failure:0 "Armor Degraded"
- warp_plugin_cloak_failure:0 "Cloaking System Failure"
- warp_plugin_sensor_failure:0 "Sensor Disruption"
  warp_plugin_warp_in_progress:0 "Warp in Progress"
  warp_plugin_warp_in_progress_first_contact:0 "Warp in Progress"
 

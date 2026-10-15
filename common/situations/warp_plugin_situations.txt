@@ -10,7 +10,7 @@ situation_warp_in_progress = {
 		# monthly rate = 100 / total time * 30
 		set_variable = {
 			which = total_days
-			value = target.warp_time_remaining
+			value = target.warp_plugin_time_total
 		}
 		set_variable = {
 			which = progress_rate
@@ -33,10 +33,16 @@ situation_warp_in_progress = {
 			clear_variable = total_days
 			clear_variable = progress_rate
 		}
+		destroy_situation = this
 	}
 	abort_trigger = {
-		target = {
-			not = { is_variable_set = warp_time_remaining }
+		OR = {
+			NOT = {
+				exists = target
+			}
+			target = {
+				not = { is_variable_set = warp_plugin_time_remaining }
+			}
 		}
 	}
 	
@@ -76,34 +82,6 @@ situation_warp_in_progress = {
 		default = yes
 		on_select = {
 			custom_tooltip = approach_normal_operations_on_select
-			hidden_effect = {
-				set_variable = {
-					which = progress_rate
-					value = 100
-				}
-				divide_variable = {
-					which = progress_rate
-					value = total_days
-				}
-				if = {
-					limit = {
-						not = { current_stage = warp_final_approach }
-						has_situation_flag = warp_in_progress_accelerating
-					}
-					remove_situation_flag = warp_in_progress_accelerating
-					target = {
-						multiply_variable = {
-							which = warp_time_remaining
-							value = 5
-						}
-						divide_variable = {
-							which = warp_time_remaining
-							value = 4
-						}
-						ceiling_variable = warp_time_remaining
-					}
-				}
-			}
 		}
 	}
 
