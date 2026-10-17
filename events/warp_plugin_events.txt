@@ -12,11 +12,23 @@ event = {
 	fire_only_once = yes
 
 	immediate = {
+		every_country = {
+			# if leader is a proponent, country becomes adherents
+			limit = {
+				exists = leader
+				leader = {
+					has_trait = leader_trait_warp_proponent
+				}
+			}
+			force_add_civic = civic_warp_ftl_adherents
+			refresh_auto_generated_ship_designs = yes
+		}
+
 		set_global_flag = warp_plugin_installed
 	}
 }
 
-# called on game start
+# called on game start and after a country is created afterwards
 country_event = {
 	id = warp_plugin.1
 	title = warp_plugin.1.name
@@ -38,30 +50,50 @@ country_event = {
 		text = warp_plugin.1.desc.hyper
 	}
 	
-	immediate = {
-		if = {
-			limit = { country_prefers_warp_drives = yes }
-			add_resource = { unity = 1000 }
-			set_government_cooldown = no
-			country_event = {
-				id = warp_plugin.2
-				months = 2
-			}
-		}
-	}
-	
 	option = {
 		name = ACKNOWLEDGED
 	}
 }
 
+# called when a new country is created (on_country_created, on_release_as_vassal, and on_country_released_in_war
 country_event = {
 	id = warp_plugin.2
 	hide_window = yes
 	is_triggered_only = yes
+
+	trigger = {
+		country_prefers_warp_drives = no
+	}
 	
 	immediate = {
-		set_government_cooldown = no
+		# All three on-actions currently have the same scopes:
+		# THIS = created country
+		# FROM = country scope where THIS is created (creator, overlord, or 'liberator')
+		if = {
+			limit = {
+				OR = {
+					# if leader is a proponent, country becomes adherents
+					AND = {
+						exists = leader
+						leader = {
+							has_trait = leader_trait_warp_proponent
+						}
+					}
+					# if creator is adherent, country becomes adherents
+					AND = {
+						exists = from
+						from = {
+							country_prefers_warp_drives = yes
+						}
+					}
+				}
+			}
+			force_add_civic = civic_warp_ftl_adherents
+			refresh_auto_generated_ship_designs = yes
+			country_event = {
+				id = warp_plugin.1
+			}
+		}
 	}
 }
 

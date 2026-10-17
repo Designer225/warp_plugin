@@ -1,0 +1,30 @@
+
+leader_trait_warp_proponent = {
+    starting_ruler_trait = yes
+    cost = 0 # free, kind of
+    inline_script = {
+        script = trait/icon
+        CLASS = leader
+        ICON = GFX_leader_trait_warp_proponent
+        RARITY = common
+        COUNCIL = yes
+        TIER = 2
+    }
+    councilor_modifier = {
+        ship_interstellar_speed_mult = 0.05
+        ship_windup_mult = -0.05
+        ship_winddown_mult = -0.05
+    }
+    leader_class = { scientist official commander }
+    selectable_weight = {
+        weight = @shared_trait_weight
+        inline_script = paragon/council_weight_mult
+        # decrease chance if not an FTL adherent
+        modifier = {
+            divide = 2
+            from = {
+                country_prefers_warp_drives = no
+            }
+        }
+    }
+}

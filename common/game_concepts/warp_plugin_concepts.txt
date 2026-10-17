@@ -1,21 +1,44 @@
 concept_warp_drives = {
-	alias = { concept_warp_drive }
+	icon = gfx/interface/icons/technologies/tech_warp_drive_3.dds
+	alias = {
+		concept_warp_drive
+		concept_warp_travel
+	}
 	databank = {
 		category = db_empire
-		icon = GFX_text_databank_empire
-		picture = GFX_evt_treasure_hunt_1
+		icon = GFX_text_databank_exploration
+		picture = GFX_evt_ship_travel
 	}
 }
 
 concept_hyper_drives = {
-	alias = { concept_hyper_drive }
+	icon = gfx/interface/icons/technologies/tech_hyper_drive_3.dds
+	alias = {
+		concept_hyper_drive
+		concept_hyperspace_travel
+	}
 	databank = {
 		category = db_empire
-		icon = GFX_text_databank_empire
+		icon = GFX_text_databank_exploration
 		picture = GFX_evt_treasure_hunt_1
 	}
 }
 
-concept_warp_ftl_theory = {
-	icon = "gfx/interface/icons/modifiers/mod_ship_ftl_jumpdrive_range_mult.dds"
+concept_warp_ftl_adherents = {
+	icon = "gfx/interface/icons/governments/civics/civic_warp_ftl_adherents.dds"
+}
+
+concept_warp_proponent = {
+	icon = "gfx/interface/icons/traits/leader_trait_warp_proponent.dds"
+	alias = {
+		concept_warp_proponents
+	}
+}
+
+concept_mirror_warp_drives = {
+	icon = gfx/interface/icons/technologies/tech_warp_drive_1.dds
+	alias = {
+		concept_mirror_warp_drive
+		concept_mirror_warp_drive_questionable
+	}
 }

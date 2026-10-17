@@ -49,4 +49,9 @@ spriteTypes = {
 		name = "GFX_ship_part_bioship_warp_drive_5"
 		texturefile = "gfx/interface/icons/ship_parts/ship_part_warp_drive_3.dds"
 	}
+
+	spriteType = {
+		name = GFX_leader_trait_warp_proponent
+		texturefile = "gfx/interface/icons/traits/leader_trait_warp_proponent.dds"
+	}
 }

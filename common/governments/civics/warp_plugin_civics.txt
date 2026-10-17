@@ -1,6 +1,6 @@
 
-civic_warp_ftl_theory = {
-	description = "civic_warp_ftl_theory_effects"
+civic_warp_ftl_adherents = {
+	description = "civic_warp_ftl_adherents_effects"
 	potential = {
 		always = yes
 	}
@@ -11,11 +11,12 @@ civic_warp_ftl_theory = {
 	}
 
 	modifier = {
-		ship_interstellar_speed_mult = 0.25
-		ship_ftl_jumpdrive_range_mult = 0.1
-		country_government_civic_points_add = 1
+		ship_interstellar_speed_mult = 0.2
+		ship_ftl_jumpdrive_range_mult = 0.2
 		country_starbase_influence_cost_distance_mult = -0.75
+		country_government_civic_points_add = 1
 	}
+	custom_tooltip_with_modifiers = civic_warp_ftl_adherents_preference
 
 	random_weight = {
 		base = 1

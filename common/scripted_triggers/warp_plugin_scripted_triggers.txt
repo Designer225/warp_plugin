@@ -35,5 +35,20 @@ fleet_has_warp_drive = {
 country_prefers_warp_drives = {
 	optimize_memory
 
-	has_civic = civic_warp_ftl_theory
+	OR = {
+		# At game start, not every country that are warp adherents have the civic right away; instead, their leaders are warp proponents.
+		# This mod makes sure those adherents have the civic before setting the global flag
+		# Once global flag is set, only having the civic counts
+		AND = {
+			NOT = {
+				has_global_flag = warp_plugin_installed
+			}
+			exists = leader
+			leader = {
+				has_trait = leader_trait_warp_proponent
+			}
+		}
+		# normally only countries with the civic should be considered as warp adherents
+		has_civic = civic_warp_ftl_adherents
+	}
 }

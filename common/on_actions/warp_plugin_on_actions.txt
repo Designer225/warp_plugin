@@ -12,15 +12,32 @@ on_game_start_country = {
 	}
 }
 
+# A country is created via create_country or create_rebels
+# This = created country
+# From = root of context where create_country/create_rebels happens
 on_country_created = {
 	events = {
-		warp_plugin.1
+		warp_plugin.2
 	}
 }
 
+# fires when a country releases a sector as a vassal
+# This = released vassal
+# From = overlord
 on_release_as_vassal = {
 	events = {
-		warp_plugin.1
+		warp_plugin.2
+	}
+}
+
+# A country has been released through a peace deal in a war
+# Root = new country
+# From = country forcing the release
+# FromFrom = country they are released from
+# FromFromFrom = war
+on_country_released_in_war = {
+	events = {
+		warp_plugin.2
 	}
 }
 

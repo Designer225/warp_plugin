@@ -22,7 +22,7 @@ country_event = {
 
 	option = {
 		name = warp_plugin.10001.a
-		force_add_civic = civic_warp_ftl_theory
+		force_add_civic = civic_warp_ftl_adherents
 		refresh_auto_generated_ship_designs = yes
 		ai_chance = {
 			factor = 1
