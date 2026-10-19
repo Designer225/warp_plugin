@@ -50,7 +50,7 @@
  civic_warp_ftl_adherents_preference:0 "- Ship designer will §Yfavor§! ['concept_warp_drives'] over ['concept_hyper_drives']."
 
  leader_trait_warp_proponent:0 "Warp Proponent"
- leader_trait_warp_proponent_desc:0 "This leader is fascinated by the lane-agnostic warp technology. Though others may not appreciate the technology (or at least to the same extent), they do appreciate ancillary effects of FTL travel overall.\n\n§YIf a ruler has this trait at the start of the game, their country will gain the ['concept_warp_ftl_adherents'] civic.§!"
+ leader_trait_warp_proponent_desc:0 "This leader is fascinated by the lane-agnostic warp technology. Though others may not appreciate the technology (or at least to the same extent), they do appreciate the ancillary benefits on space travel overall.\n\n§YIf a ruler has this trait at the start of the game, their country will gain the ['concept_warp_ftl_adherents'] civic.§!"
 
  # messages
  MESSAGE_WARP_ARRIVED_TITLE:0 "Warp Complete"

@@ -35,6 +35,7 @@ fleet_has_warp_drive = {
 country_prefers_warp_drives = {
 	optimize_memory
 
+	is_scope_type = country
 	OR = {
 		# At game start, not every country that are warp adherents have the civic right away; instead, their leaders are warp proponents.
 		# This mod makes sure those adherents have the civic before setting the global flag

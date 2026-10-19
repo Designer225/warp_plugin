@@ -10,10 +10,33 @@ leader_trait_warp_proponent = {
         COUNCIL = yes
         TIER = 2
     }
-    councilor_modifier = {
+    councilor_modifier = { # country-wide logistics and travel planning
         ship_interstellar_speed_mult = 0.05
-        ship_windup_mult = -0.05
-        ship_winddown_mult = -0.05
+        ships_logistics_mult = -0.05
+        ship_disengage_opportunities_add = 1
+    }
+    fleet_modifier = { # fleet-wide logistics and travel planning
+        ship_interstellar_speed_mult = 0.05
+        ships_logistics_mult = -0.05
+        ship_emergency_ftl_min_days_mult = -0.25
+        ship_disengage_opportunities_add = 1
+    }
+    galcom_modifier = { # galactic FTL evangelism
+        diplo_weight_naval_mult = 0.05
+        diplo_weight_mult = 0.05
+    }
+    federation_modifier = { # federation logistics
+        cohesion_add = 0.5
+    }
+    planet_modifier = { # planetary logistics
+        planet_jobs_trade_produces_mult = 0.1
+    }
+    sector_modifier = { # sector logistics
+        planet_jobs_trade_produces_mult = 0.05
+    }
+    army_modifier = { # army logistics, represented as reduction in wear and tear
+        army_damage_taken_mult = -0.05
+        army_morale_damage_taken_mult = -0.05
     }
     leader_class = { scientist official commander }
     selectable_weight = {
@@ -26,5 +49,7 @@ leader_trait_warp_proponent = {
                 country_prefers_warp_drives = no
             }
         }
+        # reduce it across the board anyways because this should be a rare trait for how powerful it can be
+        divide = 4
     }
 }
