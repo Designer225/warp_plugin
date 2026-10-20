@@ -19,7 +19,7 @@ warp_plugin_get_warp_speed = {
                     has_component = BIO_WARP_DRIVE_5
                 }
             }
-            save_event_target_as = get_waro_speed_fastest_ship
+            save_event_target_as = get_warp_speed_fastest_ship
         }
         random_owned_ship = {
             limit = {
@@ -30,7 +30,7 @@ warp_plugin_get_warp_speed = {
                     has_component = GUARDIAN_DRIVE
                 }
             }
-            save_event_target_as = get_waro_speed_fastest_ship
+            save_event_target_as = get_warp_speed_fastest_ship
         }
         random_owned_ship = {
             limit = {
@@ -40,7 +40,7 @@ warp_plugin_get_warp_speed = {
                     has_component = BIO_WARP_DRIVE_3
                 }
             }
-            save_event_target_as = get_waro_speed_fastest_ship
+            save_event_target_as = get_warp_speed_fastest_ship
         }
         random_owned_ship = {
             limit = {
@@ -50,7 +50,7 @@ warp_plugin_get_warp_speed = {
                     has_component = BIO_WARP_DRIVE_2
                 }
             }
-            save_event_target_as = get_waro_speed_fastest_ship
+            save_event_target_as = get_warp_speed_fastest_ship
         }
         random_owned_ship = {
             limit = {
@@ -60,7 +60,7 @@ warp_plugin_get_warp_speed = {
                     has_component = BIO_WARP_DRIVE_1
                 }
             }
-            save_event_target_as = get_waro_speed_fastest_ship
+            save_event_target_as = get_warp_speed_fastest_ship
         }
         random_owned_ship = {
             limit = {
@@ -69,16 +69,16 @@ warp_plugin_get_warp_speed = {
                     has_component = BIO_EMPTY_DRIVE
                 }
             }
-            save_event_target_as = get_waro_speed_fastest_ship
+            save_event_target_as = get_warp_speed_fastest_ship
         }
 
         if = {
             limit = {
-                exists = event_target:get_waro_speed_fastest_ship
+                exists = event_target:get_warp_speed_fastest_ship
             }
             set_variable = {
                 which = $OUTPUT$
-                value = event_target:get_waro_speed_fastest_ship.modifier:ship_interstellar_speed_mult
+                value = event_target:get_warp_speed_fastest_ship.modifier:ship_interstellar_speed_mult
             }
         }
         else = {
